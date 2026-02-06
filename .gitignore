@@ -1,0 +1,18 @@
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Local test scratch
+.tmp_test/
+
+# Mathematica generated outputs
+mathematica/results/
+
+# Lean/Lake build artifacts
+lean/.lake/
+*.olean
+*.ilean
+*.c
+*.a
+*.so
