@@ -1,0 +1,26 @@
+{
+  // Disable Lean 4 extension's automatic language server to prevent terminal interference
+  "lean4.enabled": false,
+  "lean4.serverLogging.enabled": false,
+  "lean4.elaborationDelay": 0,
+  "lean4.serverArgs": [],
+  
+  // File watcher settings to reduce resource usage
+  "files.watcherExclude": {
+    "**/.git/objects/**": true,
+    "**/.git/subtree-cache/**": true,
+    "**/node_modules/**": true,
+    "**/.lake/**": true,
+    "**/lake-packages/**": true,
+    "**/__pycache__/**": true,
+    "**/mathematica/results/**": true
+  },
+  
+  // Exclude build artifacts from search
+  "search.exclude": {
+    "**/.lake": true,
+    "**/lake-packages": true,
+    "**/__pycache__": true,
+    "**/mathematica/results": true
+  }
+}
