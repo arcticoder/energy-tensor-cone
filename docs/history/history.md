@@ -73,3 +73,35 @@ Reason: this part is structurally stable and formalizes well (it’s just topolo
 - Tests still pass, and I pushed this as commit `0a2e281` on `origin/main`.
 <!-- ------ -->
 ---
+The terminal crash issue is **fixed**. Here's what I found and did:
+
+## Root Cause
+The **Lean 4 VSCode extension** was automatically starting a Lean Language Server in the background whenever it detected `.lean` files. This was consuming resources and interfering with terminal processes.
+
+## Solution Applied
+1. **Disabled Lean extension's auto-start** in both:
+   - Workspace settings (energy.code-workspace)
+   - Project settings (settings.json in warp-cone-aqei)
+
+2. **Added file watcher exclusions** to reduce overhead for Lean build artifacts (`**/.lake/**`, etc.)
+
+3. **Preserved CLI functionality** - `lake build` still works perfectly from terminal
+
+## Verification
+✅ Terminals are now stable - full test suite runs without crashes  
+✅ All tests pass: Python + Mathematica + Lean  
+✅ Changes committed and pushed to both repos
+
+## About the Directory Structure
+The `~/Code/asciimath/energy/warp-cone-aqei` folder is correctly placed:
+- It's a **separate git repository** (has its own .git)
+- It's included in the workspace via energy.code-workspace
+- The parent `energy` repo shows it as `??` (untracked) which is **normal** for nested git repos
+
+**This is the standard setup for multi-repo workspaces** - no move needed unless you want it elsewhere. If you'd prefer it in a different location (e.g., as a sibling to `energy/` instead of a child), let me know and I can relocate it.
+
+---
+
+**To apply these settings**: You may need to **reload the VSCode window** (Ctrl+Shift+P → "Developer: Reload Window") for the workspace settings to fully take effect, though the terminal should already be working now.
+<!-- ------ -->
+---
