@@ -136,3 +136,21 @@ The `warp-cone-aqei` repo has been successfully relocated and the workspace upda
 The repo is now correctly positioned as a sibling to `energy/`, matching the pattern of all other repos in your workspace. The terminals are stable and the full test suite passes.
 <!-- ------ -->
 ---
+**Bridge code is in place and builds**, but the push did *not* complete: your local `main` is **ahead of `origin/main` by 1 commit**.
+
+**What I added**
+- New bridge module: AQEIToInterface.lean
+  - Sets the AQEI index type to `ι := Worldline × SamplingFunction`
+  - Defines `idx (γ,s)` (pairing) and `bOfBounds : ι → ℝ` from `bounds γ s`
+  - Introduces an *assumption* `FactorsThrough encode Lmap` saying each `AQEI_functional (γ,s)` factors as a `ContinuousLinearMap` on your chosen coefficient/topological model `E`
+  - Proves the key equivalence:
+    - `AQEI.satisfies_AQEI T bounds` ↔ `encode T ∈ AQEIFamily.Admissible Lmap (bOfBounds bounds)`
+- Wired it into the library build via WarpConeAqei.lean
+- `lake build` + lean_tests.sh pass.
+
+**Current git state**
+- Local commit present: `c55e73b` (Bridge AQEI…)
+- Remote still at: `c1b0e2d`
+- So we just need to re-run `git push` once.
+<!-- ------ -->
+---
