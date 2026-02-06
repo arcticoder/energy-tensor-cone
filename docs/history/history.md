@@ -45,6 +45,14 @@ Completed: *Run tests, commit, push* (6/6)
 **Verified**
 - Full repo test harness passes: run_tests.sh ends with “All tests passed.” (Python + Mathematica + Lean).
 
-If you want to keep pushing toward the full conjecture next, tell me which direction you prefer: (1) formalize the “infinite family of AQEI constraints ⇒ closed” step (topological vector space + intersection of closed halfspaces), or (2) focus on constructing/characterizing more interesting extreme rays guided by the generated candidates.
+**Most proof-likely next step (chosen)**
+- Prioritize the “closed + convex” part for an *infinite* AQEI family, then use homogenization to restore cone structure.
+- Rationale: closedness/convexity for arbitrary families is structurally robust (intersection of closed/convex half-spaces), whereas “nontrivial extreme rays” becomes delicate outside finite-dimensional / polyhedral settings.
+
+**Lean formalization improvement**
+- Strengthened `AffineToCone.lean` with general (possibly infinite-index) results:
+  - `affineAdmissible_isClosed`
+  - `affineAdmissible_convex`
+  - generalized `homCone_isClosed` to drop the unnecessary `Fintype` assumption
 <!-- ------ -->
 ---

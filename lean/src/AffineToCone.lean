@@ -47,6 +47,45 @@ def AffineAdmissible (L : ι → E →L[ℝ] ℝ) (b : ι → ℝ) : Set E :=
 def HomCone (L : ι → E →L[ℝ] ℝ) (b : ι → ℝ) : Set (E × ℝ) :=
   {p | 0 ≤ p.2 ∧ ∀ i : ι, 0 ≤ (L i) p.1 + p.2 * b i}
 
+/-- Closedness of the affine admissible set (arbitrary intersection of closed half-spaces). -/
+theorem affineAdmissible_isClosed (L : ι → E →L[ℝ] ℝ) (b : ι → ℝ) :
+    IsClosed (AffineAdmissible (E := E) L b) := by
+  classical
+  -- `AffineAdmissible` is an intersection over `i` of `{x | 0 ≤ L i x + b i}`.
+  have hi : ∀ i : ι, IsClosed {x : E | 0 ≤ (L i) x + b i} := by
+    intro i
+    have hcont : Continuous fun x : E => (L i) x + b i := (L i).continuous.add continuous_const
+    simpa using (isClosed_Ici.preimage hcont)
+  -- Assemble the intersection.
+  have : AffineAdmissible (E := E) L b = ⋂ i : ι, {x : E | 0 ≤ (L i) x + b i} := by
+    ext x
+    simp [AffineAdmissible]
+  simpa [this] using isClosed_iInter hi
+
+/-- Convexity of the affine admissible set (intersection of convex half-spaces). -/
+theorem affineAdmissible_convex (L : ι → E →L[ℝ] ℝ) (b : ι → ℝ) :
+    Convex ℝ (AffineAdmissible (E := E) L b) := by
+  classical
+  -- Each constraint set `{x | 0 ≤ L i x + b i}` is convex.
+  have hi : ∀ i : ι, Convex ℝ {x : E | 0 ≤ (L i) x + b i} := by
+    intro i
+    intro x hx y hy a c ha hc hac
+    -- Use the affine-linear identity with `a+c=1`.
+    --
+    -- L(a•x+c•y) + b = a*(Lx+b) + c*(Ly+b)
+    have : 0 ≤ a * ((L i) x + b i) + c * ((L i) y + b i) :=
+      add_nonneg (mul_nonneg ha hx) (mul_nonneg hc hy)
+    -- Rewrite the target using linearity and `hac : a + c = 1`.
+    --
+    -- `b = (a+c)*b` so we can distribute it across the convex combination.
+    simpa [map_add, map_smul, smul_eq_mul, mul_add, add_mul, mul_assoc, mul_left_comm, mul_comm, hac,
+      add_assoc, add_left_comm, add_comm] using this
+  -- Intersection of convex sets is convex.
+  have : AffineAdmissible (E := E) L b = ⋂ i : ι, {x : E | 0 ≤ (L i) x + b i} := by
+    ext x
+    simp [AffineAdmissible]
+  simpa [this] using convex_iInter hi
+
 @[simp]
 theorem mem_homCone {L : ι → E →L[ℝ] ℝ} {b : ι → ℝ} {p : E × ℝ} :
     p ∈ HomCone (E := E) L b ↔ (0 ≤ p.2 ∧ ∀ i : ι, 0 ≤ (L i) p.1 + p.2 * b i) := by
@@ -72,7 +111,7 @@ of closed sets, but this finite version is the cleanest starting point and avoid
 boilerplate.
 -/
 theorem homCone_isClosed
-    [Fintype ι] (L : ι → E →L[ℝ] ℝ) (b : ι → ℝ) :
+  (L : ι → E →L[ℝ] ℝ) (b : ι → ℝ) :
     IsClosed (HomCone (E := E) L b) := by
   classical
   -- Represent as intersection of two kinds of closed constraints.
@@ -96,7 +135,7 @@ theorem homCone_isClosed
     ext p
     simp [HomCone, Set.mem_iInter, and_left_comm, and_assoc, and_comm]
 
-  -- Finite intersection.
+  -- Arbitrary intersection.
   simpa [this] using h0.inter (isClosed_iInter (fun i : ι => hi i))
 
 /-- Convexity of the homogenized cone (finite family; convexity also holds for infinite intersections). -/
