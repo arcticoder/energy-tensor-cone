@@ -105,3 +105,24 @@ The `~/Code/asciimath/energy/warp-cone-aqei` folder is correctly placed:
 **To apply these settings**: You may need to **reload the VSCode window** (Ctrl+Shift+P → "Developer: Reload Window") for the workspace settings to fully take effect, though the terminal should already be working now.
 <!-- ------ -->
 ---
+Completed: *Wire into imports and test* (4/4)
+
+**Bridge step implemented and pushed**
+- Added AQEIFamilyInterface.lean which defines the abstract interface:
+  - `Family := ι → E →L[ℝ] ℝ` (continuous linear AQEI functionals)
+  - `Bounds := ι → ℝ` (additive bounds)
+  - `Admissible := {x | ∀ i, 0 ≤ L i x + b i}` and `AdmissibleCone := HomCone L b`
+- Restated (as direct theorems in this interface) the key results:
+  - `admissible_isClosed`, `admissible_convex` (works for infinite index sets)
+  - `cone_isClosed`, `cone_convex`, `cone_smul_nonneg`
+  - `slice_one_iff'` (the `t=1` slice equivalence)
+- Included a finite-dimensional “Mathematica-like coefficient model” section with `Coeff n := Fin n → ℝ`, showing the same theorems apply immediately there.
+
+**Wiring + verification**
+- Updated WarpConeAqei.lean to import the new module.
+- `lake build` and lean_tests.sh both pass.
+- Pushed as commit `2c9e47a` on `origin/main`.
+
+If you want the next bridge after this, the natural move is to **connect `AQEI.satisfies_AQEI` to this interface** by defining a map from `(γ, s)` into an index type `ι`, and proving (as assumptions for now) that each `AQEI_functional (γ,s)` is a `ContinuousLinearMap` in the chosen coefficient/topological model.
+<!-- ------ -->
+---
