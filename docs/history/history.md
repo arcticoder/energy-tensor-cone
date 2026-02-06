@@ -221,3 +221,34 @@ Reviewed `docs/TODO.md` and verified that all 5 initial setup steps are complete
 - `docs/history/history.md` (this entry)
 <!-- ------ -->
 ---
+I've completed the "Phase 2" implementation tasks, connecting the abstract Lean interface to concrete simulation data.
+
+### 1. Mathematical Bridge: AQEIToInterface.lean
+I created the bridge file AQEIToInterface.lean, which connects the physics definition `AQEI.satisfies_AQEI` to the mathematical topology definitions in `AQEIFamilyInterface.lean`.
+- Defined the index type `ι := Worldline × SamplingFunction`.
+- Proved `satisfies_AQEI_iff_encode_mem`: Satisfying the physical inequalities is equivalent to the coefficient vector lying in the mathematical `Admissible` set.
+
+### 2. Phase 2 Optimization (Mathematica & Python)
+I executed the plan to find a concrete "Extreme Ray" (Vertex):
+- **Mathematica (search.m)**: Updated to use `LinearProgramming`.
+  - Solved `Minimize Energy` subject to **50 random AQEI constraints** + Box constraints.
+  - Successfully found a **vertex** with **3 active AQEI constraints** (tight binding) and active box constraints.
+  - Output: `vertex.json`.
+- **Python Verification (`verify_vertex.py`)**:
+  - Re-implemented the integral constraints in Python.
+  - Verified that the generated vertex `a` satisfies `L·a ≈ -B` to within $10^{-11}$ precision.
+
+### 3. Data Integration (Lean)
+I generated AQEI_Generated_Data.lean using a new Python tool. This file contains the exact floating-point values for:
+- The basis centers and polarization matrices.
+- The vertex coefficients `a`.
+- The parameters of the active constraints.
+
+### 4. Updated Status
+Permit me to update TODO.md:
+- **Completed**: Phase 2 Steps 1 & 2 (Optimization & Data Generation).
+- **Next**: Phase 2 Step 3 (Lean Verification). This involves proving that the imported numerical point `a` formally satisfies the imported constraints. Given they are Floats, this will be a "computational verification" rather than a symbolic one.
+
+The terminal stability issues should be resolved (Lean extension disabled), and the repo structure is clean.
+<!-- ------ -->
+---
