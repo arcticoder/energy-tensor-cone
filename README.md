@@ -1,4 +1,4 @@
-# warp-cone-aqei
+# energy-tensor-cone
 
 Computational + formalization scaffold for exploring **Averaged Quantum Energy Inequality (AQEI)** constraints as an (approximate) intersection of half-spaces, and for feeding randomized search “near-misses” into a Lean 4 skeleton.
 

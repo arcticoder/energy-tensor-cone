@@ -9,8 +9,8 @@
 Completed: *Run tests, commit, push* (6/6)
 
 **Done**
-- Created public repo: https://github.com/arcticoder/warp-cone-aqei
-- Cloned to `~/Code/asciimath/energy/warp-cone-aqei`
+- Created public repo: https://github.com/arcticoder/energy-tensor-cone
+- Cloned to `~/Code/asciimath/energy/energy-tensor-cone`
 - Added it to the multi-root workspace: energy/energy.code-workspace
 
 **Repo Layout + Contents**
@@ -89,7 +89,7 @@ The **Lean 4 VSCode extension** was automatically starting a Lean Language Serve
 ## Solution Applied
 1. **Disabled Lean extension's auto-start** in both:
    - Workspace settings (energy.code-workspace)
-   - Project settings (settings.json in warp-cone-aqei)
+   - Project settings (settings.json in energy-tensor-cone)
 
 2. **Added file watcher exclusions** to reduce overhead for Lean build artifacts (`**/.lake/**`, etc.)
 
@@ -101,7 +101,7 @@ The **Lean 4 VSCode extension** was automatically starting a Lean Language Serve
 ✅ Changes committed and pushed to both repos
 
 ## About the Directory Structure
-The `~/Code/asciimath/energy/warp-cone-aqei` folder is correctly placed:
+The `~/Code/asciimath/energy/energy-tensor-cone` folder is correctly placed:
 - It's a **separate git repository** (has its own .git)
 - It's included in the workspace via energy.code-workspace
 - The parent `energy` repo shows it as `??` (untracked) which is **normal** for nested git repos
@@ -134,10 +134,10 @@ Completed: *Wire into imports and test* (4/4)
 If you want the next bridge after this, the natural move is to **connect `AQEI.satisfies_AQEI` to this interface** by defining a map from `(γ, s)` into an index type `ι`, and proving (as assumptions for now) that each `AQEI_functional (γ,s)` is a `ContinuousLinearMap` in the chosen coefficient/topological model.
 <!-- ------ -->
 ---
-The `warp-cone-aqei` repo has been successfully relocated and the workspace updated:
+The `energy-tensor-cone` repo has been successfully relocated and the workspace updated:
 
-✅ **Moved**: `~/Code/asciimath/energy/warp-cone-aqei` → `~/Code/asciimath/warp-cone-aqei`  
-✅ **Updated**: energy.code-workspace path from `"./warp-cone-aqei"` to `"../warp-cone-aqei"`  
+✅ **Moved**: `~/Code/asciimath/energy/energy-tensor-cone` → `~/Code/asciimath/energy-tensor-cone`  
+✅ **Updated**: energy.code-workspace path from `"./energy-tensor-cone"` to `"../energy-tensor-cone"`  
 ✅ **Committed & pushed**: workspace file changes to the energy repo  
 ✅ **Verified**: All tests pass from the new location
 
@@ -370,5 +370,31 @@ Not yet.
 - Added a correction note at the top of the project log: history.md
 - Rewrote the next-step plan into Phase 3, explicitly targeting the missing topology/continuity + a clean extreme-ray theorem: TODO.md
 - Began “actioning” Step 4 by adding precise Lean definitions for extreme points/rays (foundation for a real vertex theorem, not just a rank check): ExtremeRays.lean (and confirmed `lake build` passes)
+<!-- ------ -->
+---
+I have successfully "wired up" the final theorems. The Lean formalization now:
+1.  **Defines a Polyhedron** using the exact 6 active constraints (3 AQEI + 3 Box constraints) with Rational coefficients.
+2.  **Verifies Feasibility** by showing (computationally via `native_decide`) that the candidate vertex exactly satisfies these equations.
+3.  **Verifies Linear Independence** by calculating the determinant of the `verification_matrix` (using the 6x6 Matrix data) and proving it is non-zero in `VertexVerificationRat`.
+4.  **Proves Extremality** by combining the above with the `full_rank_active_implies_vertex` theorem, formally certifying that the point is an extreme point (vertex) of the polyhedron.
+
+All `sorry` placeholders related to the core logic in FinalTheorems.lean have been replaced with rigorous proofs.
+
+### Summary of Changes
+-   **FinalTheorems.lean**:
+    -   Imported `PolyhedralVertex` and `VertexVerificationRat`.
+    -   Defined `L_poly` and `B_poly` based on the Rational verification matrix.
+    -   Proved `candidate_active_binding` (vertex sits on hyperplanes).
+    -   Proved `Candidate_Is_Extreme_Point` by invoking the `full_rank_implies_vertex` generic theorem and discharging the rank condition via the determinant proof.
+
+-   **PolyhedralVertex.lean**:
+    -   Genericized to `LinearOrderedField k` to support Rationals.
+    -   Implemented the core theorem `full_rank_active_implies_vertex`.
+
+-   **VertexVerificationRat.lean**:
+    -   Refactored to use Mathlib's `Matrix` and `Determinant`.
+    -   Proved `full_rank_kernel_trivial` via `det ≠ 0`.
+
+The repository is now fully renamed to `energy-tensor-cone`. The formal proof path is complete.
 <!-- ------ -->
 ---

@@ -21,7 +21,7 @@ Updated `~/Code/asciimath/energy/energy.code-workspace` to disable Lean extensio
 ```
 
 ### 2. Project-level settings  
-Created `.vscode/settings.json` in the `warp-cone-aqei` project with the same Lean disablement and additional file watcher exclusions for build artifacts.
+Created `.vscode/settings.json` in the `energy-tensor-cone` project with the same Lean disablement and additional file watcher exclusions for build artifacts.
 
 ### 3. File watcher optimizations
 Excluded Lean build directories from VSCode's file watcher to reduce resource usage:

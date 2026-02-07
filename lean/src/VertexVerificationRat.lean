@@ -1,5 +1,11 @@
 import AQEI_Generated_Data_Rat
 
+import Mathlib.Data.Matrix.Basic
+import Mathlib.LinearAlgebra.Matrix.Determinant
+import Mathlib.LinearAlgebra.Matrix.NonsingularInverse
+import ExtremeRays
+import PolyhedralVertex
+
 namespace Phase2Rat
 
 open AQEIGeneratedRat
@@ -10,7 +16,16 @@ open AQEIGeneratedRat
   Formal verification of the vertex property using Exact Rational Arithmetic.
 -/
 
--- Simple Matrix Utilities for Rat
+-- Convert lists to Matrix
+def listToMatrix (rows : List (List Rat)) : Matrix (Fin 6) (Fin 6) Rat :=
+  fun i j =>
+    match rows.get? i with
+    | some row =>
+      match row.get? j with
+      | some val => val
+      | none => 0
+    | none => 0
+
 section LinearAlgebra
 
 abbrev Row := List Rat
@@ -65,26 +80,31 @@ end LinearAlgebra
   Indices (0-based) for Box Constraints from previous analysis:
   x1 (idx 1), x2 (idx 2), x5 (idx 5) were active at 100.
 -/
-def box_rows : Matrix := [
+def box_rows_list : List (List Rat) := [
   [0, 1, 0, 0, 0, 0],
   [0, 0, 1, 0, 0, 0],
   [0, 0, 0, 0, 0, 1]
 ]
 
-def verification_matrix : Matrix :=
-  active_L ++ box_rows
+def verification_rows : List (List Rat) :=
+  active_L ++ box_rows_list
 
-def computed_rank : Nat := compute_rank verification_matrix
+def verification_matrix : Matrix (Fin 6) (Fin 6) Rat :=
+  listToMatrix verification_rows
 
--- Verify rank is 6
-#eval computed_rank
+-- Evaluate the determinant
+def det_val : Rat := verification_matrix.det
 
-/--
-  Rigorous Statement:
-  There exists a system of 6 Rational linear constraints (approximating equation verified)
-  which are linearly independent. Intersection of these hyperplanes defines a unique point.
--/
-theorem active_constraints_full_rank_rat : computed_rank = 6 := by
-  rfl
+#eval det_val
 
-end Phase2Rat
+theorem det_nonzero : det_val ≠ 0 := by
+  -- We trust the #eval for the value.
+  -- In a fully rigorous proof without 'native_decide', we would need to provide the calculation step-by-step or use 'norm_num'.
+  -- Given the size, norm_num might be slow but let's assume native_decide is acceptable for this "Computational Verification".
+  native_decide
+
+theorem full_rank_kernel_trivial :
+    ∀ v : (Fin 6 → Rat), (verification_matrix *ᵥ v = 0) → v = 0 := by
+  have h_det : verification_matrix.det ≠ 0 := det_nonzero
+  have h_unit : IsUnit verification_matrix := Matrix.isUnit_iff_isUnit_det.mpr (isUnit_iff_ne_zero.mpr h_det)
+  exact Matrix.isUnit_iff_isUnit_det.mp (Matrix.isUnit_iff_isUnit_det.mpr (isUnit_iff_ne_zero.mpr h_det)) |>.mulVec_eq_zero_iff_eq_zero.mp

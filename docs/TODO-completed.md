@@ -1,6 +1,6 @@
 # TODO-completed.md: Completed Tasks
 
-This document tracks tasks that have been completed for the warp-cone-aqei project.
+This document tracks tasks that have been completed for the energy-tensor-cone project.
 
 ---
 
@@ -9,12 +9,12 @@ This document tracks tasks that have been completed for the warp-cone-aqei proje
 **Status:** All repository structure files exist and are functional.
 
 **What was done:**
-- Created full directory structure under `~/Code/asciimath/warp-cone-aqei/`
+- Created full directory structure under `~/Code/asciimath/energy-tensor-cone/`
 - All required directories present: `mathematica/`, `lean/src/`, `python/`, `tests/`
 - Test scripts created and executable: `build_lean.sh`, `python_tests.sh`, `mathematica_tests.sh`, `lean_tests.sh`
 - Top-level `run_tests.sh` orchestrates all tests successfully
 - `README.md` created with project description
-- Workspace file updated to include warp-cone-aqei
+- Workspace file updated to include energy-tensor-cone
 
 **Verification:** `./run_tests.sh` passes all tests.
 
