@@ -404,7 +404,7 @@ The repository is now fully renamed to `energy-tensor-cone`. The formal proof pa
 
 Created comprehensive paper documentation:
 - **draft.md**: Full paper in Markdown with abstract, introduction, formal framework, computational results, verification proofs, discussion, and references
-- **draft.tex**: Publication-ready LaTeX document with proper theorem environments, mathematical notation, and bibliography
+- **aqei-cone-formalization.tex**: Publication-ready LaTeX document with proper theorem environments, mathematical notation, and bibliography
 - **TODO-BLOCKED.md**: Created for tracking any blocked tasks
 - **TODO-completed.md**: Updated with Step 6 completion details
 - **TODO.md**: Updated to reflect all core tasks completed
@@ -443,6 +443,6 @@ $ wc -l docs/TODO.md
 3. Verify Lean theorems and add explanatory comments
 4. Add verification sections to paper drafts
 
-Papers (draft.md and draft.tex) now include detailed "Verification and Robustness" sections documenting all validation protocols. Ready for arXiv/journal submission.
+Papers (draft.md and aqei-cone-formalization.tex) now include detailed "Verification and Robustness" sections documenting all validation protocols. Ready for arXiv/journal submission.
 <!-- ------ -->
 ---
