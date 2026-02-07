@@ -18,3 +18,12 @@ lean/.lake/
 *.so
 
 papers/related/**/*
+
+papers/**/*.aux
+papers/**/*.out
+papers/**/*.log
+papers/**/*.pdf
+papers/**/*.bbl
+papers/**/*.blg
+papers/**/*.png
+papers/**/*Zone.Identifier
