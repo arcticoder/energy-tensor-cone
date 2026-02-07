@@ -4,7 +4,7 @@
   plus timelike/spacelike/null predicates.
 
   Convention: mostly-plus signature; timelike means ⟪v,v⟫ < 0.
-  
+
   Reference: Standard convention used in relativistic QFT and GR.
   See: Wald, R.M. (1984). "General Relativity"
        Fewster, C.J. (2012). "Lectures on quantum energy inequalities" [arXiv:1208.5399]

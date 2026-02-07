@@ -43,7 +43,7 @@ theorem cone_closed_under_positive_scalars
   -- The issue: AQEI constraint is I(T) ≥ -B, which is AFFINE not homogeneous.
   -- Scaling: I(α·T) = α·I(T), but the bound -B does not scale.
   -- So α·T satisfies α·I(T) ≥ -B, which is weaker than I(α·T) ≥ -B when α > 1.
-  -- 
+  --
   -- This is why the admissible set is CONVEX but not a CONE.
   -- For homogenization, see AffineToCone.lean which embeds into one higher dimension.
   --
@@ -61,7 +61,7 @@ theorem cone_closed_under_addition
   -- NOTE: This property also does NOT hold in general for AQEI!
   -- The issue is similar: If I(T1) ≥ -B and I(T2) ≥ -B, then
   -- I(T1 + T2) = I(T1) + I(T2) ≥ -2B, which is NOT ≥ -B in general.
-  -- 
+  --
   -- For CONVEX combinations (α·T1 + (1-α)·T2) the property DOES hold
   -- because α·I(T1) + (1-α)·I(T2) ≥ -α·B - (1-α)·B = -B.
   --

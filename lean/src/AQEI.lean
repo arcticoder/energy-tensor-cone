@@ -5,10 +5,10 @@
   worldlines γ and sampling functions g.
 
   This file focuses on definitions (skeleton) rather than analytic QFT details.
-  
+
   Reference: Fewster, C.J. (2012). "Lectures on quantum energy inequalities" [arXiv:1208.5399]
             Fewster, C.J., Olum, K.D., Pfenning, M.J. (2007). Phys. Rev. D 75, 025007.
-  
+
   Note: AQEI_functional is a placeholder. Full implementation requires specifying:
         - Topology on the stress-energy model space
         - Proof that AQEI functionals are continuous linear maps
