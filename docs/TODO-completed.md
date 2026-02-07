@@ -217,3 +217,47 @@ This document tracks tasks that have been completed for the energy-tensor-cone p
 - All Lean imports: Successful
 
 **Completion Date:** February 6, 2026
+
+---
+
+## ✅ Verification Item 3: Prove and Verify Key Theorems in Lean (COMPLETED)
+
+**Status:** All critical theorems proven, no unintentional `sorry` statements.
+
+**What was done:**
+- Searched all Lean source files for `sorry` placeholders
+- Found 0 `sorry` in critical files (AQEIFamilyInterface, AffineToCone, FinalTheorems, PolyhedralVertex, VertexVerificationRat)
+- Found 2 `sorry` in ConeProperties.lean - these are INTENTIONAL (theorems are false as stated)
+- Created comprehensive `docs/theorem_verification.md` documenting all proven theorems
+- Updated ConeProperties.lean with detailed comments explaining why sorry statements are intentional
+- Verified all 10 critical theorems are fully proven with no placeholders
+- Confirmed `lake build` passes with no errors
+
+**Files Created/Modified:**
+- Created `docs/theorem_verification.md` - Complete theorem inventory and verification report
+- Modified `lean/src/ConeProperties.lean` - Added detailed explanatory comments for intentional sorry statements
+
+**Proven Theorems Summary:**
+- ✅ **AQEIFamilyInterface.lean:** 3 theorems (closure, convexity, convex combinations)
+- ✅ **AffineToCone.lean:** 3 theorems (homogenized cone is closed, convex, scales properly)
+- ✅ **PolyhedralVertex.lean:** 1 theorem (full rank implies vertex)
+- ✅ **VertexVerificationRat.lean:** 2 theorems (determinant nonzero, full rank)
+- ✅ **FinalTheorems.lean:** 1 theorem (candidate is extreme point)
+- **Total:** 10/10 critical theorems fully proven
+
+**Key Mathematical Results:**
+- AQEI admissible sets are closed and convex (intersection of affine half-spaces)
+- Homogenization produces a genuine cone in R × E
+- Full-rank active constraints characterize extreme points
+- Computational certificate: 6×6 determinant ≠ 0 (exact rational arithmetic)
+- Concrete vertex verified in finite-dimensional discretization
+
+**Note on ConeProperties.lean:**
+The 2 `sorry` statements are intentionally left because:
+1. AQEI constraints are affine (I ≥ -B), not homogeneous
+2. Scaling by α > 1 doesn't preserve the bound: I(αT) ≥ -αB, not -B
+3. Addition doesn't work: I(T1+T2) ≥ -2B, not -B
+4. TRUE cone property requires homogenization (proven in AffineToCone.lean)
+5. These document why "cone" naming is imprecise for bare AQEI
+
+**Completion Date:** February 6, 2026

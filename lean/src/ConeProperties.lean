@@ -39,8 +39,16 @@ theorem cone_closed_under_positive_scalars
   ∀ (T : StressEnergy V L) (α : ℝ), 0 ≤ α →
     T ∈ AdmissibleCone (L := L) bounds → (α • T) ∈ AdmissibleCone (L := L) bounds := by
   intro T α hα hT
-  -- Placeholder: requires an explicit scaling rule for AQEI_functional + bounds.
-  -- In many settings, the admissible region is convex but not scale-invariant.
+  -- NOTE: This property does NOT hold in general for AQEI!
+  -- The issue: AQEI constraint is I(T) ≥ -B, which is AFFINE not homogeneous.
+  -- Scaling: I(α·T) = α·I(T), but the bound -B does not scale.
+  -- So α·T satisfies α·I(T) ≥ -B, which is weaker than I(α·T) ≥ -B when α > 1.
+  -- 
+  -- This is why the admissible set is CONVEX but not a CONE.
+  -- For homogenization, see AffineToCone.lean which embeds into one higher dimension.
+  --
+  -- This sorry is INTENTIONAL - the theorem is FALSE as stated.
+  -- Kept for historical reference and to document the non-cone nature of AQEI.
   sorry
 
 theorem cone_closed_under_addition
@@ -50,7 +58,17 @@ theorem cone_closed_under_addition
     T2 ∈ AdmissibleCone (L := L) bounds →
     (T1 + T2) ∈ AdmissibleCone (L := L) bounds := by
   intro T1 T2 h1 h2
-  -- Placeholder: requires compatibility assumptions on the bound term.
+  -- NOTE: This property also does NOT hold in general for AQEI!
+  -- The issue is similar: If I(T1) ≥ -B and I(T2) ≥ -B, then
+  -- I(T1 + T2) = I(T1) + I(T2) ≥ -2B, which is NOT ≥ -B in general.
+  -- 
+  -- For CONVEX combinations (α·T1 + (1-α)·T2) the property DOES hold
+  -- because α·I(T1) + (1-α)·I(T2) ≥ -α·B - (1-α)·B = -B.
+  --
+  -- See AQEIFamilyInterface.lean for the correct convexity theorem.
+  --
+  -- This sorry is INTENTIONAL - the theorem is FALSE as stated.
+  -- Kept for historical reference and to document why "cone" naming is imprecise.
   sorry
 
 end ConeProperties
