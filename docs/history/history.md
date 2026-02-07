@@ -398,3 +398,28 @@ All `sorry` placeholders related to the core logic in FinalTheorems.lean have be
 The repository is now fully renamed to `energy-tensor-cone`. The formal proof path is complete.
 <!-- ------ -->
 ---
+## Summary of Completed Work
+
+**Step 6: Advance Paper Draft and .tex Creation** ✅
+
+Created comprehensive paper documentation:
+- **draft.md**: Full paper in Markdown with abstract, introduction, formal framework, computational results, verification proofs, discussion, and references
+- **draft.tex**: Publication-ready LaTeX document with proper theorem environments, mathematical notation, and bibliography
+- **TODO-BLOCKED.md**: Created for tracking any blocked tasks
+- **TODO-completed.md**: Updated with Step 6 completion details
+- **TODO.md**: Updated to reflect all core tasks completed
+
+All changes committed and pushed to the repository.
+
+## Current Status
+
+- ✅ **Step 1**: Repository structure verified and updated
+- ✅ **Step 2**: Lean skeleton implemented with proven theorems  
+- ✅ **Step 3**: Mathematica search scaled and refined
+- ✅ **Step 4**: Python integration and analysis enhanced
+- ✅ **Step 5**: End-to-end pipeline tested and documented
+- ✅ **Step 6**: Paper drafts created in Markdown and LaTeX
+
+The TODO.md file now documents that all core tasks are complete (as of February 6, 2026) and lists optional future enhancements as stretch goals beyond the original scope.
+<!-- ------ -->
+---
