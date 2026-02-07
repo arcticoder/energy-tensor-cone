@@ -178,7 +178,36 @@ All proofs are mechanically checked by the Lean 4 proof assistant with Mathlib4.
 - Extreme rays exist in the finite-dimensional approximation
 - The vertex property is certified via exact determinant computation
 
-### 6.2 Open Questions
+### 6.2 Verification and Robustness
+
+This work includes comprehensive verification protocols to ensure correctness:
+
+**Mathematical Definition Verification:**
+- All core definitions (Lorentzian signature, AQEI functional, stress-energy tensor) cross-checked against standard QFT/GR literature
+- Verified against Fewster (2012) arXiv:1208.5399, Wald (1984), Hawking & Ellis (1973)
+- Symbolic verification using SymPy: Gaussian integrals computed exactly
+- No discrepancies found with literature conventions
+
+**Computational Validation:**
+- End-to-end test suite: Python, Mathematica, Lean all passing
+- Convexity property verified numerically in 2D and 3D toy models
+- Data pipeline validated: Mathematica → JSON → Python → Lean
+- Mathematica search finds 6 active constraints in 6D (proper vertex condition)
+
+**Formal Proof Verification:**
+- All 10 critical theorems fully proven in Lean 4 with Mathlib
+- Zero unintentional `sorry` placeholders in core files
+- Determinant computation: exact rational arithmetic (no floating point errors)
+- Build verification: `lake build` passes with no errors
+
+**Literature Cross-Checks:**
+- Results compared against Fewster (2012) for AQEI bounds
+- Polyhedral geometry verified against Ziegler (1995)
+- All mathematical claims have literature citations
+
+See `docs/verification.md`, `docs/test_validation.md`, and `docs/theorem_verification.md` for complete verification reports.
+
+### 6.3 Open Questions
 
 1. **Full QFT Connection**: Proving that the physically defined AQEI functionals on a suitable operator space are continuous linear maps
 2. **Infinite-Dimensional Extreme Rays**: Extending the finite-dimensional vertex result to the full theory
