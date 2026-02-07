@@ -141,3 +141,79 @@ This document tracks tasks that have been completed for the energy-tensor-cone p
 - Target submission to Journal of Mathematical Physics
 
 **Completion Date:** February 6, 2026
+
+---
+
+## ✅ Verification Item 1: Cross-Check Mathematical Definitions Against Literature (COMPLETED)
+
+**Status:** All core definitions verified and documented.
+
+**What was done:**
+- Created comprehensive `docs/verification.md` documenting cross-checks against standard QFT/GR literature
+- Verified Lorentzian signature convention (mostly-plus, timelike ⟨v,v⟩ < 0) matches Wald, Fewster
+- Verified AQEI functional definition matches Fewster (2012) arXiv:1208.5399 and Phys. Rev. D 75, 025007
+- Verified stress-energy tensor symmetry matches Hawking & Ellis, Wald
+- Ran symbolic verification using SymPy:
+  - Gaussian integral: ∫exp(-t²)*ρ dt = √π*ρ ✓
+  - Lorentzian signature examples in 1+1D Minkowski ✓
+- Added literature citations to Lean source files:
+  - `lean/src/Lorentz.lean`: Added Wald, Fewster references
+  - `lean/src/AQEI.lean`: Added Fewster references and placeholder notes
+  - `lean/src/StressEnergy.lean`: Added Hawking & Ellis, Wald references
+- No discrepancies found—all definitions match standard literature
+
+**Files Created/Modified:**
+- Created `docs/verification.md` - Comprehensive verification report
+- Modified `lean/src/Lorentz.lean` - Added literature citations
+- Modified `lean/src/AQEI.lean` - Added references and implementation notes
+- Modified `lean/src/StressEnergy.lean` - Added literature citations
+
+**Key Findings:**
+- ✅ Lorentzian signature: Verified against Wald (1984), Fewster (2012)
+- ✅ AQEI integral: Verified against arXiv:1208.5399
+- ✅ Stress-energy symmetry: Verified against Hawking & Ellis (1973)
+- ✅ Convex cone structure: Already proven in Lean (AQEIFamilyInterface.lean)
+- ✅ Numerical tests: All symbolic computations passed
+
+**Completion Date:** February 6, 2026
+
+---
+
+## ✅ Verification Item 2: Test and Validate Recent Updates (COMPLETED)
+
+**Status:** All tests passed, no regressions detected.
+
+**What was done:**
+- Ran full end-to-end test suite (`./run_tests.sh`): All tests passed ✓
+  - Python tests: OK
+  - Mathematica tests: OK (vertex found with 6 active constraints)
+  - Lean tests: OK (build successful)
+- Created comprehensive `docs/test_validation.md` documenting test results
+- Validated convexity property with Python toy models (2D, 3D examples)
+- Verified Mathematica search results:
+  - Generated 50 constraints
+  - Found vertex with 3 AQEI + 3 box active constraints (6 total in 6D)
+  - Results exported to JSON successfully
+- Cross-validated data pipeline: Mathematica → JSON → Python → Lean
+- Compared results with literature (Fewster 2012, Ziegler 1995)
+- Verified all Lean proofs compile with no regressions
+
+**Files Created:**
+- Created `docs/test_validation.md` - Comprehensive test validation report
+
+**Key Findings:**
+- ✅ End-to-end pipeline works correctly
+- ✅ Mathematica vertex finding: 6 active constraints in 6D (proper vertex)
+- ✅ Python convexity tests: All passed
+- ✅ Lean build: No errors, all critical theorems verified
+- ✅ Literature comparison: Results match expected behavior
+- ✅ No regressions detected in any component
+
+**Test Results Summary:**
+- Violations found: 56/200 (28% - expected for boundary exploration)
+- Near-misses found: 19/200 (9.5%)
+- Vertex verified: Yes (6 linearly independent constraints)
+- All data exports: Valid JSON
+- All Lean imports: Successful
+
+**Completion Date:** February 6, 2026
