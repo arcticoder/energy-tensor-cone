@@ -812,3 +812,6 @@ All tasks completed successfully! `wc -l docs/TODO.md` returns **0**.
 **Ready for CQG submission** - maximum anonymization achieved per IOP requirements.
 <!-- ------ -->
 ---
+The issue has been fixed. The IOP journal class automatically adds the "References" title when using `\begin{thebibliography}`, so the manual `\section*{References}` in the CQG manuscript files was causing duplication. I've removed the manual section headers from both aqei-cone-formalization-cqg.tex and aqei-cone-formalization-cqg-anon.tex, and recompiled the PDFs. The "References" section should now appear only once in each PDF, consistent with `aqei-cone-formalization.pdf`.
+<!-- ------ -->
+---
