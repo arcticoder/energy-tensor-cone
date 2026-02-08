@@ -598,3 +598,91 @@ The 2 `sorry` statements are intentionally left because:
 All technical tasks for CQG submission preparation have been completed. The manuscript has been successfully converted to IOP template format, all scientific concerns from the TODO have been addressed in the paper text, repository references have been updated to the DawsonInstitute organization, tests pass, and supplementary materials are archived. The project is ready for journal submission pending manual review of the final manuscript and cover letter preparation.
 
 **Completion Status**: docs/TODO.md cleared to 0 lines ✓
+
+---
+
+## ✅ Anonymized CQG Submission Preparation (COMPLETED - February 8, 2026)
+
+**Status**: All anonymization tasks completed. Manuscript and supplements ready for double-anonymous CQG submission.
+
+### Tasks Completed
+
+#### ✓ Task 1: Create Anonymized Manuscript for Double-Anonymous CQG Review
+- Created `papers/aqei-cone-formalization-cqg-anon.tex` with complete anonymization
+- Removed author information: Ryan Sherrington → Anonymous Author
+- Removed affiliation: Dawson Institute → (removed)
+- Removed email: rsherrington@dawsoninstitute.org → (removed)
+- Removed acknowledgments section (saved to `papers/acknowledgments-post-review.txt` for post-review)
+- Replaced GitHub repository link: `https://github.com/DawsonInstitute/energy-tensor-cone` → `https://anonymous.4open.science/r/aqei-convex-cone-5789/`
+- Removed Zenodo DOI: `10.5281/zenodo.18522457` → removed
+- Updated data availability statement to reference anonymized repository
+- **Compilation**: Successful - 6 pages, 270KB PDF
+- All scientific content preserved
+
+#### ✓ Task 2: Create Anonymized Supplements
+- Created `papers/supplements-anon.tar.gz` (31KB) containing:
+  - `lean/src/` - All Lean 4 formal proofs
+  - `mathematica/` - Computational search scripts
+  - `python/` - Data processing pipeline
+  - `tests/` - Test suite
+  - `README.md` - Project documentation
+- No personal identifying information included
+- References anonymized repository in documentation
+
+#### ✓ Task 3: Add 3+1D Future Work Note
+- Already present in manuscript Future Work section: "Extend to 3+1 dimensional spacetimes"
+- Limitations section explains 1+1D is deliberate methodological choice following standard AQEI literature
+- Notes extension to 3+1D as natural future direction
+
+#### ✓ Task 4: Verify Analytic Bounds Comparison
+- Already present in manuscript Limitations section
+- Paragraph "Comparison with Analytic Results" compares computational findings against Fewster bounds
+- Explicit comparison: Near-miss candidates exhibit violation margins of order 10^-6
+- References Fewster and Eveson 2012 for analytic bounds
+- Notes order-of-magnitude agreement validates computational methodology
+
+### Anonymity Assessment
+
+Per IOP checklist (https://publishingsupport.iopscience.iop.org/questions/checklist-for-anonymising-your-manuscript/):
+- ✅ Author name removed from manuscript
+- ✅ Affiliation removed from manuscript
+- ✅ Email removed from manuscript
+- ✅ Acknowledgments removed (saved for post-review)
+- ✅ GitHub repository link replaced with anonymized version
+- ✅ Zenodo DOI removed
+- ✅ Data availability statement updated to reference anonymized repository
+- ✅ No identifying information in manuscript or supplements
+- ✅ Public GitHub repository remains public (anonymity focuses on submission files)
+- ✅ Restricted Zenodo archive remains restricted during review
+
+Good faith effort made. Meets CQG double-anonymous standards.
+
+### Files Created
+
+- `papers/aqei-cone-formalization-cqg-anon.tex` - Anonymized manuscript (354 lines)
+- `papers/aqei-cone-formalization-cqg-anon.pdf` - Compiled PDF (6 pages, 270KB)
+- `papers/acknowledgments-post-review.txt` - Saved acknowledgments for post-review
+- `papers/supplements-anon.tar.gz` - Anonymized supplements archive (31KB)
+
+### Submission Readiness
+
+- ✅ Anonymized manuscript compiles successfully
+- ✅ Anonymized supplements archive created
+- ✅ All identifying information removed
+- ✅ All scientific content preserved
+- ✅ 3+1D future work noted
+- ✅ Analytic bounds comparison included
+- ✅ Ready for CQG submission portal upload
+
+### Git Commit
+
+```
+[main 8cf511e] Create anonymized manuscript and supplements for CQG double-anonymous review
+ 3 files changed, 354 insertions(+)
+ create mode 100644 papers/acknowledgments-post-review.txt
+ create mode 100644 papers/aqei-cone-formalization-cqg-anon.tex
+ create mode 100644 papers/supplements-anon.tar.gz
+```
+
+**Completion Status**: All TODO.md tasks completed ✓
+
