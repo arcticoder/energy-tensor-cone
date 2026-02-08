@@ -267,42 +267,38 @@ The key achievement is the mechanically verified proof that:
 
 This work opens the door to systematic exploration of the AQEI cone geometry using hybrid formal/computational methods.
 
+\section*{Data Availability}
+
+All code, formal proofs, computational data, and supplementary materials for this work are publicly available:
+\begin{itemize}
+\item \textbf{GitHub repository}: \url{https://github.com/arcticoder/energy-tensor-cone} — complete source code, Lean proofs, Mathematica search scripts, and test suites
+\item \textbf{Zenodo archive}: DOI 10.5281/zenodo.18522457 — persistent versioned snapshot with manuscript, supplements, and reproducibility documentation
+\item \textbf{Lean formalization}: All 10 core theorems mechanically verified with zero unintentional \texttt{sorry} placeholders
+\item \textbf{Computational results}: Raw JSON outputs from Mathematica search, Python analysis scripts, and generated Lean candidate files included in repository
+\end{itemize}
+
+The complete pipeline is reproducible via \texttt{./run\_tests.sh}. See Appendix~\ref{sec:reproducibility} for detailed instructions.
+
 \bibliographystyle{unsrt}
 \bibliography{aqei-cone-formalization}
 
 \appendix
 
-\section{File Structure}
+\section{Key Files}
+\label{sec:keyfiles}
 
-\begin{verbatim}
-energy-tensor-cone/
-  lean/
-    lakefile.lean              
-    src/
-      Lorentz.lean           
-      StressEnergy.lean      
-      AQEI.lean              
-      ConeProperties.lean    
-      AQEIFamilyInterface.lean  
-      AffineToCone.lean      
-      PolyhedralVertex.lean  
-      ExtremeRays.lean       
-      VertexVerificationRat.lean  
-      FinalTheorems.lean     
-  mathematica/
-    search.m                   
-    results/                   
-  python/
-    orchestrator.py            
-    analyze_results.py         
-  tests/
-    build_lean.sh              
-    python_tests.sh            
-    mathematica_tests.sh       
-    lean_tests.sh              
-\end{verbatim}
+The computational and formal verification pipeline consists of:
+\begin{itemize}
+\item \textbf{Lean proofs}: \texttt{lean/src/FinalTheorems.lean} (main vertex theorem), \texttt{AffineToCone.lean} (homogenization), \texttt{PolyhedralVertex.lean} (extreme point characterization), \texttt{VertexVerificationRat.lean} (exact rational determinant)
+\item \textbf{Computational search}: \texttt{mathematica/search.m} (randomized Gaussian-basis LP solver)
+\item \textbf{Data processing}: \texttt{python/orchestrator.py}, \texttt{python/analyze\_results.py} (JSON parsing and Lean code generation)
+\item \textbf{Test harness}: \texttt{run\_tests.sh} (end-to-end validation)
+\end{itemize}
+
+Complete file structure and detailed documentation available at \url{https://github.com/arcticoder/energy-tensor-cone}.
 
 \section{Reproducibility}
+\label{sec:reproducibility}
 
 All code and proofs are available at the project repository.
 
