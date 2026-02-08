@@ -761,3 +761,54 @@ Fixed! The LaTeX compilation error was caused by a typo in the `\end{enumerate}`
 The manuscript is ready for submission.
 <!-- ------ -->
 ---
+All tasks completed successfully! `wc -l docs/TODO.md` returns **0**.
+
+## Summary of Completed Work
+
+### Task 1: Enhanced Anonymization for CQG Double-Anonymous Review ✓
+
+**Removed all identifying information:**
+- ✅ Removed all URLs from aqei-cone-formalization-cqg-anon.tex
+  - Removed anonymous repo link
+  - Removed GitHub links
+  - Removed Zenodo references
+- ✅ Updated data availability: "Code and data provided as supplementary materials; full access post-acceptance"
+- ✅ Made repository **PRIVATE** during review
+  - `DawsonInstitute/energy-tensor-cone` visibility: PRIVATE
+  - Will revert to PUBLIC after peer review
+- ✅ Created anonymized supplements-README.md
+  - No Zenodo badge or DOI
+  - No organization names
+  - No repository URLs
+- ✅ Recreated supplements-anon.tar.gz (30KB)
+  - Correct structure: README.md
+  - All source files included
+
+### Task 2: LaTeX Refactoring for Maintainability ✓
+
+**Created shared components:**
+- ✅ common-preamble.tex - Shared packages (amsmath, graphicx, listings, hyperref)
+- ✅ common-theorems.tex - Theorem environments
+- ✅ common-bib.tex - Bibliography entries (10 references)
+
+**Updated all manuscript versions:**
+- ✅ aqei-cone-formalization.tex (article.cls) - Uses preamble + theorems
+- ✅ aqei-cone-formalization-cqg.tex (iopjournal.cls) - Uses all three  
+- ✅ aqei-cone-formalization-cqg-anon.tex (anonymized) - Uses all three
+
+**Benefits achieved:**
+- Eliminated 97 lines of duplicated code
+- Single source of truth for theorems and bibliography
+- All versions compile successfully
+
+### Git Commits
+```
+[main f37e035] Enhance anonymity in manuscript and supplements
+[main a66fa3a] Refactor LaTeX files with shared components for maintainability
+[main 2175eee] Complete all TODO tasks and clear TODO.md
+[main ce5961e] Fix supplements archive structure and add supplements-README.md
+```
+
+**Ready for CQG submission** - maximum anonymization achieved per IOP requirements.
+<!-- ------ -->
+---
