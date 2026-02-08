@@ -414,3 +414,85 @@ The 2 `sorry` statements are intentionally left because:
 **Completion Date:** February 7, 2026
 
 ---
+
+---
+
+## ✅ Priority Tasks Batch 2: Publication Readiness (COMPLETED - February 8, 2026)
+
+**Status:** All publication readiness tasks completed. Repository and manuscript ready for journal submission.
+
+**Tasks Completed:**
+
+### 1. Git History Cleanup ✓
+- Created mirror backup in /tmp/energy-tensor-cone-backup.git (4.8M)
+- Ran git-filter-repo to remove draft.* files from entire repository history
+- Repository size reduced from 4.8M to 1.2M (75% reduction)
+- Remote already in clean state (no force-push needed)
+- **Result:** Repository history cleaned, eliminating bloat from old draft files
+
+### 2. Update README.md for Publication Readiness ✓
+- Added Zenodo DOI badge at top of README
+- Updated status section with Zenodo publication link (DOI 10.5281/zenodo.18522457)
+- Added detailed replication instructions (Lean build, Mathematica search, Python pipeline, test suite)
+- Clarified formal verification status: 10/10 core theorems proven
+- Documented intentional sorry statements as false theorems (ConeProperties.lean)
+- Expanded terminology notes with AffineToCone.lean reference
+- **Commit:** "Update README for Zenodo integration"
+
+### 3. Integrate Zenodo in Institute Websites ✓
+- **Updated www/index.html:**
+  - Added energy-tensor-cone to Publications & Software section
+  - Included Zenodo DOI link with full project description
+  - Documented hybrid Lean 4/Mathematica methodology
+  - Listed key results and formal verification achievements
+  - **Commit:** "Add energy-tensor-cone to institute website"
+  
+- **Updated .github/profile/README.md:**
+  - Added project section after irrotational-warp-lab
+  - Included features, key results, and scientific significance
+  - Added getting started instructions and test commands
+  - Updated Recent Highlights with February 2026 entry
+  - Documented Zenodo publication and CMP target journal
+  - **Commit:** "Add energy-tensor-cone to GitHub profile"
+
+### 4. Final Tex/Bib Adjustments ✓
+- **Added Data Availability section:**
+  - GitHub repository link (source code, proofs, tests)
+  - Zenodo DOI for persistent archival
+  - Documentation of 10/10 mechanically verified theorems
+  - Note on computational results and reproducibility
+  - Cross-reference to Appendix for detailed instructions
+
+- **Shortened File Structure appendix:**
+  - Renamed "File Structure" to "Key Files"
+  - Condensed verbatim directory tree to bullet list of essential files
+  - Highlighted: FinalTheorems.lean, AffineToCone.lean, PolyhedralVertex.lean, VertexVerificationRat.lean
+  - Added link to GitHub for complete structure
+  
+- **Added section labels:**
+  - \label{sec:keyfiles} for Key Files appendix
+  - \label{sec:reproducibility} for Reproducibility section
+  - Enables cross-referencing from Data Availability statement
+
+- **Verified bibliography:**
+  - All 11 citations present and correct: ford1978, ford1995, fewster2008, fewster2012, fewster2019, fewster2023, hawking1973, wald1994, moura2021, community2020, ziegler1995
+  - BibTeX compilation successful with no warnings
+  - All \cite commands resolved correctly
+
+- **Final PDF:**
+  - Full compilation cycle: pdflatex → bibtex → pdflatex × 2
+  - Output: aqei-cone-formalization.pdf (282K)
+  - Zero warnings or errors
+  - **Commit:** "Finalize manuscript for journal submission"
+
+**Completion Summary:**
+- ✅ Repository history cleaned (75% size reduction)
+- ✅ README updated with Zenodo integration and detailed instructions
+- ✅ Institute websites updated (www + GitHub profile)
+- ✅ Manuscript finalized with Data Availability and shortened appendix
+- ✅ All bibliography entries verified
+- ✅ PDF compiles cleanly (282K)
+
+**Completion Date:** February 8, 2026
+
+---
