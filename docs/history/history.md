@@ -815,3 +815,12 @@ All tasks completed successfully! `wc -l docs/TODO.md` returns **0**.
 The issue has been fixed. The IOP journal class automatically adds the "References" title when using `\begin{thebibliography}`, so the manual `\section*{References}` in the CQG manuscript files was causing duplication. I've removed the manual section headers from both aqei-cone-formalization-cqg.tex and aqei-cone-formalization-cqg-anon.tex, and recompiled the PDFs. The "References" section should now appear only once in each PDF, consistent with `aqei-cone-formalization.pdf`.
 <!-- ------ -->
 ---
+Perfect! I've updated both CQG manuscript files to use the Zotero-exported aqei-cone-formalization.bib file instead of the manual bibliography. Now all three manuscript versions consistently use BibTeX with the `.bib` file:
+
+- aqei-cone-formalization.tex (already used it)
+- aqei-cone-formalization-cqg.tex (now updated)
+- aqei-cone-formalization-cqg-anon.tex (now updated)
+
+I also removed the unused common-bib.tex file since it's no longer needed. The PDFs have been recompiled successfully with BibTeX, ensuring the bibliography is properly generated from your Zotero export. This maintains consistency across all manuscript versions and makes it easier to manage references through Zotero.
+<!-- ------ -->
+---
