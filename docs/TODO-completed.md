@@ -979,3 +979,17 @@ All three manuscript versions compile successfully:
 
 **Completion Date:** February 14, 2026
 
+---
+
+## ✅ Task: Clarify mathematica/results in Manuscript (COMPLETED)
+
+**Status:** Manuscript text updated to accurately describe the artifact outputs and their provenance.
+
+**What was done:**
+- Updated `papers/aqei-cone-formalization-body.tex` to clarify that `mathematica/results/` contains representative JSON artifacts produced by `mathematica/search.m` and `python/orchestrator.py`.
+- Explicitly listed key outputs (including `summary.json` aggregate violation/near-miss statistics and the certified `vertex.json`) and their role in the downstream Python/Lean pipeline.
+
+**Verification:** Paper text matches the repository artifact layout; PRD build continues to succeed.
+
+**Completion Date:** February 14, 2026
+
