@@ -895,3 +895,31 @@ All three manuscript versions compile successfully:
 
 **Completion Date:** February 14, 2026
 
+---
+
+## ✅ Step: PRD Readiness Polish (PACS, README, Results, Tests) (COMPLETED)
+
+**Status:** PRD submission details and repo documentation/tests polished.
+
+**What was done:**
+- Added PACS codes to the PRD wrapper.
+- Clarified `mathematica/results/` artifacts in the manuscript text.
+- Updated README for PRD framing and script inventory.
+- Strengthened Python tests to validate the committed `vertex.json` certificate.
+
+**Verification:** PRD build cycle and `./run_tests.sh` pass.
+
+**Completion Date:** February 14, 2026
+
+---
+
+## ✅ Step: Assess PRD Readiness and Update TODO Tracking (COMPLETED)
+
+**Status:** Active submission tasks captured; long-form planning moved to backlog.
+
+**What was done:**
+- Updated `docs/TODO.md` to focus on active PRD submission readiness tasks.
+- Moved archived planning notes into `docs/TODO-backlog.md`.
+
+**Completion Date:** February 14, 2026
+
