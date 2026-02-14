@@ -870,3 +870,15 @@ New commit:
 - `d1161c4` Remove anonymized artifacts for PRD
 <!-- ------ -->
 ---
+Updated the history log and committed it.
+
+- Added a new 2026-02-13 entry to energy-tensor-cone/docs/history/history.md covering:
+  - PRD/REVTeX wrapper addition
+  - `apsrev4-2` BibTeX fix for `kontou2024`
+  - Removal of anonymized CQG artifacts and anon supplements
+  - The relevant commit SHAs
+- Commit: `7d960fb` Update history for PRD pivot
+
+Next up per TODO: “Additional Verification & Polish” (add an analytic bound-comparison figure/text) unless you want me to prioritize further LaTeX multi-version refactoring.
+<!-- ------ -->
+---
