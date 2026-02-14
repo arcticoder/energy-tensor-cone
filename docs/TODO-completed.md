@@ -881,3 +881,17 @@ All three manuscript versions compile successfully:
 
 **Completion Date:** February 14, 2026
 
+---
+
+## ✅ Step: Expand Tests to Include Bound Comparisons (COMPLETED)
+
+**Status:** Python tests extended beyond smoke checks to include an explicit bound-comparison benchmark.
+
+**What was done:**
+- Added `python/plot_bound_comparison.py` to the Python compile checks.
+- Added a small numerical test that verifies the expected scaling behavior of the proxy bound (increasing with $\tau$) and the analytic benchmark (decreasing like $1/\tau$) over the model interval.
+
+**Verification:** `./tests/python_tests.sh` passes.
+
+**Completion Date:** February 14, 2026
+

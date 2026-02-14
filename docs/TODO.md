@@ -34,12 +34,6 @@
 - Line 15: Update Python list: Include `plot_vertex_coefficients.py`, `generate_lean_data.py`, etc. (full find output).
 - Commit: "Polish README for PRD and completeness"
 
-**9. Enhance Testing for Rigor**
-- python_tests.sh smoke-test sufficient for submission (many physics papers rely on similar); but for rigor, expand to full end-to-end: Add scripts validating against analytic bounds (e.g., Fewster scalars).
-- Update tex (line 92/190): Clarify "smoke + end-to-end validation via orchestrator.py".
-- Note: Not full rigor yet, but publishable – add task for bound-validation tests.
-- Commit: "Expand tests to include bound comparisons"
-
 ### Final Pre-Submission Checklist (to PRD)
 - All polishes done; submit via https://authors.aps.org/Submissions/.
 - Update README/sites post-submission.

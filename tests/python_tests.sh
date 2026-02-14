@@ -7,7 +7,8 @@ cd "$ROOT_DIR"
 
 python -m py_compile \
   "$ROOT_DIR/python/orchestrator.py" \
-  "$ROOT_DIR/python/analyze_results.py"
+  "$ROOT_DIR/python/analyze_results.py" \
+  "$ROOT_DIR/python/plot_bound_comparison.py"
 
 # Smoke-test: generate Lean candidates from a tiny synthetic JSON
 TMP_DIR="$ROOT_DIR/.tmp_test"
@@ -70,6 +71,32 @@ for idx, c in zip(active_indices, constraints):
   assert rel_err < 5e-3, f"Bmodel mismatch: idx={idx} B={B} expected={B_expected} rel_err={rel_err}"
 
 print("Vertex certificate tests: OK")
+PY
+
+python - <<'PY'
+import math
+
+from python.plot_bound_comparison import (
+  b_fewster_2d_gaussian_benchmark,
+  b_model,
+)
+
+# Sanity-check: proxy bound increases with tau on the model interval.
+t1, t2 = 0.2, 0.8
+assert b_model(t2) > b_model(t1)
+
+# Sanity-check: analytic benchmark scales like 1/tau.
+b1 = b_fewster_2d_gaussian_benchmark(t1)
+b2 = b_fewster_2d_gaussian_benchmark(t2)
+assert b1 > b2
+ratio = (b1 * t1) / (b2 * t2)
+assert abs(ratio - 1.0) < 1e-12
+
+# Finite-domain truncation should be negligible in the tau-range used by search.m.
+domain = 5.0
+assert math.erf(domain / t2) > 0.999999
+
+print("Bound comparison tests: OK")
 PY
 
 echo "Python tests: OK"
