@@ -10,12 +10,10 @@
 - Improve reporting: Add detailed methodology section, more figures (e.g., bound comparisons), and explicit links to analytic results.
 - Commit: "Revise tex with expanded lit review and references post-CQG rejection"
 
-**2. Switch Target Journal to Physical Review D (PRD)**
-- CQG rejection opens door; PRD is ideal next: High-impact for QFT/GR, publishes AQEI/computational formal work.
-- Downloaded (from https://ctan.org/pkg/revtex) PRD REVTeX 4.2f template saved to ~/Code/asciimath/energy/docs/journals/PRD/ctan-revtex-4-2f/.
-- Convert `aqei-cone-formalization.tex` to REVTeX (`\documentclass[prl,twocolumn,superscriptaddress]{revtex4-2}` for PRD).
-- Update bib style to APS (unsrt or similar); note PRD and other APS journals only supports singly-anonymized unlike CQG.
-- Commit: "Convert LaTeX to PRD (REVTeX) template"
+**2. Switch Target Journal to Physical Review D (PRD) (COMPLETED)**
+- Added a REVTeX 4.2 PRD wrapper at `papers/aqei-cone-formalization-prd.tex`.
+- Confirmed clean build via `pdflatex → bibtex → pdflatex ×2` using `apsrev4-2`.
+- Updated the Zotero-exported BibTeX entry `kontou2024` with explicit arXiv metadata so `apsrev4-2.bst` runs without errors.
 
 **3. Update Anonymization and Supplements for PRD**
 - Remove anonymized tex/PDF; PRD doesn't allow optional anonymous review.

@@ -809,3 +809,18 @@ All three manuscript versions compile successfully:
 
 **Completion Status**: LaTeX refactoring complete ✓
 
+---
+
+## ✅ Step: PRD (REVTeX) Manuscript Wrapper (COMPLETED)
+
+**Status:** PRD/REVTeX variant builds cleanly with BibTeX.
+
+**What was done:**
+- Added `papers/aqei-cone-formalization-prd.tex` using REVTeX 4.2 (`revtex4-2`).
+- Fixed `kontou2024` arXiv metadata in `papers/aqei-cone-formalization.bib` so `apsrev4-2.bst` runs without BibTeX errors.
+- Updated `.gitignore` to ignore REVTeX-generated `*Notes.bib` files.
+
+**Verification:** `pdflatex → bibtex → pdflatex ×2` completes successfully for `aqei-cone-formalization-prd.tex`.
+
+**Completion Date:** February 14, 2026
+
