@@ -866,3 +866,18 @@ All three manuscript versions compile successfully:
 
 **Completion Date:** February 14, 2026
 
+---
+
+## ✅ Step: Improve Reporting (Methodology + Bound Figure) (COMPLETED)
+
+**Status:** Manuscript reporting improved with an explicit methodology section and an additional figure.
+
+**What was done:**
+- Added a dedicated \"Methodology\" section describing the computational model, sampling choices, proxy bound functional, and the artifact/certification pipeline.
+- Added a new bound-comparison figure to contextualize the proxy bound used in the search against a representative analytic scaling.
+- Added `python/plot_bound_comparison.py` to generate `papers/figures/bound_comparison.png` deterministically.
+
+**Verification:** PRD build cycle (`pdflatex → bibtex → pdflatex ×2`) completes successfully.
+
+**Completion Date:** February 14, 2026
+

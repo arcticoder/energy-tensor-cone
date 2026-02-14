@@ -20,6 +20,38 @@ Alongside analytic developments, there is growing interest in computational and 
 
 Our contribution focuses on the convex-geometric viewpoint: AQEI constraints define an intersection of affine half-spaces, hence a closed convex admissible set, whose homogenization yields a closed convex cone. This perspective draws on standard convex-analytic foundations \cite{rockafellar1970} and polyhedral geometry \cite{ziegler1995}, and supports a hybrid workflow in which (i) computational search proposes boundary candidates, and (ii) formal proof certifies geometric properties of the resulting finite-dimensional models.
 
+\section{Methodology}
+
+Our end-to-end workflow has three components: a finite-dimensional computational model, an auditable artifact pipeline, and a formal certification layer.
+
+\paragraph{Finite-dimensional model.}
+We work in 1+1 dimensional Minkowski space, and represent a stress-energy configuration by a coefficient vector $a\in\mathbb{R}^N$ in a fixed Gaussian wave-packet basis.
+Given a timelike worldline $\gamma(t)=(t,x_0+vt)$ and a nonnegative sampling function $g$, each sampled AQEI constraint takes the form
+\begin{equation}
+\langle L_{\gamma,g}, a\rangle \geq -B_{\gamma,g},
+\end{equation}
+where $L_{\gamma,g}\in\mathbb{R}^N$ is computed by numerical quadrature along $\gamma$.
+
+\paragraph{Sampling and proxy bounds.}
+In the current computational search, we use Gaussian sampling functions
+$g(t)=\exp(-(t-t_0)^2/(2\tau^2))$ with parameters $(t_0,\tau)$ drawn uniformly from fixed ranges.
+For transparency, we also use a simple proxy bound functional
+\begin{equation}
+B_{\gamma,g}=B_{\mathrm{model}}(g):=0.1\,\|g\|_{L^2([-d,d])},
+\end{equation}
+as implemented in the Mathematica generator (with integration domain half-width $d$).
+Analytic QEIs often yield derivative-based bounds (for example, Fewster's general framework \cite{fewster2000}), which have different scaling behavior; Figure~\ref{fig:bound-comparison} compares the proxy bound used in our search to a representative analytic scaling for Gaussian sampling.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.9\linewidth]{figures/bound_comparison.png}
+\caption{Bound comparison for Gaussian sampling as a function of width $\tau$. The computational search in this repository uses the proxy bound $B_{\mathrm{model}}(g)=0.1\,\|g\|_{L^2([-d,d])}$ (solid). For context, analytic worldline QEIs typically produce derivative-based bounds with inverse-$\tau$ scaling (dashed; representative Fewster-style benchmark \cite{fewster2000}).}
+\label{fig:bound-comparison}
+\end{figure}
+
+\paragraph{Artifact pipeline and certification.}
+The Mathematica stage exports its sampled constraints and candidate solutions to JSON; Python scripts analyze and visualize these outputs and generate exact (rational) data for Lean. The Lean layer proves closure/convexity results abstractly and certifies that the selected candidate is a vertex of the resulting finite polytope.
+
 \section{Formal Framework}
 
 \subsection{Abstract Formalization}

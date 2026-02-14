@@ -28,11 +28,6 @@
 - If values seem off (negatives near zero), verify script (`python/plot_vertex_coefficients.py`) and regenerate if needed.
 - Commit: "Review and update figure caption for vertex coefficients"
 
-**7. Complete "Improve Reporting" Task**
-- Partially done: Methodology embedded in sections (e.g., "Computational Validation"); add explicit "Methodology" section for clarity (describe Gaussian basis, Monte-Carlo, Lean integration).
-- Add additional 1-2 figures: e.g., bound comparison plot (analytic vs. your results) via Python/Mathematica.
-- Commit: "Add methodology section and more figures to tex"
-
 **8. Update README.md**
 - Line 10: Replace CQG with "PRD (Physical Review D)".
 - Line 13: "Minimal" is good – highlights focus; add "with extensible structure for further dimensions/QFT extensions".
