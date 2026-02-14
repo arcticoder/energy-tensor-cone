@@ -4,20 +4,7 @@
 
 ### Priority Tasks
 
-**2. Complete "Improve Reporting" Task**
-- Methodology now in dedicated section; one figure (vertex) + implied additions (e.g., new bound plot). For rigor, add sample bound comparison figure via Mathematica (generate in `mathematica/search.m` extension):
-  ```mathematica
-  (* Sample bound comparison plot *)
-  analyticBound = 1/(2 Pi) Integrate[Abs[FourierTransform[g[t], t, w]]^2 / w^2, {w, -Infinity, Infinity}];
-  computationalI = NIntegrate[g[t] * T[gamma[t]][u[t], u[t]], {t, -domain, domain}];
-  Plot[{analyticBound, computationalI + analyticBound}, {param, 0, 1}, PlotLegends -> {"Analytic Fewster Bound", "Computational Score"}]
-  ```
-- Explicit analytic links: In tex, add: "Our scores saturate close to Fewster's bound \( B = \frac{1}{2\pi} \int \frac{|\hat{g}(\omega)|^2}{\omega^2} d\omega \), with max deviation <5% in tests."
-
-
-- Commit: "Add bound comparison code/figure to enhance reporting"
-
-**3. Enhance Testing Rigor**
+**2. Enhance Testing Rigor**
 - python_tests.sh now includes bound validations (beyond smoke); end-to-end via run_tests.sh improves physics rigor (Lean mech proofs + numerical checks). Add Lean sample for cone convexity:
   ```lean
   theorem cone_convex {V : Type} [AddCommMonoid V] [Module ℝ V] {L : LorentzSpace V}
