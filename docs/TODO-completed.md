@@ -1020,3 +1020,17 @@ All three manuscript versions compile successfully:
 
 **Completion Date:** February 14, 2026
 
+---
+
+## ✅ Step: Enhance Tests with Lean Rigor Example (COMPLETED)
+
+**Status:** Documentation and manuscript now include a concrete Lean theorem reference/snippet for convexity, alongside explicit test coverage notes.
+
+**What was done:**
+- Updated `README.md` with a short Lean snippet of the proven theorem `cone_convex` (from `lean/src/AQEIFamilyInterface.lean`).
+- Updated `papers/aqei-cone-formalization-body.tex` to explicitly mention bound/certificate checks covered by `tests/python_tests.sh`.
+
+**Verification:** PRD build remains clean and the repo’s test harness continues to cover certificate + bound sanity checks.
+
+**Completion Date:** February 14, 2026
+

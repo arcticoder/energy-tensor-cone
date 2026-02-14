@@ -55,6 +55,16 @@ See the \emph{Reproducibility} appendix in the manuscript for complete details.
 - **Publication status**: The Lean development provides mechanized proofs of core properties (convexity, extreme-ray candidates in finite models); some extensions remain as `sorry` placeholders for future work. This level of formalization is standard for computational mathematics papers in physics journals — core claims are mechanically verified, while extensions are documented as open questions.
 - **Test validation**: See `docs/theorem_verification.md` for complete proof inventory.
 
+#### Lean convexity snippet
+
+The cone convexity result is proved in `lean/src/AQEIFamilyInterface.lean` (excerpted below):
+
+```lean
+theorem cone_convex (L : Family E ι) (b : Bounds ι) :
+		Convex ℝ (AdmissibleCone (E := E) (ι := ι) L b) :=
+	homCone_convex (E := E) (ι := ι) L b
+```
+
 ### Notes on Terminology
 
 - The Mathematica search defaults to `numTrials=20000`, but tests override with `AQEI_NUM_TRIALS` to keep runs fast.

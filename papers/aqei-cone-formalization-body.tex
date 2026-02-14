@@ -231,6 +231,7 @@ This work includes comprehensive verification protocols to ensure correctness:
 \begin{itemize}
 \item End-to-end test suite: Python, Mathematica, Lean all passing
 \item Test harness: \texttt{./run\_tests.sh} orchestrates the end-to-end pipeline (including a fast Mathematica run); \texttt{tests/python\_tests.sh} additionally smoke-tests code generation on synthetic JSON
+\item Bound checks: \texttt{tests/python\_tests.sh} validates the exported vertex certificate (constraint saturation) and sanity-checks both the proxy bound $B_{\text{model}}$ and an analytic scaling benchmark for Gaussian sampling
 \item Convexity property verified numerically in 2D and 3D toy models
 \item Data pipeline validated: Mathematica $\to$ JSON $\to$ Python $\to$ Lean
 \item Mathematica search finds 6 active constraints in 6D (proper vertex condition)
