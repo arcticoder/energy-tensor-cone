@@ -1,3 +1,23 @@
+## 2026-02-13 PRD Pivot: REVTeX Build + De-anonymization
+
+**PRD/REVTeX manuscript is in place and builds cleanly.**
+
+- Added a Physical Review D wrapper: `papers/aqei-cone-formalization-prd.tex` (REVTeX 4.2 / `revtex4-2`).
+- Fixed a BibTeX incompatibility with APS style (`apsrev4-2.bst`) caused by an arXiv-only Zotero entry:
+  - Updated `papers/aqei-cone-formalization.bib` (`kontou2024`) to include explicit arXiv metadata (`journal`, `eprint`, `archiveprefix`, etc.).
+  - Result: `bibtex aqei-cone-formalization-prd` exits successfully and citations resolve after the standard `pdflatex → bibtex → pdflatex ×2` cycle.
+- Removed CQG double-anonymous artifacts (PRD path):
+  - Deleted `papers/aqei-cone-formalization-cqg-anon.tex` and removed remaining local build outputs.
+  - Deleted `supplements/supplements-anon.zip` and removed extracted `supplements/supplements-anon/`.
+- Updated TODO tracking files to mark PRD conversion + de-anonymization tasks completed.
+
+**Commits**
+- `b20c392` Add PRD REVTeX build + fix arXiv bib
+- `2a4e5ff` Update TODO status for PRD build
+- `d1161c4` Remove anonymized artifacts for PRD
+
+---
+
 ## 2026-02-06 Correction / Scope Note
 
 - **What is fully proven (Lean):** abstract closedness/convexity results for admissible sets defined by *continuous linear functionals* and their homogenized cone construction (see `AffineToCone.lean`, `AQEIFamilyInterface.lean`, and the bridge statement in `AQEIToInterface.lean`).
