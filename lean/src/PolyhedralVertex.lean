@@ -85,3 +85,7 @@ theorem full_rank_active_implies_vertex
 end VertexTheorem
 
 end PolyhedralGeometry
+
+-- Completeness checks
+#print axioms PolyhedralGeometry.full_rank_active_implies_vertex
+

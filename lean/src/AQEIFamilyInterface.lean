@@ -110,3 +110,16 @@ theorem coeff_cone_convex :
 end CoefficientModel
 
 end AQEIFamily
+
+-- Completeness checks
+#print axioms AQEIFamily.admissible_isClosed
+#print axioms AQEIFamily.admissible_convex
+#print axioms AQEIFamily.cone_isClosed
+#print axioms AQEIFamily.cone_convex
+#print axioms AQEIFamily.cone_smul_nonneg
+#print axioms AQEIFamily.slice_one_iff'
+#print axioms AQEIFamily.coeff_admissible_isClosed
+#print axioms AQEIFamily.coeff_admissible_convex
+#print axioms AQEIFamily.coeff_cone_isClosed
+#print axioms AQEIFamily.coeff_cone_convex
+

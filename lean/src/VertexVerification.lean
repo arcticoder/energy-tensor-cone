@@ -112,3 +112,7 @@ theorem active_constraints_full_rank : computed_rank = 6 := by
   rfl
 
 end Phase2
+
+-- Completeness checks
+#print axioms Phase2.active_constraints_full_rank
+

@@ -58,3 +58,9 @@ def IsExtremeRay (C : Set E) (r : E) : Prop :=
 end ExtremeRay
 
 end ConvexGeometry
+
+-- Completeness checks
+#print axioms ConvexGeometry.IsExtremePoint
+#print axioms ConvexGeometry.IsCone
+#print axioms ConvexGeometry.IsExtremeRay
+

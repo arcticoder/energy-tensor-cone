@@ -116,3 +116,9 @@ theorem satisfies_AQEI_iff_encode_mem
 end CoeffModel
 
 end AQEIToInterface
+
+-- Completeness checks
+#print axioms AQEIToInterface.idx_fst
+#print axioms AQEIToInterface.idx_snd
+#print axioms AQEIToInterface.satisfies_AQEI_iff_encode_mem
+

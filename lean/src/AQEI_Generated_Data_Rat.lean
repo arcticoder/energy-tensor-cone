@@ -55,3 +55,8 @@ def active_B : List Rat := [
 ]
 
 end AQEIGeneratedRat
+
+#print axioms AQEIGeneratedRat.coefficients
+#print axioms AQEIGeneratedRat.active_L
+#print axioms AQEIGeneratedRat.active_B
+

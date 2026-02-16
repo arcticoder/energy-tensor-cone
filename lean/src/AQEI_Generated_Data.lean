@@ -68,3 +68,8 @@ def active_B : List Float := [
 ]
 
 end AQEIGenerated
+
+#print axioms AQEIGenerated.basis_centers
+#print axioms AQEIGenerated.basis_matrices
+#print axioms AQEIGenerated.coefficients
+

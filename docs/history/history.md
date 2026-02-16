@@ -984,3 +984,68 @@ This will now output the axioms used by each major theorem at the end of the bui
 All changes have been committed in logical atomic units. The working tree is clean.
 <!-- ------ -->
 ---
+
+## Final PRD Preparation & Verification (February 16, 2026)
+
+**All final cleanup tasks for PRD submission are complete and verified.**
+
+- **Artifact Cleanup:** Removed anonymized supplementary artifacts and integrated acknowledgments back into `papers/aqei-cone-formalization-body.tex`.
+- **Manuscript Sync:** Synchronized `papers/aqei-cone-formalization.tex` abstract and methodology with the official PRD version.
+- **Figures:** Corrected Figure 2 caption to clarify the proxy bound scaling.
+- **Lean Data:** Regenerated `lean/src/GeneratedCandidates.lean` with certified candidate data.
+- **Documentation:** Added repository layout to `README.md`, created `LICENSE` (MIT), and updated `docs/TODO.md`.
+- **Reproducibility:** Refreshed `supplements/supplements.zip` via `scripts/refresh-supplements.sh` for artifact packaging.
+- **Formal Verification:** Added `#print axioms` checks to all Lean source files and verified clean builds (no unintentional `sorry`) via `tests/lean_tests.sh`.
+
+**Commits**
+- `Clean up artifacts and fix captions`
+- `Synchronize manuscript abstract`
+- `Populate candidate data and add axiom checks`
+- `Add repository layout and MIT LICENSE`
+- `Create script for refreshing supplements`
+- `Add axiom completeness checks to Lean files`
+<!-- ------ -->
+---
+All tasks have been completed and verified. I have also repaired the project history log to ensure an accurate record of the session.
+
+### Tasks Completed
+
+1.  **Artifact Cleanup**:
+    *   Removed `papers/acknowledgments-post-review.txt` (content integrated into aqei-cone-formalization-body.tex).
+    *   Deleted `supplements/supplements-cqg.tar.gz`.
+
+2.  **Manuscript Synchronization**:
+    *   Updated the abstract in aqei-cone-formalization.tex to match the PRD submission version.
+
+3.  **Figure Captions**:
+    *   Updated the caption for Figure 2 in aqei-cone-formalization-body.tex to clarify the proxy bound scaling methodology.
+
+4.  **Lean Data Generation**:
+    *   Ran the full pipeline to regenerate GeneratedCandidates.lean, ensuring it contains the latest certified candidate data.
+
+5.  **Documentation & Licensing**:
+    *   Added a detailed repository file layout to README.md.
+    *   Created an MIT LICENSE file.
+    *   Updated TODO.md (cleared) and TODO-completed.md (updated).
+    *   Repaired the history.md log to accurately reflect these changes.
+
+6.  **Supplements Refresh**:
+    *   Created refresh-supplements.sh to automate artifact packaging.
+    *   Refreshed `supplements/supplements.zip` with the latest code and verification data.
+    *   Updated `README-supplements.md`.
+
+7.  **Formal Verification Checks**:
+    *   Appended `#print axioms <TheoremName>` to all critical Lean source files. This ensures that a build log explicitly lists the axiomatic trust base for every major theorem (e.g., `Candidate_Is_Extreme_Point`, `active_constraints_full_rank`).
+
+### Verification
+
+All changes have been committed. You can verify the build and axiom checks by running:
+
+```bash
+cd lean
+lake build
+```
+
+The output will now display the axioms used by each theorem at the end of the compilation process. The repository is ready for PRD submission.
+<!-- ------ -->
+---

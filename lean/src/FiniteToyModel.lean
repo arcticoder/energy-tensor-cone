@@ -158,3 +158,10 @@ theorem basisVec_isExtremeRay {n : Nat} (i : Fin n) : IsExtremeRay (NonnegOrthan
 end Orthant
 
 end FiniteToyModel
+
+-- Completeness checks
+#print axioms FiniteToyModel.admissible_isClosed
+#print axioms FiniteToyModel.nonnegOrthant_isClosed
+#print axioms FiniteToyModel.nonnegOrthant_convex
+#print axioms FiniteToyModel.basisVec_isExtremeRay
+

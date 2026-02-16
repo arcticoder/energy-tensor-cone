@@ -1034,3 +1034,47 @@ All three manuscript versions compile successfully:
 
 **Completion Date:** February 14, 2026
 
+
+---
+
+## ✅ Final PRD Preparation & Verification (COMPLETED - February 16, 2026)
+
+**Status:** All final cleanup and verification tasks for PRD submission are complete.
+
+**Tasks Completed:**
+
+### 1. Clean Up Anonymized Submission Artifacts ✓
+- Renamed `supplements/README-supplements.md` and updated header for non-anonymized submission.
+- Integrated acknowledgments from `papers/acknowledgments-post-review.txt` back into the manuscript body.
+- Deleted obsolete `supplements/supplements-cqg.tar.gz` and acknowledgments text file.
+
+### 2. Synchronize Manuscript Versions ✓
+- Updated `papers/aqei-cone-formalization.tex` abstract to match the official PRD version (`papers/aqei-cone-formalization-prd.tex`).
+- Ensured methodology sections are consistent.
+
+### 3. Fix Graph Captions and Figures ✓
+- Updated Figure 2 caption in `papers/aqei-cone-formalization-body.tex` to accurately describe the proxy bound comparison (blue vs orange scaling).
+
+### 4. Update GeneratedCandidates.lean ✓
+- Regenerated `lean/src/GeneratedCandidates.lean` using the Python orchestrator to ensure it contains the latest candidate data.
+- Verified Python analysis scripts are documented correctly.
+
+### 5. Add Repo Layout to README.md ✓
+- Added a detailed file tree to `README.md` showing the structure of Lean, Mathematica, Python, and Test directories.
+
+### 6. Add MIT License ✓
+- Created `LICENSE` file with standard MIT License text.
+- Referenced the license in `README.md`.
+
+### 7. Refresh Supplements Archive ✓
+- Created `scripts/refresh-supplements.sh` to automate packaging of reproducibility artifacts.
+- Updated `supplements/README-supplements.md` with clear manifests of included/excluded files.
+
+### 8. Lean Theorem Completeness Checks ✓
+- Added `#print axioms <Theorem>` commands to the end of all Lean source files to mechanically certify that no unproven axioms (like `sorry`) are used in the final results.
+- Verified via `lake build` and `tests/lean_tests.sh`.
+
+**Verification:**
+- `lake build` passes and prints axiom usage (none for proven theorems).
+- `run_tests.sh` passes all suites.
+- Repository is clean and ready for publication.

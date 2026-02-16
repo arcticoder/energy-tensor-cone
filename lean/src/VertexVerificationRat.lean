@@ -108,3 +108,9 @@ theorem full_rank_kernel_trivial :
   have h_det : verification_matrix.det ≠ 0 := det_nonzero
   have h_unit : IsUnit verification_matrix := Matrix.isUnit_iff_isUnit_det.mpr (isUnit_iff_ne_zero.mpr h_det)
   exact Matrix.isUnit_iff_isUnit_det.mp (Matrix.isUnit_iff_isUnit_det.mpr (isUnit_iff_ne_zero.mpr h_det)) |>.mulVec_eq_zero_iff_eq_zero.mp
+
+end Phase2Rat
+
+-- Completeness checks
+#print axioms det_nonzero
+#print axioms full_rank_kernel_trivial
