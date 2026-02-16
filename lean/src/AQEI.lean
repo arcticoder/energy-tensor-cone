@@ -46,3 +46,8 @@ def satisfies_AQEI (T : StressEnergy V L) (bounds : Bounds) : Prop :=
   ∀ (γ : Worldline V L) (s : SamplingFunction), AQEI_functional (γ := γ) (s := s) T ≥ -bounds γ s
 
 end AQEI
+
+-- Completeness checks
+#print axioms AQEI.AQEI_functional
+#print axioms AQEI.satisfies_AQEI
+

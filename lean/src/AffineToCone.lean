@@ -296,3 +296,14 @@ theorem orthant_basis_extreme {n : Nat} (i : Fin n) :
 end ExtremeRayExample
 
 end AffineToCone
+
+-- Completeness checks
+#print axioms affineAdmissible_isClosed
+#print axioms affineAdmissible_convex
+#print axioms mem_homCone
+#print axioms slice_one_iff
+#print axioms homCone_isClosed
+#print axioms homCone_convex
+#print axioms homCone_smul_nonneg
+#print axioms orthant_basis_extreme
+

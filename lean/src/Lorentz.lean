@@ -32,3 +32,10 @@ instance (v : V) : Decidable (L.is_spacelike v) := inferInstance
 instance (v : V) : Decidable (L.is_null v) := inferInstance
 
 end LorentzSpace
+
+-- Completeness checks
+#print axioms LorentzSpace
+#print axioms LorentzSpace.is_timelike
+#print axioms LorentzSpace.is_spacelike
+#print axioms LorentzSpace.is_null
+

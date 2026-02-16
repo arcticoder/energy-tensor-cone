@@ -37,3 +37,8 @@ instance : SMul ℝ (StressEnergy V L) where
       symmetric := by intro x y; simp [A.symmetric x y, mul_comm] }
 
 end StressEnergy
+
+-- Completeness checks
+#print axioms StressEnergy
+#print axioms StressEnergy.energy_density
+

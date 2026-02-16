@@ -72,3 +72,8 @@ theorem cone_closed_under_addition
   sorry
 
 end ConeProperties
+
+-- Completeness checks
+#print axioms ConeProperties.cone_closed_under_positive_scalars
+#print axioms ConeProperties.cone_closed_under_addition
+

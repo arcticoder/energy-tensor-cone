@@ -101,3 +101,6 @@ theorem Candidate_Is_Extreme_Point :
     exact Phase2Rat.full_rank_kernel_trivial v h_mat_mul
 
 end FinalResults
+
+#print axioms FinalResults.candidate_active_binding
+#print axioms FinalResults.Candidate_Is_Extreme_Point
