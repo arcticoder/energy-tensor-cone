@@ -53,7 +53,7 @@ for suitable reference state $\omega_0$ and sampling $g$ \cite{fewster2000}. In 
 \begin{figure}[t]
 \centering
 \includegraphics[width=0.9\linewidth]{figures/bound_comparison.png}
-\caption{Bound comparison for Gaussian sampling as a function of width $\tau$. The computational search in this repository uses the proxy bound $B_{\mathrm{model}}(g)=0.1\,\|g\|_{L^2([-d,d])}$ (solid). For context, analytic worldline QEIs typically produce derivative-based bounds with inverse-$\tau$ scaling (dashed; representative Fewster-style benchmark \cite{fewster2000}).}
+\caption{Bound comparison for Gaussian sampling as a function of width $\tau$. The computational search uses the proxy bound $B_{\mathrm{model}}(g)=0.1\,\|g\|_{L^2([-d,d])}$ (blue). For context, analytic worldline QEIs produce derivative-based bounds with inverse-$\tau$ scaling (orange; representative Fewster-style benchmark \cite{fewster2000}).}
 \label{fig:bound-comparison}
 \end{figure}
 
@@ -336,6 +336,9 @@ The key achievement is the mechanically verified proof that:
 \end{enumerate}
 
 This work opens the door to systematic exploration of the AQEI cone geometry using hybrid formal/computational methods.
+
+\section*{Acknowledgments}
+The authors thank the Dawson Institute for Advanced Physics, Canada, for support. Computations performed on NVIDIA RTX 2060.
 
 \section*{Data Availability}
 
