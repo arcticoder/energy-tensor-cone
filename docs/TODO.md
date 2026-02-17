@@ -8,7 +8,178 @@
 
 **1. Full Lean Audit and Fixes (Mandatory for Rigor)**
 - **Issue**: 17 .lean files; lake build passes superficially but fails on `lake env lean <file>` (imports, syntax, axioms). Tests don't catch `sorry` or mismatches (e.g., PolyhedralVertex.lean:42 wrong `∀ i ∈ ι`; AffineToCone.lean type errors; AQEI_Generated_Data.lean axioms).
-- **Fix All** (run `./lean_tests.sh` after each; use `lake env lean src/*.lean` for per-file checks):
+- **Fix All** (run `./lean_tests.sh` after each; use `find src -name "*.lean" | xargs -n 1 lake env lean` for per-file checks):
+```bash
+(base) echo_@hercules:~/Code/asciimath/energy-tensor-cone/lean$ find src -name "*.lean" | xargs -n 1 lake env lean
+src/VertexVerification.lean:1:0: error: unknown module prefix 'AQEI_Generated_Data'
+
+No directory 'AQEI_Generated_Data' or file 'AQEI_Generated_Data.olean' in the search path entries:
+././.lake/packages/Cli/.lake/build/lib
+././.lake/packages/batteries/.lake/build/lib
+././.lake/packages/Qq/.lake/build/lib
+././.lake/packages/aesop/.lake/build/lib
+././.lake/packages/proofwidgets/.lake/build/lib
+././.lake/packages/importGraph/.lake/build/lib
+././.lake/packages/LeanSearchClient/.lake/build/lib
+././.lake/packages/plausible/.lake/build/lib
+././.lake/packages/mathlib/.lake/build/lib
+././.lake/build/lib
+/home/echo_/.elan/toolchains/leanprover--lean4---v4.14.0/lib/lean
+/home/echo_/.elan/toolchains/leanprover--lean4---v4.14.0/lib/lean
+'AQEIGenerated.basis_centers' depends on axioms: [propext]
+'AQEIGenerated.basis_matrices' depends on axioms: [propext]
+'AQEIGenerated.coefficients' depends on axioms: [propext]
+src/ExtremeRays.lean:14:2: error: unexpected token 'import'; expected '#guard_msgs', 'abbrev', 'add_decl_doc', 'axiom', 'binder_predicate', 'builtin_dsimproc', 'builtin_dsimproc_decl', 'builtin_initialize', 'builtin_simproc', 'builtin_simproc_decl', 'class', 'declare_simp_like_tactic', 'declare_syntax_cat', 'def', 'dsimproc', 'dsimproc_decl', 'elab', 'elab_rules', 'example', 'inductive', 'infix', 'infixl', 'infixr', 'initialize', 'instance', 'macro', 'macro_rules', 'notation', 'opaque', 'postfix', 'prefix', 'register_tactic_tag', 'simproc', 'simproc_decl', 'structure', 'syntax', 'tactic_extension', 'theorem' or 'unif_hint'
+src/ExtremeRays.lean:16:0: error: invalid 'import' command, it must be used in the beginning of the file
+src/AQEI.lean:19:0: error: unknown module prefix 'StressEnergy'
+
+No directory 'StressEnergy' or file 'StressEnergy.olean' in the search path entries:
+././.lake/packages/Cli/.lake/build/lib
+././.lake/packages/batteries/.lake/build/lib
+././.lake/packages/Qq/.lake/build/lib
+././.lake/packages/aesop/.lake/build/lib
+././.lake/packages/proofwidgets/.lake/build/lib
+././.lake/packages/importGraph/.lake/build/lib
+././.lake/packages/LeanSearchClient/.lake/build/lib
+././.lake/packages/plausible/.lake/build/lib
+././.lake/packages/mathlib/.lake/build/lib
+././.lake/build/lib
+/home/echo_/.elan/toolchains/leanprover--lean4---v4.14.0/lib/lean
+/home/echo_/.elan/toolchains/leanprover--lean4---v4.14.0/lib/lean
+src/AffineToCone.lean:225:4: warning: try 'simp at this' instead of 'simpa using this'
+note: this linter can be disabled with `set_option linter.unnecessarySimpa false`
+'AffineToCone.affineAdmissible_isClosed' depends on axioms: [propext, Classical.choice, Quot.sound]
+'AffineToCone.affineAdmissible_convex' depends on axioms: [propext, Classical.choice, Quot.sound]
+'AffineToCone.mem_homCone' depends on axioms: [propext, Classical.choice, Quot.sound]
+'AffineToCone.slice_one_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'AffineToCone.homCone_isClosed' depends on axioms: [propext, Classical.choice, Quot.sound]
+'AffineToCone.homCone_convex' depends on axioms: [propext, Classical.choice, Quot.sound]
+'AffineToCone.homCone_smul_nonneg' depends on axioms: [propext, Classical.choice, Quot.sound]
+'AffineToCone.orthant_basis_extreme' depends on axioms: [propext, Classical.choice, Quot.sound]
+src/VertexVerificationRat.lean:1:0: error: unknown module prefix 'AQEI_Generated_Data_Rat'
+
+No directory 'AQEI_Generated_Data_Rat' or file 'AQEI_Generated_Data_Rat.olean' in the search path entries:
+././.lake/packages/Cli/.lake/build/lib
+././.lake/packages/batteries/.lake/build/lib
+././.lake/packages/Qq/.lake/build/lib
+././.lake/packages/aesop/.lake/build/lib
+././.lake/packages/proofwidgets/.lake/build/lib
+././.lake/packages/importGraph/.lake/build/lib
+././.lake/packages/LeanSearchClient/.lake/build/lib
+././.lake/packages/plausible/.lake/build/lib
+././.lake/packages/mathlib/.lake/build/lib
+././.lake/build/lib
+/home/echo_/.elan/toolchains/leanprover--lean4---v4.14.0/lib/lean
+/home/echo_/.elan/toolchains/leanprover--lean4---v4.14.0/lib/lean
+src/FiniteToyModel.lean:32:12: error: unexpected token 'λ'; expected '_' or identifier
+src/FiniteToyModel.lean:44:68: error: unsolved goals
+E : Type
+inst✝³ : TopologicalSpace E
+inst✝² : AddCommMonoid E
+inst✝¹ : Module ℝ E
+m : Type
+inst✝ : Fintype m
+L : m → E →L[ℝ] ℝ
+hset : Admissible m L = ⋂ i, (fun x => (L i) x) ⁻¹' Set.Ici 0
+⊢ IsClosed (⋂ i, (fun x => (L i) x) ⁻¹' Set.Ici 0)
+src/FiniteToyModel.lean:106:2: warning: try 'simp at this' instead of 'simpa using this'
+note: this linter can be disabled with `set_option linter.unnecessarySimpa false`
+src/FiniteToyModel.lean:115:53: warning: try 'simp' instead of 'simpa'
+note: this linter can be disabled with `set_option linter.unnecessarySimpa false`
+src/FiniteToyModel.lean:119:6: error: type mismatch, term
+  Eq.trans this (Eq.refl 0)
+after simplification has type
+  0 = 0 : Prop
+but is expected to have type
+  x j + y j = 0 : Prop
+src/FiniteToyModel.lean:132:55: warning: try 'simp' instead of 'simpa'
+note: this linter can be disabled with `set_option linter.unnecessarySimpa false`
+src/FiniteToyModel.lean:134:6: error: type mismatch, term
+  Eq.trans (Eq.symm this) (Eq.mpr (id (congrArg (fun x => x = 0) this)) this✝)
+after simplification has type
+  basisVec i j = 0 : Prop
+but is expected to have type
+  x j + y j = 0 : Prop
+src/FiniteToyModel.lean:143:2: error: no goals to be solved
+'FiniteToyModel.admissible_isClosed' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'FiniteToyModel.nonnegOrthant_isClosed' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FiniteToyModel.nonnegOrthant_convex' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FiniteToyModel.basisVec_isExtremeRay' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+src/FinalTheorems.lean:2:0: error: unknown module prefix 'AQEIToInterface'
+
+No directory 'AQEIToInterface' or file 'AQEIToInterface.olean' in the search path entries:
+././.lake/packages/Cli/.lake/build/lib
+././.lake/packages/batteries/.lake/build/lib
+././.lake/packages/Qq/.lake/build/lib
+././.lake/packages/aesop/.lake/build/lib
+././.lake/packages/proofwidgets/.lake/build/lib
+././.lake/packages/importGraph/.lake/build/lib
+././.lake/packages/LeanSearchClient/.lake/build/lib
+././.lake/packages/plausible/.lake/build/lib
+././.lake/packages/mathlib/.lake/build/lib
+././.lake/build/lib
+/home/echo_/.elan/toolchains/leanprover--lean4---v4.14.0/lib/lean
+/home/echo_/.elan/toolchains/leanprover--lean4---v4.14.0/lib/lean
+src/ConeProperties.lean:11:0: error: unknown module prefix 'AQEI'
+
+No directory 'AQEI' or file 'AQEI.olean' in the search path entries:
+././.lake/packages/Cli/.lake/build/lib
+././.lake/packages/batteries/.lake/build/lib
+././.lake/packages/Qq/.lake/build/lib
+././.lake/packages/aesop/.lake/build/lib
+././.lake/packages/proofwidgets/.lake/build/lib
+././.lake/packages/importGraph/.lake/build/lib
+././.lake/packages/LeanSearchClient/.lake/build/lib
+././.lake/packages/plausible/.lake/build/lib
+././.lake/packages/mathlib/.lake/build/lib
+././.lake/build/lib
+/home/echo_/.elan/toolchains/leanprover--lean4---v4.14.0/lib/lean
+/home/echo_/.elan/toolchains/leanprover--lean4---v4.14.0/lib/lean
+src/AQEIToInterface.lean:13:2: error: unexpected token 'import'; expected '#guard_msgs', 'abbrev', 'add_decl_doc', 'axiom', 'binder_predicate', 'builtin_dsimproc', 'builtin_dsimproc_decl', 'builtin_initialize', 'builtin_simproc', 'builtin_simproc_decl', 'class', 'declare_simp_like_tactic', 'declare_syntax_cat', 'def', 'dsimproc', 'dsimproc_decl', 'elab', 'elab_rules', 'example', 'inductive', 'infix', 'infixl', 'infixr', 'initialize', 'instance', 'macro', 'macro_rules', 'notation', 'opaque', 'postfix', 'prefix', 'register_tactic_tag', 'simproc', 'simproc_decl', 'structure', 'syntax', 'tactic_extension', 'theorem' or 'unif_hint'
+src/AQEIToInterface.lean:15:0: error: invalid 'import' command, it must be used in the beginning of the file
+src/StressEnergy.lean:9:0: error: unknown module prefix 'Lorentz'
+
+No directory 'Lorentz' or file 'Lorentz.olean' in the search path entries:
+././.lake/packages/Cli/.lake/build/lib
+././.lake/packages/batteries/.lake/build/lib
+././.lake/packages/Qq/.lake/build/lib
+././.lake/packages/aesop/.lake/build/lib
+././.lake/packages/proofwidgets/.lake/build/lib
+././.lake/packages/importGraph/.lake/build/lib
+././.lake/packages/LeanSearchClient/.lake/build/lib
+././.lake/packages/plausible/.lake/build/lib
+././.lake/packages/mathlib/.lake/build/lib
+././.lake/build/lib
+/home/echo_/.elan/toolchains/leanprover--lean4---v4.14.0/lib/lean
+/home/echo_/.elan/toolchains/leanprover--lean4---v4.14.0/lib/lean
+src/GeneratedCandidates.lean:1:47: error: unexpected token 'import'; expected '#guard_msgs', 'abbrev', 'add_decl_doc', 'axiom', 'binder_predicate', 'builtin_dsimproc', 'builtin_dsimproc_decl', 'builtin_initialize', 'builtin_simproc', 'builtin_simproc_decl', 'class', 'declare_simp_like_tactic', 'declare_syntax_cat', 'def', 'dsimproc', 'dsimproc_decl', 'elab', 'elab_rules', 'example', 'inductive', 'infix', 'infixl', 'infixr', 'initialize', 'instance', 'macro', 'macro_rules', 'notation', 'opaque', 'postfix', 'prefix', 'register_tactic_tag', 'simproc', 'simproc_decl', 'structure', 'syntax', 'tactic_extension', 'theorem' or 'unif_hint'
+src/GeneratedCandidates.lean:2:0: error: invalid 'import' command, it must be used in the beginning of the file
+'LorentzSpace' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LorentzSpace.is_timelike' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LorentzSpace.is_spacelike' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LorentzSpace.is_null' depends on axioms: [propext, Classical.choice, Quot.sound]
+'AQEIGeneratedRat.coefficients' depends on axioms: [propext]
+'AQEIGeneratedRat.active_L' depends on axioms: [propext]
+'AQEIGeneratedRat.active_B' depends on axioms: [propext]
+src/PolyhedralVertex.lean:7:0: error: object file '././.lake/packages/mathlib/.lake/build/lib/Mathlib/LinearAlgebra/Basis.olean' of module Mathlib.LinearAlgebra.Basis does not exist
+src/WarpConeAqei.lean:1:0: error: unknown module prefix 'Lorentz'
+
+No directory 'Lorentz' or file 'Lorentz.olean' in the search path entries:
+././.lake/packages/Cli/.lake/build/lib
+././.lake/packages/batteries/.lake/build/lib
+././.lake/packages/Qq/.lake/build/lib
+././.lake/packages/aesop/.lake/build/lib
+././.lake/packages/proofwidgets/.lake/build/lib
+././.lake/packages/importGraph/.lake/build/lib
+././.lake/packages/LeanSearchClient/.lake/build/lib
+././.lake/packages/plausible/.lake/build/lib
+././.lake/packages/mathlib/.lake/build/lib
+././.lake/build/lib
+/home/echo_/.elan/toolchains/leanprover--lean4---v4.14.0/lib/lean
+/home/echo_/.elan/toolchains/leanprover--lean4---v4.14.0/lib/lean
+src/AQEIFamilyInterface.lean:22:2: error: unexpected token 'import'; expected '#guard_msgs', 'abbrev', 'add_decl_doc', 'axiom', 'binder_predicate', 'builtin_dsimproc', 'builtin_dsimproc_decl', 'builtin_initialize', 'builtin_simproc', 'builtin_simproc_decl', 'class', 'declare_simp_like_tactic', 'declare_syntax_cat', 'def', 'dsimproc', 'dsimproc_decl', 'elab', 'elab_rules', 'example', 'inductive', 'infix', 'infixl', 'infixr', 'initialize', 'instance', 'macro', 'macro_rules', 'notation', 'opaque', 'postfix', 'prefix', 'register_tactic_tag', 'simproc', 'simproc_decl', 'structure', 'syntax', 'tactic_extension', 'theorem' or 'unif_hint'
+src/AQEIFamilyInterface.lean:24:0: error: invalid 'import' command, it must be used in the beginning of the file
+```
   - **GeneratedCandidates.lean**: Data-only (Float) – convert to Rat for proofs. Add verification in `FinalTheorems.lean`:
     ```lean
     -- lean/src/GeneratedCandidates.lean (update)
