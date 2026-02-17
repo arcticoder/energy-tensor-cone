@@ -2,7 +2,7 @@ import Mathlib
 
 set_option autoImplicit false
 
-/--
+/-
   ExtremeRays.lean
 
   Definitions needed to state the project's "extreme ray" claims precisely.

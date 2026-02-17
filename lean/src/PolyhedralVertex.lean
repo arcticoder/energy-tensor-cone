@@ -4,9 +4,7 @@
   Formal proof that "Full Rank Active Constraints" implies "Extreme Point".
   This connects the computational rank check to the geometric definition of a vertex.
 -/
-import Mathlib.LinearAlgebra.Basis
-import Mathlib.LinearAlgebra.Dimension.Fin
-import Mathlib.Analysis.Convex.Basic
+import Mathlib
 import ExtremeRays
 
 set_option autoImplicit false
