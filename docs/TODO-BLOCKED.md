@@ -8,8 +8,12 @@
 **What is already in place (partial progress):**
 - The manuscript contains a Fewster-style Fourier-space inequality statement for context.
 - The paper includes a proxy-bound vs. benchmark scaling figure (`papers/figures/bound_comparison.png`).
+- **NEW (2026-02-16)**: Implemented toy QFT functionals in `lean/src/AQEI.lean`:
+  - `AQEI_functional_toy`: Discrete Riemann sum approximation of ∫ T(γ(t))(u(t), u(t)) · g(t) dt
+  - `AQEI_bound_toy`: Fourier-space bound discretization ∫ |ĝ(ω)|²/ω² dω
+  - These provide computable models for finite basis systems bridging to Python/Mathematica
 
 **Unblock prerequisites:**
-1. Specify the exact stress-energy expectation functional used in the computational model (or explicitly label it as a proxy-only model in the paper).
-2. Derive/choose an analytic bound formula consistent with that model + the Gaussian sampling used.
+1. ✅ **PARTIALLY COMPLETE**: Toy stress-energy functionals now specified in Lean (see AQEI_functional_toy)
+2. Derive/choose an analytic bound formula consistent with that model + the Gaussian sampling used
 3. Implement the comparison (Mathematica or Python) and add tests that compute the claimed deviation threshold.
