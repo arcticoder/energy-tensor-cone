@@ -1,3 +1,7 @@
+import AffineToCone
+
+set_option autoImplicit false
+
 /--
   AQEIFamilyInterface.lean
 
@@ -20,10 +24,6 @@
   - homogenization produces a genuine closed convex cone in `E × ℝ`,
   - the slice `t = 1` recovers the original affine admissible set.
 -/
-
-import AffineToCone
-
-set_option autoImplicit false
 
 namespace AQEIFamily
 

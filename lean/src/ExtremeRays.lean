@@ -1,21 +1,21 @@
+import Mathlib
+
+set_option autoImplicit false
+
 /--
   ExtremeRays.lean
 
-  Definitions needed to state the project’s “extreme ray” claims precisely.
+  Definitions needed to state the project's "extreme ray" claims precisely.
 
   Scope:
   - Works for general real vector spaces.
-  - Provides a polyhedral “vertex from active constraints” entry point for the
+  - Provides a polyhedral "vertex from active constraints" entry point for the
     finite-dimensional approximation.
 
   Note:
   This file intentionally avoids committing to the physical AQEI topology; it is
   purely convex-geometric.
 -/
-
-import Mathlib
-
-set_option autoImplicit false
 
 namespace ConvexGeometry
 

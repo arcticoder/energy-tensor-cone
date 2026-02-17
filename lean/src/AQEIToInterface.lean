@@ -1,7 +1,12 @@
+import AQEI
+import AQEIFamilyInterface
+
+set_option autoImplicit false
+
 /--
   AQEIToInterface.lean
 
-  This is the next “bridge” step:
+  This is the next "bridge" step:
 
   - Choose the index type for the AQEI family as `ι := Worldline × SamplingFunction`.
   - Repackage AQEI bounds `bounds : Worldline → SamplingFunction → ℝ` as `b : ι → ℝ`.
@@ -11,11 +16,6 @@
   With these assumptions, `AQEI.satisfies_AQEI` becomes exactly membership in the
   `AQEIFamily.Admissible` set from `AQEIFamilyInterface.lean`.
 -/
-
-import AQEI
-import AQEIFamilyInterface
-
-set_option autoImplicit false
 
 namespace AQEIToInterface
 

@@ -1,5 +1,6 @@
-/-- Auto-generated from Mathematica results. -/
 import Std
+
+/-- Auto-generated from Mathematica results. -/
 
 structure Candidate where
   score : Float

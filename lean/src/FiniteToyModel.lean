@@ -29,7 +29,7 @@ def IsExtremeRay {E : Type} [AddCommMonoid E] [Module ℝ E]
   r ≠ 0 ∧ r ∈ C ∧
     ∀ x y,
       x ∈ C → y ∈ C → r = x + y →
-        (∃ (λ : ℝ), 0 ≤ λ ∧ x = λ • r) ∧ (∃ (μ : ℝ), 0 ≤ μ ∧ y = μ • r)
+        (∃ (α : ℝ), 0 ≤ α ∧ x = α • r) ∧ (∃ (μ : ℝ), 0 ≤ μ ∧ y = μ • r)
 
 /-- The admissible set determined by a finite family of inequalities `0 ≤ L i x`. -/
 def Admissible {E : Type} [TopologicalSpace E] [AddCommMonoid E] [Module ℝ E]
@@ -48,7 +48,10 @@ theorem admissible_isClosed : IsClosed (Admissible (E := E) m L) := by
     ext x
     simp [Admissible, Set.preimage, Set.mem_iInter]
   -- Finite intersection of closed sets.
-  simp [hset, isClosed_iInter]  -- `simp` discharges the per-index closedness.
+  rw [hset]
+  apply isClosed_iInter
+  intro i
+  exact isClosed_Ici.preimage (L i).continuous
 
 end General
 
@@ -112,11 +115,11 @@ theorem basisVec_isExtremeRay {n : Nat} (i : Fin n) : IsExtremeRay (NonnegOrthan
   -- For any j ≠ i, we have (basisVec i) j = 0 = x j + y j, hence x j = 0 and y j = 0.
   have hx0 : ∀ j : Fin n, j ≠ i → x j = 0 := by
     intro j hj
-    have : (basisVec (n := n) i) j = (x + y) j := by simpa [hxy]
+    have hbasis : (basisVec (n := n) i) j = 0 := by simp [basisVec, hj]
     have hsum : x j + y j = 0 := by
-      -- basisVec is 0 off-diagonal.
-      have : (basisVec (n := n) i) j = 0 := by simp [basisVec, hj]
-      simpa [Pi.add_apply, this] using this.trans (by rfl)
+      -- basisVec is 0 off-diagonal, and basisVec = x + y
+      calc (x + y) j = (basisVec (n := n) i) j := by rw [← hxy]
+           _ = 0 := hbasis
     -- x j ≤ 0 since x j ≤ x j + y j = 0, and x j ≥ 0.
     have xle0 : x j ≤ 0 := by
       calc
@@ -126,12 +129,11 @@ theorem basisVec_isExtremeRay {n : Nat} (i : Fin n) : IsExtremeRay (NonnegOrthan
 
   have hy0 : ∀ j : Fin n, j ≠ i → y j = 0 := by
     intro j hj
+    have hbasis : (basisVec (n := n) i) j = 0 := by simp [basisVec, hj]
     have hsum : x j + y j = 0 := by
-      have : (basisVec (n := n) i) j = 0 := by simp [basisVec, hj]
-      -- from hxy: basisVec = x+y
-      have : (x + y) j = (basisVec (n := n) i) j := by simpa [hxy]
-      -- rewrite
-      simpa [Pi.add_apply, this] using this.symm.trans (by simpa [this])
+      -- basisVec is 0 off-diagonal, and basisVec = x + y
+      calc (x + y) j = (basisVec (n := n) i) j := by rw [← hxy]
+           _ = 0 := hbasis
     have yle0 : y j ≤ 0 := by
       calc
         y j ≤ x j + y j := le_add_of_nonneg_left (hx j)
