@@ -1,4 +1,6 @@
-/-- 
+import Std
+
+/- 
   AQEI_Generated_Data.lean
   Auto-generated from Phase 2 Optimization (Mathematica -> Python).
   Contains the concrete basis, vertex coefficients, and active constraints.
@@ -72,4 +74,3 @@ end AQEIGenerated
 #print axioms AQEIGenerated.basis_centers
 #print axioms AQEIGenerated.basis_matrices
 #print axioms AQEIGenerated.coefficients
-

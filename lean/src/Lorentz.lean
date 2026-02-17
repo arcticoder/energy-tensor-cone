@@ -9,7 +9,7 @@
   See: Wald, R.M. (1984). "General Relativity"
        Fewster, C.J. (2012). "Lectures on quantum energy inequalities" [arXiv:1208.5399]
 -/
-import Std
+import Mathlib
 
 set_option autoImplicit false
 
@@ -26,10 +26,6 @@ variable {V : Type} [AddCommMonoid V] [Module ℝ V] (L : LorentzSpace V)
 def is_timelike (v : V) : Prop := L.inner v v < 0
 def is_spacelike (v : V) : Prop := 0 < L.inner v v
 def is_null (v : V) : Prop := L.inner v v = 0
-
-instance (v : V) : Decidable (L.is_timelike v) := inferInstance
-instance (v : V) : Decidable (L.is_spacelike v) := inferInstance
-instance (v : V) : Decidable (L.is_null v) := inferInstance
 
 end LorentzSpace
 

@@ -14,7 +14,8 @@ def generate_lean(json_path, output_path):
     active_indices = data['activeIndices']
 
     with open(output_path, 'w') as f:
-        f.write("/-- \n")
+        f.write("import Std\n\n")
+        f.write("/- \n")
         f.write("  AQEI_Generated_Data.lean\n")
         f.write("  Auto-generated from Phase 2 Optimization (Mathematica -> Python).\n")
         f.write("  Contains the concrete basis, vertex coefficients, and active constraints.\n")
@@ -80,7 +81,12 @@ def generate_lean(json_path, output_path):
             f.write("  " + str(float(B_val)) + ",\n")
         f.write("]\n\n")
             
-        f.write("end AQEIGenerated\n")
+        f.write("end AQEIGenerated\n\n")
+        
+        # Add axiom checks
+        f.write("#print axioms AQEIGenerated.basis_centers\n")
+        f.write("#print axioms AQEIGenerated.basis_matrices\n")
+        f.write("#print axioms AQEIGenerated.coefficients\n")
 
     print(f"Generated {output_path}")
 
