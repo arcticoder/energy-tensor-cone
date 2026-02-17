@@ -1073,3 +1073,39 @@ All 7 rigor audit tasks completed and committed! Here's the summary:
 Repository is now ready for PRD submission with all rigor requirements addressed.
 <!-- ------ -->
 ---
+Excellent! All actionable tasks from TODO.md have been completed successfully. Here's what was accomplished:
+
+## Completed Tasks (2 of 4 optional future work items)
+
+### ✅ Task 2: Implement Toy QFT Stress-Energy Functional
+- Added `AQEI_functional_toy`: Discrete Riemann sum for ∫ T(γ(t))(u(t), u(t)) · g(t) dt
+- Added `AQEI_bound_toy`: Fourier-space bound approximation ∫ |ĝ(ω)|²/ω² dω  
+- Added `satisfies_AQEI_toy`: Verification predicate for finite models
+- Maintains bridge between abstract formalism and computational implementations
+- **Test Result**: `Lean tests: OK (build passed, sorry/axiom checks completed)`
+- **Impact**: Partially unblocks Task 4 by providing concrete functionals
+
+### ✅ Task 3: Scale Computational Search N=6→100
+- Scaled `numBasis`: 6 → 100 (16.7× expansion)
+- Scaled `numConstraints`: 50 → 500 (10× increase)
+- Updated all documentation (README, papers, history)
+- Added performance notes: N=100 intensive (~50K evaluations), recommend N=20 for testing
+- **Computational Impact**: Provides much richer polytope structure for exploration
+
+## Remaining Tasks
+
+### Task 1: Extend to 3+1D Spacetimes
+**Status**: Not started - major research effort (6-12 months estimate)
+
+### Task 4: Symbolic Bound Derivation  
+**Status**: Partially unblocked - still requires analytic formula derivation and comparison implementation (2-4 weeks estimate)
+
+## Commits Pushed
+
+1. **beb3f11** - Scale computational search from N=6 to N=100
+2. **294c7c8** - Implement toy QFT stress-energy functional in Lean
+3. **(latest)** - Update TODO.md with completed optional tasks status
+
+All changes successfully pushed to [DawsonInstitute/energy-tensor-cone](https://github.com/DawsonInstitute/energy-tensor-cone).
+<!-- ------ -->
+---
