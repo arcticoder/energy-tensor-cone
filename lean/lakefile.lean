@@ -9,4 +9,4 @@ require mathlib from git
 
 lean_lib WarpConeAqei where
   srcDir := "src"
-  globs := #[Glob.one `WarpConeAqei, Glob.submodules `WarpConeAqei]
+  roots := #[`AQEI, `StressEnergy, `Lorentz, `WarpConeAqei]
