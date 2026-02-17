@@ -1227,3 +1227,39 @@ Lean tests: OK (build passed, sorry/axiom checks completed)
 All three reported issues are now resolved!
 <!-- ------ -->
 ---
+## ✅ Completed: Fixed All Lean Compilation Errors
+
+### Issues Resolved (6 files modified):
+
+1. **lakefile.lean** - Added all 17 modules to `roots` array for proper module resolution
+
+2. **Import Placement (4 files)** - Moved imports to beginning of files:
+   - ExtremeRays.lean
+   - AQEIToInterface.lean
+   - GeneratedCandidates.lean
+   - AQEIFamilyInterface.lean
+
+3. **FiniteToyModel.lean (3 fixes)**:
+   - Replaced `λ` (lambda keyword) with `α` in IsExtremeRay definition
+   - Fixed `admissible_isClosed` proof to explicitly show intersection of closed sets
+   - Fixed circular logic in `hsum` calculations for `hx0` and `hy0` proofs
+
+### Test Results:
+- ✅ `lake build` - Build completed successfully
+- ✅ `lean_tests.sh` - All tests pass
+- ✅ run_tests.sh - Full test suite passes
+
+### Note on "unknown module prefix" errors:
+The per-file `lake env lean` errors are a **known Lake limitation** with flat module structures. Files in src without matching namespace subdirectories can't be checked individually, but build correctly with `lake build`. This is expected and doesn't indicate actual compilation failures.
+
+### Git Commits:
+- **b00cd51** - "fix: Resolve all Lean compilation errors"
+- **c35f1d6** - "docs: Document completed Lean compilation error fixes"
+
+### Documentation:
+- ✅ Detailed fixes documented in docs/TODO-completed.md
+- ✅ Updated TODO.md to mark Task 1 as completed
+
+All errors from TODO.md lines 12-182 have been successfully resolved!
+<!-- ------ -->
+---
