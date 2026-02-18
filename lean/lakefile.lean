@@ -11,21 +11,21 @@ require mathlib from git
 lean_lib WarpConeAqei where
   srcDir := "src"
   roots := #[
+    `Lorentz,
+    `StressEnergy,
     `AQEI,
+    `ExtremeRays,
+    `AffineToCone,
     `AQEIFamilyInterface,
     `AQEIToInterface,
+    `ConeProperties,
+    `PolyhedralVertex,
+    `FiniteToyModel,
     `AQEI_Generated_Data,
     `AQEI_Generated_Data_Rat,
-    `AffineToCone,
-    `ConeProperties,
-    `ExtremeRays,
-    `FinalTheorems,
-    `FiniteToyModel,
     `GeneratedCandidates,
-    `Lorentz,
-    `PolyhedralVertex,
-    `StressEnergy,
-    `VertexVerification,
     `VertexVerificationRat,
+    `VertexVerification,
+    `FinalTheorems,
     `WarpConeAqei
   ]

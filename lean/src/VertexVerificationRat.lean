@@ -1,8 +1,6 @@
 import AQEI_Generated_Data_Rat
 
-import Mathlib.Data.Matrix.Basic
-import Mathlib.LinearAlgebra.Matrix.Determinant
-import Mathlib.LinearAlgebra.Matrix.NonsingularInverse
+import Mathlib
 import ExtremeRays
 import PolyhedralVertex
 

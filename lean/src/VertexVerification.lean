@@ -4,7 +4,7 @@ namespace Phase2
 
 open AQEIGenerated
 
-/--
+/-
   VertexVerification.lean
 
   We verify that the point found by optimization is indeed a vertex of the polytope
@@ -45,13 +45,13 @@ def eliminate (pivot : Row) (row : Row) (col_idx : Nat) : Row :=
 
 -- Very simple Gaussian elimination to check for linear independence
 -- Returns the number of non-zero rows (rank)
-def compute_rank (m : Matrix) (tolerance : Float := 1e-9) : Nat :=
+partial def compute_rank (m : Matrix) (tolerance : Float := 1e-9) : Nat :=
   let n_rows := m.length
   let n_cols := match m.head? with | some r => r.length | none => 0
 
   -- Recursive elimination
   let rec reduce (rows : Matrix) (c : Nat) (rank_acc : Nat) : Nat :=
-    if c >= n_cols || rows.isEmpty then rank_acc
+    if h : c >= n_cols || rows.isEmpty then rank_acc
     else
       -- Find pivot in current column `c`
       let pivot_idx_opt := rows.findIdx? (fun r => match r.get? c with | some v => v.abs > tolerance | none => false)
@@ -109,7 +109,7 @@ def computed_rank : Nat := compute_rank verification_matrix
   The active constraints form a full-rank system, isolating a single vertex.
 -/
 theorem active_constraints_full_rank : computed_rank = 6 := by
-  rfl
+  native_decide
 
 end Phase2
 
