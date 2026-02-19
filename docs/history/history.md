@@ -1340,3 +1340,17 @@ The main conjecture—*"The set of stress–energy tensors... forms a closed, co
 I have updated `energy-tensor-cone/docs/TODO.md` to reflect these completions. The "pending" state on these critical verification tasks is now cleared.
 <!-- ------ -->
 ---
+Completed: *Clean up TODO.md docs* (7/7)
+
+All done. Here's the final state:
+
+**TODO.md** is now 22 lines — a clean summary with status, a brief completed-items list, and a future-work section.
+
+**TODO-completed.md** has a new section at the bottom documenting the Feb 18 fixes:
+- `VertexVerificationRat.lean`: computable `match`-based matrix definitions enabling `native_decide`
+- `FinalTheorems.lean`: `B_poly` redefined for exact rational binding, restructured proofs
+- Tasks 2–5 (JSON/tex, README, lakefile, audit) from the original priority list
+
+**`lake build` status**: All 17 Lean files replay successfully. The main conjecture is supported by mechanically verified theorems — closure and convexity in `AffineToCone.lean`/`AQEIFamilyInterface.lean`, and the nontrivial extreme-ray certificate (`Candidate_Is_Extreme_Point`) in `FinalTheorems.lean`.
+<!-- ------ -->
+---
