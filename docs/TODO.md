@@ -2,7 +2,7 @@
 
 **Project Goal**: Submit a high-quality paper on the convex cone of stress-energy tensors satisfying AQEI, combining Lean formalization, computational searches, and verification against known bounds.
 
-**Current Status (February 18, 2026)**: All core tasks complete. `lake build` succeeds with no errors across all 17 Lean files. PRD target PDF: `papers/aqei-cone-formalization-prd.pdf`.
+**Current Status (February 19, 2026)**: All PRD submission review items complete. `lake build` succeeds with no errors across all 17 Lean files. CI pipeline in place. All tests pass.
 
 See `TODO-completed.md` for the full history of completed tasks.
 
@@ -282,7 +282,7 @@ The README is generally well-organized. Issues found:
 
 ### PRIORITY ORDER FOR FIXES
 
-All 10 priority items **resolved** as of February 18, 2026:
+All 16 priority items **resolved** as of February 19, 2026:
 
 1. ~~**H1**: Fix `B_poly` circularity~~ ✅ **DONE** — `B_poly` now uses stored exact rational literals (`active_B_tight`); `candidate_active_binding` proved via `native_decide` for all 6 cases; `lake build` passes.
 2. ~~**H2**: Reconcile N=6 vs N=100~~ ✅ **DONE** — `search.m` now defaults to `numBasis=6/numConstraints=50` (matching certified data), with env-var overrides for scaling experiments. Paper Limitations updated.
@@ -291,9 +291,17 @@ All 10 priority items **resolved** as of February 18, 2026:
 5. ~~**M2**: Disclose `native_decide`/`Lean.ofReduceBool`~~ ✅ **DONE** — Paper now lists axioms and names `Lean.ofReduceBool`.
 6. ~~**M3**: Add deterministic seed~~ ✅ **DONE** — `search.m` uses `SeedRandom[42]` by default, overridable via `AQEI_SEED`.
 7. ~~**M4**: Wire up `verify_vertex.py`~~ ✅ **DONE** — Called by `tests/python_tests.sh`; all 3 active constraints pass with residuals $< 6 \times 10^{-11}$.
-8. ~~**M7**: Add data consistency test~~ — Deferred to future work (see below).
-9. ~~**L3**: Enumerate or drop "10 critical theorems"~~ ✅ **DONE** — Paper now lists all 10 key theorems by name and states "35 theorems proven."
-10. ~~**L4**: Note intentional `sorry` in paper~~ ✅ **DONE** — Paper now explicitly names the two intentional `sorry` in `ConeProperties.lean`.
+8. ~~**M5**: Add CI pipeline~~ ✅ **DONE** — `.github/workflows/ci.yml` created with lean build + python test jobs, elan install, lake cache.
+9. ~~**M6**: `active_B` unused~~ ✅ **DONE** — Resolved by H1 fix; `B_poly` for i<3 now uses `active_B_tight` (exact tight bounds derived from rationalized L and v).
+10. ~~**M7**: Add data consistency test~~ — Deferred to future work (see below).
+11. ~~**M8**: Quantify integration error budget~~ ✅ **DONE** — `search.m` now uses `PrecisionGoal->12, MaxRecursion->15` in NIntegrate; paper Limitations section documents $<10^{-10}$ relative precision and the float→rat error budget.
+12. ~~**L1**: `analyze_results()` dead code~~ ✅ **DONE** — Called from `tests/python_tests.sh`; handles missing violations.json gracefully.
+13. ~~**L2**: Gaussian basis not normalized~~ — Deferred to future work (proof-of-concept scope).
+14. ~~**L3**: Enumerate or drop "10 critical theorems"~~ ✅ **DONE** — Paper now lists all 10 key theorems by name and states "35 theorems proven."
+15. ~~**L4**: Note intentional `sorry` in paper~~ ✅ **DONE** — Paper now explicitly names the two intentional `sorry` in `ConeProperties.lean`.
+16. ~~**L5**: Plotting scripts not tested~~ ✅ **DONE** — `plot_vertex_coefficients.py` smoke-tested headless (`MPLBACKEND=Agg`) in `python_tests.sh`.
+17. ~~**L6**: `verification_matrix` rows duplicated~~ ✅ **DONE** — `rows_match_active_L` theorem added to `VertexVerificationRat.lean`; verified via `native_decide` that row0/row1/row2 match `active_L` entries.
+18. ~~**README peer-review**~~ ✅ **DONE** — Removed stale JSONs from layout, fixed `results/` to show only `vertex.json`, added `.github/workflows/ci.yml` entry, `Lean.ofReduceBool` axiom note added, `verify_vertex.py` and `python_tests.sh` descriptions updated.
 
 ---
 

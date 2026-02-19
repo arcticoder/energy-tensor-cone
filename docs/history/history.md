@@ -1399,3 +1399,34 @@ All done. Here's a summary of every change made:
 - Updated to say N=6/M=50 (certified), N=100/M=500 as optional scaling experiment, consistent throughout.
 <!-- ------ -->
 ---
+All done. Here's what was completed in this session:
+
+**Commit `4f1623b` — Review batch 2:**
+
+- **M5 (CI)**: ci.yml — two-job pipeline (lean build + python tests) with elan install and lake cache
+- **M8 (integration precision)**: search.m — `PrecisionGoal->12, MaxRecursion->15` on both `NIntegrate` calls; aqei-cone-formalization-body.tex — Limitations paragraph documents `<10⁻¹⁰` precision and float→rat error budget
+- **L6 (row consistency)**: VertexVerificationRat.lean — `rows_match_active_L` theorem verifies all 18 rational values in `row0/row1/row2` match `active_L` entries via `native_decide`; Lean build confirmed clean
+- **L1 (dead code)**: python_tests.sh — `analyze_results()` now wired in; handles missing `violations.json` gracefully
+- **L5 (plot not tested)**: same file — headless `MPLBACKEND=Agg` smoke test for plot_vertex_coefficients.py
+- **README cleanup**: stale `summary.json`, `near_misses.json`, `top_near_misses.json`, `violations.json` removed from layout and from disk; CI workflow entry added; descriptions corrected
+- **M7/L2**: remain deferred to Future Work in TODO.md (data consistency diff, unnormalized basis)
+<!-- ------ -->
+---
+Completed: *CI pipeline (M5)* (1/6)
+
+Everything is complete and committed. The repo is clean at `ae7efc8`. Here's a summary of what was done in the previous turn that finishes all the TODO items:
+
+| Item | Status | Details |
+|------|--------|---------|
+| M5 (CI) | ✅ | ci.yml — lean + python jobs |
+| M8 (precision) | ✅ | `PrecisionGoal->12, MaxRecursion->15` in `search.m`; Limitations paragraph updated |
+| L5 (plot test) | ✅ | `MPLBACKEND=Agg` smoke test in `python_tests.sh` |
+| L6/M6 (row consistency) | ✅ | `rows_match_active_L` theorem in `VertexVerificationRat.lean` |
+| README peer-review | ✅ | Stale JSONs removed; CI entry added; axiom notes fixed |
+| TODO-completed | ✅ | Batch 1 + Batch 2 summaries appended |
+
+The stale JSONs (`summary.json`, `near_misses.json`, `top_near_misses.json`, `violations.json`) were also deleted from disk. All tests pass. The paper built cleanly with `pdflatex` (exit 0). 
+
+The only remaining future-work items in TODO.md are intentionally deferred: **M7** (data consistency diff test) and **L2** (unnormalized Gaussian basis note).
+<!-- ------ -->
+---

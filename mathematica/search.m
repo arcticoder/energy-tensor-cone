@@ -58,11 +58,16 @@ computeL[i_, x0_, v_, gFunc_] := Module[{u, integrand},
     val = (u . basisS[[i]] . u) * phi[pos, centers[[i]]] * gFunc[t];
     val
   ];
-  Quiet@NIntegrate[integrand[t], {t, -domain, domain}, Method -> "GlobalAdaptive", MaxRecursion -> 10]
+  (* PrecisionGoal->12 targets ~10^-12 relative error; combined with the Gaussian
+     decay (tails below 10^-30 at ±10σ) this keeps L_i float errors well below 10^-10,
+     consistent with the active_B_tight rationalization precision in the Lean proof. *)
+  Quiet@NIntegrate[integrand[t], {t, -domain, domain},
+    Method -> "GlobalAdaptive", MaxRecursion -> 15, PrecisionGoal -> 12]
 ];
 
 (* Bound B >= 0. Inequality is L.a >= -B *)
-Bmodel[gFunc_] := 0.1 * Sqrt[Quiet@NIntegrate[gFunc[t]^2, {t, -domain, domain}]];
+Bmodel[gFunc_] := 0.1 * Sqrt[Quiet@NIntegrate[gFunc[t]^2, {t, -domain, domain},
+  Method -> "GlobalAdaptive", MaxRecursion -> 15, PrecisionGoal -> 12]];
 
 gGaussian[t_, t0_, τ_] := Exp[-(t - t0)^2/(2 τ^2)];
 

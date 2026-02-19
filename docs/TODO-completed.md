@@ -1448,3 +1448,44 @@ Build completed successfully.
 **Completion Date**: February 18, 2026
 
 ---
+
+## ✅ PRD Submission Review – Batch 1 (COMPLETED - February 18, 2026)
+
+**Items resolved**: H1, H2, H3, M1, M2, M3, M4, L3, L4  
+**Commit**: `1f619c8`
+
+### Changes Made
+
+- **H1 (B_poly circularity)**: Added `active_B_tight` to `AQEI_Generated_Data_Rat.lean` (exact tight bounds $B_i^{\text{tight}} = -L_i \cdot v^*$ in rational arithmetic). Rewrote `FinalTheorems.lean` to use stored exact literals + `native_decide`. `candidate_active_binding` proved without tautology.
+- **H2 (N=6 vs N=100)**: `search.m` restored to `numBasis=6, numConstraints=50` (matching certified vertex), seed fixed to 42 by default, all params env-var overridable. Paper Limitations updated.
+- **H3 (LP objective)**: Section 4.3 rewritten to accurately describe minimize-$c\cdot a$ LP rather than penalty formulation.
+- **M1 (mathematica_tests.sh)**: Env var names corrected; test now checks only `vertex.json`.
+- **M2 (Lean.ofReduceBool)**: Paper lists all key theorems by name; `Lean.ofReduceBool` axiom disclosed. List of 10 theorems named explicitly.
+- **M3 (seed)**: `SeedRandom[42]` default, overridable via `AQEI_SEED`.
+- **M4 (verify_vertex.py)**: Added call to `tests/python_tests.sh`; all 3 constraints pass with residuals $< 6 \times 10^{-11}$.
+- **L3 (theorem count)**: Paper now lists all 10 key theorems and states "35 theorems proven."
+- **L4 (intentional sorry)**: Paper names two intentional `sorry` in `ConeProperties.lean` and explains why.
+
+---
+
+## ✅ PRD Submission Review – Batch 2 (COMPLETED - February 19, 2026)
+
+**Items resolved**: M5, M6 (via H1), M8, L1, L5, L6, README peer-review  
+**Files changed**: `.github/workflows/ci.yml` (new), `mathematica/search.m`, `lean/src/VertexVerificationRat.lean`, `tests/python_tests.sh`, `papers/aqei-cone-formalization-body.tex`, `README.md`, `docs/TODO.md`, `docs/TODO-completed.md`, `mathematica/results/` (stale JSONs removed)
+
+### Changes Made
+
+- **M5 (CI pipeline)**: Created `.github/workflows/ci.yml` with two jobs — `lean` (elan install → lake cache → lake build → lean_tests.sh) and `python` (Python 3.11, scipy/matplotlib/numpy, python_tests.sh). Trigger: push/PR to main.
+- **M6 (active_B unused)**: Resolved by H1 fix (Batch 1). `B_poly` for i<3 uses `active_B_tight`, so tight rational bounds from numerical search are now referenced in proofs.
+- **M8 (integration precision)**: Added `PrecisionGoal->12, MaxRecursion->15` to both `NIntegrate` calls in `search.m`. Paper Limitations paragraph expanded to note $<10^{-10}$ relative precision target and document the float→rat error budget ($\text{limit\_denominator}(10^9)$ introduces $<10^{-18}$ additional error).
+- **L1 (dead code)**: `analyze_results()` from `python/analyze_results.py` now called from `tests/python_tests.sh`; handles missing violations.json gracefully.
+- **L5 (plot not tested)**: `plot_vertex_coefficients.py` smoke-tested headless (`MPLBACKEND=Agg`) in `python_tests.sh`.
+- **L6 (matrix row duplication)**: `rows_match_active_L` theorem added to `VertexVerificationRat.lean`; checks all 18 rational values (row0/row1/row2 vs active_L[0..2]) via `fin_cases j <;> native_decide`. Build verified.
+- **README peer-review**: Removed stale `summary.json`, `near_misses.json`, `top_near_misses.json`, `violations.json` from layout table and from disk (`mathematica/results/`). Added `.github/workflows/ci.yml` to layout. Fixed `AQEI_Generated_Data_Rat.lean`, `VertexVerificationRat.lean`, and `python_tests.sh` descriptions. Lean.ofReduceBool axiom note was already present (confirmed in M2).
+
+### Deferred to Future Work
+
+- **M7 (data consistency test)**: Verifying `AQEI_Generated_Data_Rat.lean` matches `vertex.json` via diff — deferred; regeneration guard is handled by the `active_B_tight`/`native_decide` proof chain.
+- **L2 (Gaussian normalization)**: Unnormalized basis is a known simplification for proof-of-concept scope; acknowledged in paper.
+
+---

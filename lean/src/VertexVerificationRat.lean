@@ -141,3 +141,14 @@ end Phase2Rat
 -- Completeness checks
 #print axioms Phase2Rat.det_nonzero
 #print axioms Phase2Rat.full_rank_kernel_trivial
+
+/-- Cross-check: rows 0–2 of verification_matrix are consistent with active_L.
+    Catches any transcription error between the two copies of the rational data.
+    Proved by native_decide (exact rational evaluation). -/
+theorem rows_match_active_L :
+    (∀ j : Fin 6, Phase2Rat.row0 j = ((AQEIGeneratedRat.active_L.getD 0 []).getD j.val 0)) ∧
+    (∀ j : Fin 6, Phase2Rat.row1 j = ((AQEIGeneratedRat.active_L.getD 1 []).getD j.val 0)) ∧
+    (∀ j : Fin 6, Phase2Rat.row2 j = ((AQEIGeneratedRat.active_L.getD 2 []).getD j.val 0)) := by
+  refine ⟨?_, ?_, ?_⟩ <;> intro j <;> fin_cases j <;> native_decide
+
+#print axioms rows_match_active_L

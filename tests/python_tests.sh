@@ -103,4 +103,20 @@ PY
 # Re-integrates the active constraints with scipy and confirms L·a + B ≈ 0.
 python "$ROOT_DIR/tools/verify_vertex.py" "$ROOT_DIR/mathematica/results/vertex.json"
 
+# Smoke-test: analyze_results pipeline reports on available result files.
+python -c "
+import sys; sys.path.insert(0, '.')
+from python.analyze_results import analyze_results
+analyze_results()
+"
+
+# Smoke-test: plot_vertex_coefficients.py runs without crashing.
+# Uses MPLBACKEND=Agg to avoid needing a display.
+MPLBACKEND=Agg python -c "
+import sys; sys.path.insert(0, '.')
+from python.plot_vertex_coefficients import main
+main()
+print('plot_vertex_coefficients: OK')
+"
+
 echo "Python tests: OK"

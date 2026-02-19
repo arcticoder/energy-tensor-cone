@@ -1,8 +1,0 @@
-{
-	"numBasis":2,
-	"numTrials":200,
-	"domain":2.0,
-	"sigma":0.7,
-	"violations":56,
-	"nearMisses":19
-}

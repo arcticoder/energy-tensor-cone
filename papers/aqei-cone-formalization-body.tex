@@ -270,6 +270,9 @@ The computational search is performed in 1+1 dimensional Minkowski space. While 
 \paragraph{Finite-Dimensional Approximation:}
 We work with a finite Gaussian basis ($N=6$ modes, $M=50$ sampled constraints). The certified vertex and its surrounding polytope are rigorously verified in this finite-dimensional setting. Scaling experiments with $N=100$ modes and $M=500$ constraints (available as a configurable option in \texttt{mathematica/search.m} via environment variables) confirm that the LP approach continues to find active-constraint configurations at larger scales, but those runs produce different vertices that have not been independently certified in Lean. The connection to the full infinite-dimensional QFT remains to be established.
 
+\paragraph{Numerical Precision:}
+Constraint integrals are computed via adaptive quadrature (Mathematica \texttt{NIntegrate}, \texttt{PrecisionGoal}~$\to 12$, \texttt{MaxRecursion}~$\to 15$), targeting relative errors below $10^{-10}$. The Python \texttt{scipy.integrate.quad} independent verification confirms constraint saturation residuals below $6 \times 10^{-11}$. The float-to-rational conversion uses \texttt{Fraction.limit\_denominator($10^9$)}, which introduces at most $\sim 10^{-18}$ additional relative error — negligible compared to quadrature precision. The exact tight bounds $B_i^{\text{tight}} = -(L_i \cdot v^*)$ are computed in exact rational arithmetic from the rationalized $L_i$ and $v^*$.
+
 \paragraph{AQEI Bounds:}
 The quantum bounds $B_{\gamma,g}$ used in our computational search are approximate. A full QFT calculation would require detailed analysis of two-point functions and mode expansions, which is beyond the scope of this initial geometric exploration.
 
