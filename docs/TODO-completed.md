@@ -1489,3 +1489,20 @@ Build completed successfully.
 - **L2 (Gaussian normalization)**: Unnormalized basis is a known simplification for proof-of-concept scope; acknowledged in paper.
 
 ---
+
+---
+
+## ✅ Analytic Bound Comparison — BLOCKED Item Resolved (February 19, 2026)
+
+**Original blocker**: Could not claim "scores saturate close to Fewster's bound" or "max deviation <5%" without specifying the underlying QFT model and bound formula.
+
+**Resolution**: No such claim exists in the paper. Audit of `papers/aqei-cone-formalization-body.tex` confirmed:
+- The paper explicitly uses a proxy bound `B_model(g) = 0.1 * ||g||_{L^2}` and labels it as such.
+- The paper states: "While B_model(g) is not a substitute for a field-theoretic Q(u), it does preserve the key structural feature..."
+- `Figure 1` (bound_comparison.png) shows the proxy vs. a representative Fewster scaling for context — described in the caption as a "representative benchmark," not a deviation claim.
+- `AQEI_functional_toy` in `lean/src/AQEI.lean` provides the discrete Riemann-sum model for Lean, with full documentation of its placeholder status.
+- Three unblock prerequisites were already satisfied: toy functionals defined, proxy bound formula chosen (B_model), comparison implemented (bound_comparison.png + python_tests.sh).
+
+**Action**: Moved from TODO-BLOCKED.md to completed. No code changes needed.
+
+---
