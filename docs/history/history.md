@@ -1433,3 +1433,21 @@ The only remaining future-work items in TODO.md are intentionally deferred: **M7
 Done. TODO.md is now 44 lines — a compact table of all 18 completed items with their commit hashes, plus the Future Work section. The 276 lines of completed issue descriptions were already fully captured in TODO-completed.md (Batch 1 and Batch 2 entries), so nothing was lost. Committed as `b16fd90`.
 <!-- ------ -->
 ---
+Everything is pushed. Here's a summary of what was done across the two commits (`b08286f` → `ecde5e7`):
+
+---
+
+**Commit 1 — `b08286f`: CI + README + TODO**
+- Added check_deps.sh (replaces ci.yml; checks lake, Python 3, scipy/matplotlib/numpy, local package, wolframscript)
+- Deleted ci.yml
+- README: fixed 10 issues — removed "(Complete)" heading, added docs/ descriptions, added lean-toolchain and test_polyhedral.lean to layout, removed .github entry, moved tools to repo root (was wrong `python/tools/`), added all missing papers files, expanded Paper section, added `check_deps.sh` to Quickstart, clarified N=100 as scope note
+- TODO.md: rewrote with A1–A19 tasks; cleared BLOCKED.md; appended resolution to completed.md
+- Deleted `papers/aqei_cone_structure.md` (redundant)
+
+**Commit 2 — `ecde5e7`: Supplements + Manuscript Zip + Stale Docs + Lean**
+- refresh-supplements.sh: added lakefile.lean, lake-manifest.json, lean-toolchain, test_polyhedral.lean, and all `tools/*.py` (7 previously missing files); regenerated archive (40 files)
+- Added refresh-manuscript-source.sh; regenerated manuscript-source.zip with current PRD sources + figures (replacing stale CQG draft)
+- Added Feb-19 audit status banner to verification.md, theorem_verification.md, test_validation.md
+- AQEI.lean: `AQEI_functional` now cites Fewster (2012) [arXiv:1208.5399] and points to `AQEI_functional_toy` / search.m; `AQEI_functional_toy` now notes its connection to 1+1D free scalar $T_{00}$ in Gaussian basis
+<!-- ------ -->
+---

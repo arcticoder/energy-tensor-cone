@@ -40,11 +40,16 @@ variable {V : Type} [AddCommMonoid V] [Module ℝ V] {L : LorentzSpace V}
 abbrev Bounds := Worldline V L → SamplingFunction → ℝ
 
 /-- Abstract AQEI functional I_{T,γ,g} (placeholder for continuous case).
+    Reference: Fewster (2012) arXiv:1208.5399, Definition 2.1.
     
     In full QFT, this would compute: ∫ T(γ(t))(u(t), u(t)) · g(t) dt
     where the integral is over the support of g.
     
-    This version returns 0 as it's purely definitional without numerical integration. -/
+    This version returns 0 as it is purely abstractly defined; the structure
+    theorem (closedness/convexity of the admissible set) holds for any linear
+    functional, so the placeholder suffices for Lean proofs.
+    For a computable finite-dimensional approximation, see `AQEI_functional_toy`
+    below and `mathematica/search.m` (Mathematica) / `python/orchestrator.py` (Python). -/
 def AQEI_functional (γ : Worldline V L) (s : SamplingFunction) : StressEnergy V L → ℝ :=
   fun _T => 0
 
@@ -63,7 +68,10 @@ def AQEI_functional (γ : Worldline V L) (s : SamplingFunction) : StressEnergy V
     Returns: Σᵢ T(γ(tᵢ))(u(tᵢ), u(tᵢ)) · g(tᵢ) · Δt
     
     This toy version provides a computable model for finite basis systems
-    and bridges to the Python/Mathematica numerical implementations. -/
+    and bridges to the Python/Mathematica numerical implementations.
+    In the 1+1D free scalar field model with Gaussian sampling g(t)=exp(-t²/2σ²),
+    T.T vel vel models the energy density T_{00}; this is the formulation used in
+    `mathematica/search.m` and validated by `python/plot_bound_comparison.py`. -/
 noncomputable def AQEI_functional_toy (domain : ℝ) (n : ℕ) (γ : Worldline V L) (s : SamplingFunction) 
     (T : StressEnergy V L) : ℝ :=
   let dt := (2 * domain) / n

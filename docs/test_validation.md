@@ -1,5 +1,10 @@
 # Test Validation Report: Recent Updates
 
+> **Status (February 19, 2026):** This document was written February 6, 2026.
+> All issues flagged in the February 18 PRD audit (H1–H3, M1–M8, L1–L6) have been
+> resolved in commits `1f619c8` and `ae7efc8`. Tests continue to pass; run
+> `bash tests/check_deps.sh && ./run_tests.sh` to verify locally.
+
 **Date:** February 6, 2026  
 **Task:** Test and validate recent updates (Mathematica search, Python analysis, Lean proofs)
 
