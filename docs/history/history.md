@@ -1451,3 +1451,15 @@ Everything is pushed. Here's a summary of what was done across the two commits (
 - AQEI.lean: `AQEI_functional` now cites Fewster (2012) [arXiv:1208.5399] and points to `AQEI_functional_toy` / search.m; `AQEI_functional_toy` now notes its connection to 1+1D free scalar $T_{00}$ in Gaussian basis
 <!-- ------ -->
 ---
+All documentation/tooling polish tasks (A1-A19) were completed in
+commits b08286f and db9b16f. Update TODO.md to clear the active tasks
+section and record the full batch in TODO-completed.md." && git push
+
+All tasks from TODO.md are now done. TODO.md has been updated to show no active tasks, and the A1–A19 completion batch was recorded in TODO-completed.md and pushed as `60482a1`.
+
+The project is clean:
+- **No active tasks** — everything from A1–A19 is complete
+- **Future Work** items remain in TODO.md for post-submission reference (M7 data consistency test, L2 Gaussian normalization, 3+1D extension, symbolic bounds, infinite-dim theory)
+- Repo pushed and up to date at `60482a1`
+<!-- ------ -->
+---

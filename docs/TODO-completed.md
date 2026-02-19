@@ -1506,3 +1506,43 @@ Build completed successfully.
 **Action**: Moved from TODO-BLOCKED.md to completed. No code changes needed.
 
 ---
+
+---
+
+## ✅ Documentation & Tooling Polish A1–A19 (COMPLETED - February 19, 2026)
+
+**Commits**: `b08286f` (CI/README/TODO) and `db9b16f` (supplements/zip/docs/Lean)
+
+### A1 — Remove ci.yml; add tests/check_deps.sh
+- Created `tests/check_deps.sh`: checks lake, Python 3, scipy/matplotlib/numpy, local python package, wolframscript (optional)
+- Deleted `.github/workflows/ci.yml` and `.github/workflows/` directory
+
+### A2–A4 — Stale docs status headers
+- Added Feb-19 audit status banner to `docs/verification.md`, `docs/theorem_verification.md`, `docs/test_validation.md`
+- Banner text: all H1–H3/M1–M8/L1–L6 issues resolved in commits `1f619c8`/`ae7efc8`
+
+### A5–A7 — Lean AQEI.lean documentation
+- `AQEI_functional`: added inline Fewster (2012) [arXiv:1208.5399] citation; noted that `AQEI_functional_toy`, `mathematica/search.m`, and `python/orchestrator.py` provide the computable implementations
+- `AQEI_functional_toy`: noted connection to 1+1D free scalar T₀₀ in Gaussian basis
+
+### A8 — Fix supplements tar
+- `scripts/refresh-supplements.sh`: added `lean/lakefile.lean`, `lean/lake-manifest.json`, `lean/lean-toolchain`, `lean/test_polyhedral.lean`, and all `tools/*.py` (7 previously missing files)
+- Regenerated `supplements/energy-tensor-cone-supplements.tar.gz` (40 files)
+
+### A9 — Delete papers/aqei_cone_structure.md
+- Removed 51-line Markdown outline (paper exists in definitive LaTeX + PDF form)
+
+### A10 — Create scripts/refresh-manuscript-source.sh; regenerate manuscript-source.zip
+- Created `scripts/refresh-manuscript-source.sh`
+- Regenerated `papers/manuscript-source.zip` with current PRD sources: all 3 `.tex` wrappers, `common-*.tex`, `.bib`, `iopjournal.cls`, both figures (9 files total)
+
+### A11–A19 — README fixes (10 edits)
+- Removed "(Complete)" from layout heading
+- Added descriptions to `docs/` and `supplements/README-supplements.md` entries
+- Added `lean/lean-toolchain` and `lean/test_polyhedral.lean` to layout
+- Removed `.github/workflows/` block from layout
+- Moved `tools/` to repo root (was incorrectly listed under `python/`)
+- Added all missing `papers/` files to layout including both PDFs, `common-*.tex`, `manuscript-source.zip`
+- Expanded Paper section to describe all source files
+- Added `bash tests/check_deps.sh` step to Quickstart
+- Clarified N=100 note as a scope note, not a publication blocker
