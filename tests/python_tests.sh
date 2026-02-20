@@ -28,8 +28,7 @@ tmp = Path(".tmp_test")
 out = Path(".tmp_test") / "GeneratedCandidates.lean"
 generate_lean_candidates(tmp, out, top_k=5)
 text = out.read_text()
-assert "structure Candidate" in text
-assert "def topNearMisses" in text
+assert "Candidate list removed" in text
 PY
 
 rm -rf "$TMP_DIR"

@@ -114,4 +114,8 @@ end Phase2
 
 -- Completeness checks
 #print axioms Phase2.active_constraints_full_rank
+#print axioms Phase2.box_rows
+#print axioms Phase2.verification_matrix
+#print axioms Phase2.compute_rank
+#print axioms Phase2.computed_rank
 

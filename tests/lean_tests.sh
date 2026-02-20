@@ -12,7 +12,7 @@ from pathlib import Path
 out = Path("lean/src/GeneratedCandidates.lean")
 out.parent.mkdir(parents=True, exist_ok=True)
 if not out.exists():
-    out.write_text("/-- Placeholder; overwritten by python/analyze_results.py. -/\nimport Std\n\nstructure Candidate where\n  score : Float\n  a : Array Float\n  x0 : Float\n  v : Float\n  gType : String\n  t0 : Float\n  tau : Float\nderiving Repr\n\ndef topNearMisses : List Candidate := []\n")
+    out.write_text("/-- Placeholder; overwritten by python/analyze_results.py. -/\nimport Std\n\n/-- (Candidate list removed as unused) --/\n")
 PY
 
 "$ROOT_DIR/tests/build_lean.sh"

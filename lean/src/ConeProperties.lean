@@ -76,4 +76,6 @@ end ConeProperties
 -- Completeness checks
 #print axioms ConeProperties.cone_closed_under_positive_scalars
 #print axioms ConeProperties.cone_closed_under_addition
+#print axioms ConeProperties.AdmissibleCone
+#print axioms ConeProperties.IsExtremeRay
 

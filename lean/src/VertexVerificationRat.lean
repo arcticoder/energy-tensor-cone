@@ -152,3 +152,5 @@ theorem rows_match_active_L :
   refine ⟨?_, ?_, ?_⟩ <;> intro j <;> fin_cases j <;> native_decide
 
 #print axioms rows_match_active_L
+#print axioms Phase2Rat.verification_matrix
+#print axioms Phase2Rat.det_val

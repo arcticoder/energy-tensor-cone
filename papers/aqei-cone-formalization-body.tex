@@ -86,6 +86,7 @@ For any family of continuous linear functionals $\{L_\gamma\}_{\gamma \in \Gamma
 
 \begin{theorem}[Convexity]
 The admissible set $\mathcal{A}$ is convex. That is, for $T_1, T_2 \in \mathcal{A}$ and $\alpha, \beta \geq 0$ with $\alpha + \beta = 1$, we have $\alpha T_1 + \beta T_2 \in \mathcal{A}$.
+\label{thm:admissible_convex}
 \end{theorem}
 
 \begin{proof}
@@ -140,9 +141,11 @@ Concretely, the repository includes representative JSON outputs under \texttt{ma
 
 We solve a sequence of linear programs (LPs), each of the form
 \begin{equation}
-\min_{a \in \mathbb{R}^N} \; c \cdot a \quad \text{subject to} \quad
-L_\gamma \cdot a \geq -B_\gamma \;(\forall \gamma \in \Gamma_{\text{sample}}),
-\quad |a_i| \leq 100,
+\begin{aligned}
+\min_{a \in \mathbb{R}^N} \quad & c \cdot a \\
+\text{subject to} \quad & L_\gamma \cdot a \geq -B_\gamma \;(\forall \gamma \in \Gamma_{\text{sample}}), \\
+& |a_i| \leq 100,
+\end{aligned}
 \end{equation}
 where $c_i = T_{00}^{(i)}(0,0)$ is the energy density of basis element $i$ at the spacetime origin (with a small random perturbation to break LP degeneracy), and $\{L_\gamma, B_\gamma\}$ are the sampled AQEI constraint half-spaces. The box bounds $|a_i| \leq 100$ render the LP bounded.
 Among the returned LP solutions, we record those for which several AQEI constraints are simultaneously active (i.e., $L_\gamma \cdot a + B_\gamma = 0$). A point in $\mathbb{R}^N$ with $N$ linearly independent active constraints is a vertex of the feasibility polytope.
@@ -243,7 +246,7 @@ This work includes comprehensive verification protocols to ensure correctness:
 \paragraph{Formal Proof Verification:}
 \begin{itemize}
 \item All core theorems fully proven in Lean 4 with Mathlib (35 proven theorems across 17 files)
-\item Ten key theorems: \texttt{AQEIFamilyInterface.admissibleSet\_isClosed}, \texttt{AQEIFamilyInterface.admissibleSet\_convex}, \texttt{AffineToCone.homCone\_isClosed}, \texttt{AffineToCone.homCone\_convex}, \texttt{PolyhedralVertex.full\_rank\_active\_implies\_vertex}, \texttt{VertexVerificationRat.det\_nonzero}, \texttt{VertexVerificationRat.full\_rank\_kernel\_trivial}, \texttt{FinalTheorems.candidate\_active\_binding}, \texttt{FinalTheorems.Candidate\_Is\_Extreme\_Point}, and \texttt{ExtremeRays.extreme\_point\_def\_iff}.
+\item Ten key theorems: \texttt{AQEIFamily.admissible\_isClosed}, \texttt{AQEIFamily.admissible\_convex}, \texttt{AffineToCone.homCone\_isClosed}, \texttt{AffineToCone.homCone\_convex}, \texttt{PolyhedralVertex.full\_rank\_active\_implies\_vertex}, \texttt{VertexVerificationRat.det\_nonzero}, \texttt{VertexVerificationRat.full\_rank\_kernel\_trivial}, \texttt{FinalTheorems.candidate\_active\_binding}, \texttt{FinalTheorems.Candidate\_Is\_Extreme\_Point}, and the definition \texttt{ConvexGeometry.IsExtremePoint}.
 \item Two theorems in \texttt{ConeProperties.lean} carry intentional \texttt{sorry} placeholders because they encode statements that are intentionally false as stated (AQEI constraints are affine, not homogeneous cones); the correct cone formulation is proven in \texttt{AffineToCone.lean}.
 \item Zero \emph{unintentional} \texttt{sorry} placeholders in proven results.
 \item Determinant computation: exact rational arithmetic (no floating-point errors); the bound-saturation check in \texttt{FinalTheorems.candidate\_active\_binding} is verified by \texttt{native\_decide}, which compiles down to native code using the \texttt{Lean.ofReduceBool} trusted kernel extension (GMP arbitrary-precision arithmetic). The foundational axioms used are \texttt{propext}, \texttt{Classical.choice}, \texttt{Quot.sound}, and \texttt{Lean.ofReduceBool}.

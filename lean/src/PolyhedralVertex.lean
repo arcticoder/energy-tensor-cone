@@ -82,4 +82,5 @@ end PolyhedralGeometry
 
 -- Completeness checks
 #print axioms PolyhedralGeometry.full_rank_active_implies_vertex
+#print axioms PolyhedralGeometry.Polyhedron
 

@@ -116,3 +116,6 @@ end FinalResults
 
 #print axioms FinalResults.candidate_active_binding
 #print axioms FinalResults.Candidate_Is_Extreme_Point
+#print axioms FinalResults.candidate_v
+#print axioms FinalResults.L_poly
+#print axioms FinalResults.B_poly

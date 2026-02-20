@@ -1,26 +1,5 @@
 import Std
 
-/-- Auto-generated from Mathematica results. -/
-
-structure Candidate where
-  score : Float
-  a : Array Float
-  x0 : Float
-  v : Float
-  gType : String
-  t0 : Float
-  tau : Float
-deriving Repr
-
-def topNearMisses : List Candidate :=
-  [
-    { score := 0.001528309039610723, a := #[(1.9249074797698222), (0.260033451610977)], x0 := 0.7015723686919619, v := 0.43557063164292664, gType := "compact", t0 := 0.2865508101460055, tau := 0.15480625547643057 },
-    { score := 0.003670498352866862, a := #[(1.6424578846518676), (-1.3158238521419605)], x0 := -1.4877353737831012, v := 0.3335513434220303, gType := "compact", t0 := 0.8607567515183399, tau := 0.19061173360931816 },
-    { score := 0.008105402090554159, a := #[(0.7754409498178623), (-0.24623258640160284)], x0 := 0.6444565930675825, v := 0.8418561462252105, gType := "gauss", t0 := 0.6830094354442036, tau := 0.8352531297185701 },
-    { score := 0.01092816121251846, a := #[(0.3068322736016258), (1.7390434359668925)], x0 := 0.8542549335055876, v := -0.6206800192105337, gType := "gauss", t0 := 0.07358897646878448, tau := 0.15938111727453197 },
-    { score := 0.0116572278903036, a := #[(1.7198627437097196), (1.8705866237552806)], x0 := -0.9009534296048916, v := 0.11494239738946144, gType := "compact", t0 := -0.1523499257666292, tau := 0.3529878712177261 }
-  ]
-
--- Completeness checks
-#print axioms topNearMisses
+/- Auto-generated from Mathematica results. -/
+/- (Candidate list removed as unused) -/
 

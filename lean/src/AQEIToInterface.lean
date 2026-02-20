@@ -123,4 +123,6 @@ end AQEIToInterface
 #print axioms AQEIToInterface.idx_fst
 #print axioms AQEIToInterface.idx_snd
 #print axioms AQEIToInterface.satisfies_AQEI_iff_encode_mem
+#print axioms AQEIToInterface.FactorsThrough
+#print axioms AQEIToInterface.admissibleE
 

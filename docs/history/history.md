@@ -1490,3 +1490,35 @@ The only items remaining are the optional Future Work entries in TODO.md — M7,
 The root cause: lake emits **two-line warnings** for primed-name declarations in Mathlib packages. The old filter caught line 1 (which has the `.lake/packages/` path), but line 2 — `"Declarations whose name ends with a \`'\`…"` — has no path prefix and slipped through. The fix pipes through a second `grep -v 'Declarations whose name ends with'` in build_lean.sh.
 <!-- ------ -->
 ---
+I have successfully completed all 20 tasks, covering LaTeX formatting fixes, code cleanup, build configuration updates, axiom verification, and the implementation of new Python sanity checks.
+
+A brief summary of the changes:
+
+### LaTeX & Documentation (C1, C4, C5-C7)
+- **Fixed Formatting**: Resolved column overflow in aqei-cone-formalization-body.tex by switching the long equation to an `aligned` block.
+- **Labels & References**: Added the missing `\label{thm:admissible_convex}` and updated theorem names (e.g., `AQEIFamily.admissible_isClosed`) to match the Lean source.
+
+### Code Cleanup & Build (C2, C3, C12, C18)
+- **Dead Code Removal**: Removed the unused `topNearMisses` logic from GeneratedCandidates.lean and analyze_results.py.
+- **Build System**: Enabled `lake build` in run_tests.sh to ensure Lean code compiles before Python tests run.
+- **Lakefile**: Sorted the `roots` array in lakefile.lean alphabetically.
+
+### Rigorous Verification (C8-C11, C13-C17, C19)
+- **Axiom Checks**: Added `#print axioms` statements to the bottom of 9 key Lean files (including AQEI_Generated_Data.lean, FinalTheorems.lean, etc.) to expose any hidden assumptions.
+- **SymPy Validation**: Implemented check_rational_values.py, which independently parses the rational coefficients and candidate vertex to verify the arithmetic used in the formal proof. This script is now part of the CI pipeline.
+
+### Sanity Checks (C20)
+- **New Script**: Created sanity_checks.py to verify:
+    - Critical file existence.
+    - Absence of empty source files.
+    - Presence of "TODO" comments (logs warnings).
+- **Integration**: Added both sanity_checks.py and `check_rational_values.py` to run_tests.sh.
+
+All tests passed successfully, and the changes have been committed and pushed to the repository.
+
+```bash
+[main 9028216] Complete cleanup and verification...
+17 files changed, 277 insertions(+), 80 deletions(-)
+```
+<!-- ------ -->
+---

@@ -74,3 +74,8 @@ end AQEIGenerated
 #print axioms AQEIGenerated.basis_centers
 #print axioms AQEIGenerated.basis_matrices
 #print axioms AQEIGenerated.coefficients
+#print axioms AQEIGenerated.active_indices
+#print axioms AQEIGenerated.ConstraintData
+#print axioms AQEIGenerated.active_constraints
+#print axioms AQEIGenerated.active_L
+#print axioms AQEIGenerated.active_B

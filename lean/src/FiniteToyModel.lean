@@ -166,4 +166,5 @@ end FiniteToyModel
 #print axioms FiniteToyModel.nonnegOrthant_isClosed
 #print axioms FiniteToyModel.nonnegOrthant_convex
 #print axioms FiniteToyModel.basisVec_isExtremeRay
+#print axioms FiniteToyModel.Admissible
 
