@@ -1463,3 +1463,27 @@ The project is clean:
 - Repo pushed and up to date at `60482a1`
 <!-- ------ -->
 ---
+Done. Two commits pushed — `f3658d8` (all fixes) and `8a5ca54` (housekeeping). Here's a summary of everything done:
+
+---
+
+**Commit `f3658d8` — warnings, vertex, and manuscript**
+
+- **B1 — vertex.json root cause fixed**: `mathematica_tests.sh` was silently overwriting the certified N=6 `vertex.json` every time it ran, because `search.m` uses `AQEI_NUM_BASIS=2` and writes to results. Added `AQEI_RESULTS_DIR` env-var to search.m and updated mathematica_tests.sh to redirect output to a `mktemp -d` temp directory. Restored certified N=6 vertex.
+
+- **B2–B4 — All Lean source warnings eliminated**:
+  - AQEI.lean: `_γ`, `_s` on unused params; removed dead `let pos`; updated `satisfies_AQEI` and all four AQEIToInterface.lean call sites from named `(γ := γ)(s := s)` to positional args
+  - AffineToCone.lean and FiniteToyModel.lean: `simpa [basisVec] using this` → `simp [basisVec] at this`
+  - VertexVerification.lean: removed unused `n_rows` and unused proof-term binding `h`
+  - **Result**: run_tests.sh now shows exactly 2 warnings — both the documented intentional `sorry` in `ConeProperties.lean`
+
+- **B5 — Mathlib replay noise suppressed**: build_lean.sh now pipes `lake build` through a temp file and filters `.lake/packages/` lines, preserving the exit code. Hundreds of Mathlib docPrime warnings no longer appear in test output.
+
+- **B6 — Manuscript applications section**: Added `\subsection{Potential Applications}` to Discussion in aqei-cone-formalization-body.tex with three conservative paragraphs covering metamaterial constraint filtering, precision-measurement calibration reference, and physics-constrained optimisation. Regenerated `manuscript-source.zip`.
+<!-- ------ -->
+---
+All tests pass. The two expected `ConeProperties.lean` sorry warnings appear earlier in the build output (before the final lines shown). The repo is in submission-ready state with no active tasks.
+
+The only items remaining are the optional Future Work entries in TODO.md — M7, L2, 3+1D extension, symbolic bounds, and infinite-dimensional theory connection.
+<!-- ------ -->
+---

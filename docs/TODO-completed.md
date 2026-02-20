@@ -1546,3 +1546,31 @@ Build completed successfully.
 - Expanded Paper section to describe all source files
 - Added `bash tests/check_deps.sh` step to Quickstart
 - Clarified N=100 note as a scope note, not a publication blocker
+
+---
+
+## ✅ Warning fixes, vertex.json restore, applications section B1–B6 (COMPLETED - February 19, 2026)
+
+**Commit**: `f3658d8`
+
+### B1 — Restore vertex.json
+- `mathematica/results/vertex.json` had been corrupted to N=2 data by the Mathematica fast-test overwriting it
+- Root cause: `mathematica_tests.sh` ran `search.m` with `AQEI_NUM_BASIS=2` writing directly to `mathematica/results/`
+- Fix: added `AQEI_RESULTS_DIR` env-var support to `mathematica/search.m`; updated `mathematica_tests.sh` to use `mktemp -d` as output dir so certified vertex.json is never overwritten by smoke tests
+- Restored N=6 certified vertex from git history commit `08accd2`
+
+### B2–B4 — Lean source file warnings
+- `AQEI.lean`: prefix unused `γ`,`s` params with `_` in `AQEI_functional` and `AQEI_bound_toy`; remove unused `let pos` in `AQEI_functional_toy`; update `satisfies_AQEI` and all `AQEIToInterface.lean` call sites from named `(γ := γ)(s := s)` to positional arguments
+- `AffineToCone.lean:225`, `FiniteToyModel.lean:109`: change `simpa [basisVec] using this` → `simp [basisVec] at this`
+- `VertexVerification.lean`: remove unused `let n_rows`; drop unused proof-term binding `h` in `if h : cond`
+- Result: zero warnings from our `src/` files (only the 2 intentional `sorry` in `ConeProperties.lean` remain)
+
+### B5 — Suppress Mathlib replayed warnings in build output
+- `tests/build_lean.sh`: capture `lake build` output to a temp file, filter out `.lake/packages/` lines, then propagate `lake build`'s exit code. Mathlib-internal `linter.docPrime` replay warnings no longer appear in `./run_tests.sh` output.
+
+### B6 — Potential Applications subsection in manuscript
+- Added `\subsection{Potential Applications}` to Discussion section with three paragraphs:
+  1. AQEI admissible set as a constraint filter for quantum-optical metamaterial simulations
+  2. Rational-arithmetic vertex certificate as a floating-point-independent calibration reference for precision measurement
+  3. Convexity proof as foundation for physics-constrained optimisation over admissible stress-energy states
+- Regenerated `papers/manuscript-source.zip`
