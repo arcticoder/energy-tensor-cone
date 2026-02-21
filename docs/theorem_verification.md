@@ -1,9 +1,13 @@
 # Lean Theorem Verification Report
 
-> **Status (February 19, 2026):** This document was written February 6, 2026.
-> All issues flagged in the February 18 PRD audit (H1–H3, M1–M8, L1–L6) have been
-> resolved in commits `1f619c8` and `ae7efc8`. The theorem inventory below is current;
-> `lake build` succeeds with 17 files and zero `sorry` in core proofs.
+> **Status (February 21, 2026):** This document was written February 6, 2026 and updated
+> through the E-batch (February 21, 2026). All issues flagged in the February 18–21 PRD
+> audit (H1–H3, M1–M8, L1–L6, E-batch) have been resolved in commits `1f619c8`, `ae7efc8`,
+> and `e16ed26`. Two theorems were added to `VertexVerificationRat.lean` after the original
+> write-up: `rows_match_active_L` (L6, batch 2) and `active_constraints_saturated` (E19,
+> E-batch). One theorem was always present in `FinalTheorems.lean` but missing from this
+> inventory: `candidate_active_binding`. The table in Section 5 now reflects actual counts.
+> `lake build` succeeds with 17 files; total theorems: 37 (35 proven + 2 intentional sorry).
 
 **Date:** February 6, 2026  
 **Task:** Verify key theorems in Lean, identify and resolve `sorry` placeholders
@@ -125,9 +129,36 @@ theorem full_rank_kernel_trivial :
 ```
 ✅ **PROVEN** - Follows from det ≠ 0 via Matrix.isUnit_iff_isUnit_det
 
+**Theorem: Row Consistency (L6)**
+```lean
+theorem rows_match_active_L :
+  ∀ i : Fin 3, ∀ j : Fin 6,
+    AQEIGeneratedRat.verification_matrix i j =
+    (AQEIGeneratedRat.active_L.getD i.val []).getD j.val 0
+```
+✅ **PROVEN** - Checks all 18 rational values via `fin_cases j <;> native_decide`
+
+**Theorem: Active Constraints Saturated (E19)**
+```lean
+theorem active_constraints_saturated :
+  ∀ i : Fin 3,
+    (List.zipWith (· * ·) (AQEIGeneratedRat.active_L.getD i.val [])
+      AQEIGeneratedRat.coefficients |>.sum)
+    + AQEIGeneratedRat.active_B_tight.getD i.val 0 = 0
+```
+✅ **PROVEN** - Verifies active_L[i]·coefficients + active_B_tight[i] = 0 via `native_decide`
+
 ---
 
 ### From FinalTheorems.lean
+
+**Theorem: Active Binding**
+```lean
+theorem candidate_active_binding : ∀ i : Fin 6, L_poly i candidate_v = -B_poly i
+```
+✅ **PROVEN** - Verifies each active constraint is saturated by `candidate_v`; proved
+for AQEI constraints (i < 3) using stored `active_B_tight` literals and `native_decide`,
+and for box constraints (i ≥ 3) by `native_decide`
 
 **Theorem: Candidate is Extreme Point**
 ```lean
@@ -199,13 +230,16 @@ The convexity property is formally proven in `coeff_admissible_convex` using Mat
 
 | Component | Theorems | Proven | Sorry | Status |
 |-----------|----------|--------|-------|--------|
-| AQEIFamilyInterface | 3 | 3 | 0 | ✅ Complete |
-| AffineToCone | 3 | 3 | 0 | ✅ Complete |
+| AQEIFamilyInterface | 10 | 10 | 0 | ✅ Complete |
+| AffineToCone | 8 | 8 | 0 | ✅ Complete |
 | PolyhedralVertex | 1 | 1 | 0 | ✅ Complete |
-| VertexVerificationRat | 2 | 2 | 0 | ✅ Complete |
-| FinalTheorems | 1 | 1 | 0 | ✅ Complete |
+| VertexVerificationRat | 4 | 4 | 0 | ✅ Complete |
+| FinalTheorems | 2 | 2 | 0 | ✅ Complete |
+| AQEIToInterface | 1 | 1 | 0 | ✅ Complete |
+| FiniteToyModel | 8 | 8 | 0 | ✅ Complete |
+| VertexVerification | 1 | 1 | 0 | ✅ Complete |
 | ConeProperties | 2 | 0 | 2 | ⚠️ Intentionally incomplete |
-| **TOTAL CRITICAL** | **10** | **10** | **0** | ✅ **All proven** |
+| **TOTAL** | **37** | **35** | **2** | ✅ **35 proven, 2 intentional sorry** |
 
 ### Key Results
 
