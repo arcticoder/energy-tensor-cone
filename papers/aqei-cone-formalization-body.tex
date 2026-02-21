@@ -408,7 +408,7 @@ The computational and formal verification pipeline consists of:
 \begin{itemize}
 \item \textbf{Lean proofs}: \texttt{lean/src/FinalTheorems.lean} (main vertex theorem), \texttt{AffineToCone.lean} (homogenization), \texttt{PolyhedralVertex.lean} (extreme point characterization), \texttt{VertexVerificationRat.lean} (exact rational determinant)
 \item \textbf{Computational search}: \texttt{mathematica/search.m} (randomized Gaussian-basis LP solver)
-\item \textbf{Data processing}: \texttt{python/orchestrator.py}, \texttt{python/analyze\_results.py} (JSON parsing and Lean code generation)
+\item \textbf{Data processing}: \texttt{python/orchestrator.py}, \texttt{python/analyze\_results.py} (JSON parsing, Lean code generation, and pipeline validation), \texttt{python/sanity\_checks.py} (pre-flight file-existence and import checks), \texttt{python/check\_rational\_values.py} (SymPy independent verification of rational certificate)
 \item \textbf{Test harness}: \texttt{run\_tests.sh} (end-to-end validation)
 \end{itemize}
 

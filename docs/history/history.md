@@ -1616,3 +1616,36 @@ Committed `250497a`. Prompt 3 complete.
 4. Status banner updated to reflect E-batch changes
 <!-- ------ -->
 ---
+docs/verification.md Section 2:
+- Code snippet was showing pre-B3 named-argument syntax
+  AQEI_functional (γ := γ)(s := s) T  [never existed after B3]
+  replaced with current positional form: AQEI_functional (V := V) (L := L) γ s T
+- bounds type: old 'Bounds' type alias (removed in B-batch) → correct
+  'Worldline V L → SamplingFunction → ℝ'
+- 'def' → 'noncomputable def' (current keyword)
+- Added note explaining the B3 change for readers
+
+README.md:
+- Python description bullet listed only 5 files; sanity_checks.py and
+  check_rational_values.py (added in C-batch) were missing
+
+papers/aqei-cone-formalization-body.tex Key Files section:
+- Data processing bullet listed only orchestrator.py + analyze_results.py;
+  added sanity_checks.py and check_rational_values.py" && git push
+
+Completed: *Fix 3 identified lies* (1/2)
+
+Committed `3b549de`. Prompt 3 done.
+
+**What was actually wrong this round:**
+
+**verification.md Section 2 — stale `satisfies_AQEI` code snippet** (the most important lie):
+- Showed `bounds : Bounds` — the `Bounds` type alias was removed in the B-batch. It no longer exists anywhere in the Lean source.
+- Showed `AQEI_functional (γ := γ)(s := s) T` — B3 explicitly replaced this named-argument form with positional args. Current code is `AQEI_functional (V := V) (L := L) γ s T`.
+- `def` → `noncomputable def` (the `noncomputable` keyword is present in the actual file).
+
+**README.md Python description bullet** (line 15) — listed only 5 Python files. `sanity_checks.py` and `check_rational_values.py` were added during the C-batch but the description sentence was never updated. (These were added to the layout tree in the previous round but the description bullet still lied by omission.)
+
+**aqei-cone-formalization-body.tex Key Files section** — "Data processing" bullet named only `orchestrator.py` and analyze_results.py. Both `sanity_checks.py` (C20) and `check_rational_values.py` (C-batch) are part of the pipeline and are explicitly called in run_tests.sh, but weren't listed.
+<!-- ------ -->
+---

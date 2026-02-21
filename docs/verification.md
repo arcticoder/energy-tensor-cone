@@ -45,10 +45,13 @@ The mostly-plus signature is standard in:
 
 ### Our Definition (AQEI.lean)
 ```lean
-def satisfies_AQEI (T : StressEnergy V L) (bounds : Bounds) : Prop :=
-  ∀ (γ : Worldline V L) (s : SamplingFunction), 
-    AQEI_functional (γ := γ) (s := s) T ≥ -bounds γ s
+noncomputable def satisfies_AQEI (T : StressEnergy V L)
+    (bounds : Worldline V L → SamplingFunction → ℝ) : Prop :=
+  ∀ (γ : Worldline V L) (s : SamplingFunction),
+    AQEI_functional (V := V) (L := L) γ s T ≥ -bounds γ s
 ```
+
+*(Note: `bounds` is now typed as a function `Worldline V L → SamplingFunction → ℝ`; the earlier `Bounds` type alias was removed in the B-batch cleanup. The implicit type arguments `(V := V) (L := L)` are named; the worldline `γ` and sampling function `s` are positional — the old `(γ := γ)(s := s)` named-argument form was replaced in B3.)*
 
 **Mathematical Form:**
 $$I_{T,\gamma,g} = \int g(t) T(\gamma(t))(u(t), u(t)) \, dt \geq -B_{\gamma,g}$$

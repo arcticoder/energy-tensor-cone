@@ -12,7 +12,7 @@ Computational + formalization scaffold for exploring **Averaged Quantum Energy I
 
 This repo is intentionally minimal:
 - **Mathematica** (`mathematica/search.m`) runs a randomized finite-Gaussian-basis LP search (default: $N=6$ basis elements, $M=50$ constraints) in 1+1 Minkowski and exports `vertex.json`. All four parameters (`AQEI_NUM_BASIS`, `AQEI_NUM_CONSTRAINTS`, `AQEI_DOMAIN`, `AQEI_SIGMA`) plus the random seed (`AQEI_SEED`, default 42) are overridable via environment variables. *Note: Scaling experiments with $N=100$/$M=500$ are supported but produce uncertified vertices — this is a scope note, not a publication blocker; the certified vertex is the N=6 result.*
-- **Python** (`python/__init__.py`, `python/orchestrator.py`, `python/analyze_results.py`, `python/plot_vertex_coefficients.py`, `python/plot_bound_comparison.py`) runs the search, parses JSON, generates `lean/src/GeneratedCandidates.lean`, and produces the manuscript figures.
+- **Python** (`python/__init__.py`, `python/orchestrator.py`, `python/analyze_results.py`, `python/plot_vertex_coefficients.py`, `python/plot_bound_comparison.py`, `python/sanity_checks.py`, `python/check_rational_values.py`) runs the search, parses JSON, generates `lean/src/GeneratedCandidates.lean`, produces the manuscript figures, and runs pre-flight sanity checks and independent SymPy rational verification.
 - **Tools** (`tools/generate_lean_data.py`, `tools/generate_lean_data_rat.py`, `tools/translate_vertex.py`, `tools/verify_vertex.py`) provide data translation and independent numerical checks for the exported vertex/certificate artifacts.
 - **Lean 4** (`lean/src/*.lean`) contains the definitional skeleton (Lorentzian bilinear form, stress-energy, AQEI family, admissible set / "cone", extreme rays).
 
