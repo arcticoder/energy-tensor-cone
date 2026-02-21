@@ -20,6 +20,7 @@ See `TODO-completed.md`.
 - Build/code/paper polish B1–B6 — commit `f3658d8`
 - Compilation/verification C1–C20 — commit `9028216`
 - Pipeline/paper/test polish D1–D11 — commit `563c6d8`
+- Build/import/filter/verification polish E1–E19 — commit `e16ed26`
 - Build/import/filter/verification polish E1–E19 — see `TODO-completed.md`
 
 See `TODO-completed.md` for full details.
