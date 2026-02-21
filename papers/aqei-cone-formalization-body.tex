@@ -131,7 +131,7 @@ At a high level, the workflow is:
 \begin{enumerate}
 \item Sample AQEI constraints (worldlines + sampling parameters) and assemble them into linear inequalities.
 \item Solve a sequence of linear programs over the coefficient vector $a \in \mathbb{R}^N$: each LP minimizes the energy density $c \cdot a$ (where $c_i = T_{00}^{(i)}(0,0)$, the $T_{00}$ component of basis element $i$ at the origin, with a small random perturbation to break degeneracy) subject to the sampled AQEI half-space constraints $L \cdot a \geq -B$ and box bounds $|a_i| \leq 100$ (imposed to render the LP bounded and well-conditioned).
-\item Export the certified LP vertex and its active constraints to \texttt{mathematica/results/vertex.json}; the Python script \texttt{analyze\_results.py} then validates constraint saturation and writes a machine-readable audit record (\texttt{pipeline\_validation.json}).
+\item Export the certified LP vertex and its active constraints to \texttt{mathematica/results/vertex.json}; the Python script \texttt{analyze\_results.py} then validates constraint saturation for the active constraints, checks feasibility of \emph{all} inactive constraints ($L_j \cdot a + B_j \geq 0$ for each $j$ not in the active set), and verifies LP optimality by re-solving with SciPy. These three checks are written to the machine-readable audit file \texttt{pipeline\_validation.json} for independent verification by reviewers.
 \item Convert the selected candidate and its active constraints into exact rational data (\texttt{AQEI\_Generated\_Data\_Rat.lean}) and certify the vertex property formally in Lean (\texttt{FinalTheorems.lean}).
 \item Perform an independent algebraic cross-check: \texttt{python/check\_rational\_values.py} uses SymPy exact arithmetic to verify that every stored rational bound $B_i$ equals $-(L_i \cdot v^*)$ and that the $6\times 6$ verification matrix has non-zero determinant, providing a Python-level audit of the Lean certificate that is independent of the Lean kernel.
 \end{enumerate}
@@ -424,7 +424,7 @@ To reproduce the results:
 # 0. Verify environment
 bash tests/check_deps.sh
 
-# 1. Install Python package (enables module imports)
+# 1. Install Python dependencies (numpy, scipy, matplotlib, sympy)
 cd python && python -m pip install -e . && cd ..
 
 # 2. Run Mathematica search (produces mathematica/results/vertex.json)
@@ -435,7 +435,8 @@ cd mathematica && wolframscript -file search.m && cd ..
 cd python && python orchestrator.py && cd ..
 
 # 4. Build Lean proofs (certifies vertex in Lean)
-cd lean && lake build && cd ..
+#    Filtered output written to lean/build.log for manual review.
+bash tests/build_lean.sh
 
 # 5. Run full verification suite
 ./run_tests.sh

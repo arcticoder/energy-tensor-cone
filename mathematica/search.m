@@ -99,15 +99,19 @@ vectorB = -constraints[[All, "B"]];
 (* --- 3. Linear Programming --- *)
 (* Objective: Minimize Energy density at origin. T_00. *)
 centerOrigin = {0.0, 0.0};
-objectiveC = Table[
-  Module[{val},
+objectiveRows = Table[
+  Module[{base, pert},
     (* T_00 component of basis i at origin *)
-    val = (phi[centerOrigin, centers[[i]]] * basisS[[i]])[[1, 1]];
-    (* Add small random perturbation to avoid degeneracy *)
-    val + RandomReal[{-0.01, 0.01}]
-  ], 
+    base = (phi[centerOrigin, centers[[i]]] * basisS[[i]])[[1, 1]];
+    (* Small seeded perturbation to break LP degeneracy.
+       Deterministic because SeedRandom was called earlier. *)
+    pert = RandomReal[{-0.01, 0.01}];
+    <| "base" -> base, "total" -> base + pert |>
+  ],
   {i, numBasis}
 ];
+objectiveCBase = objectiveRows[[All, "base"]];
+objectiveC      = objectiveRows[[All, "total"]];
 
 (* LinearProgramming[c, m, b] minimizes c.x subject to m.x >= b *)
 Print["Solving Linear Programming problem..."];
@@ -145,14 +149,51 @@ Print["Box constraints active? ", boxActive];
 (* In a real run we might need more constraints or careful objective tuning *)
 
 (* --- 5. Export --- *)
-vertexData = <|
-  "numBasis" -> numBasis,
-  "basisS" -> basisS,
-  "centers" -> centers,
-  "a" -> solutionA,
-  "activeIndices" -> activeIndices,
-  "constraints" -> constraints[[activeIndices]]
+(* Full dataset: always written to search_candidate.json.
+   This is the raw search output for reproducibility audits and inactive-
+   constraint checks.  It is NOT the certified artifact and is gitignored. *)
+(* Serialize constraints to plain numeric lists for JSON export.
+   Force N[] evaluation to prevent any symbolic or pattern remnants from
+   unevaluated sub-expressions (e.g. from gFunc closures) leaking into the
+   output and causing Export::jsonstrictencoding errors. *)
+serializeConstraint[c_] := <|
+  "L"      -> N[c["L"]],
+  "B"      -> N[c["B"]],
+  "params" -> N[c["params"]]
 |>;
 
-Export[FileNameJoin[{resultsDir, "vertex.json"}], vertexData, "JSON"];
-Print["Results exported to vertex.json"];
+candidateData = <|
+  "numBasis"       -> numBasis,
+  "basisS"         -> N[basisS],
+  "centers"        -> N[centers],
+  "a"              -> N[solutionA],
+  "objectiveC"     -> N[objectiveCBase],
+  "activeIndices"  -> activeIndices,
+  "constraints"    -> serializeConstraint /@ constraints[[activeIndices]],
+  "allConstraints" -> serializeConstraint /@ constraints
+|>;
+
+Export[FileNameJoin[{resultsDir, "search_candidate.json"}], candidateData, "JSON"];
+Print["Search results exported to search_candidate.json"];
+
+(* vertex.json is the certified artifact linking the float search to the
+   Lean formal proof.  Only write it if it does not already exist in this
+   results directory, so that the committed certified copy is never silently
+   overwritten by a fresh search run.  Set AQEI_FORCE_OVERWRITE=1 to
+   regenerate it intentionally (e.g. after updating the Lean certificate). *)
+vertexJson = FileNameJoin[{resultsDir, "vertex.json"}];
+forceOverwrite = StringQ[Environment["AQEI_FORCE_OVERWRITE"]] && (Environment["AQEI_FORCE_OVERWRITE"] != "");
+If[!FileExistsQ[vertexJson] || forceOverwrite,
+  vertexData = <|
+    "numBasis"      -> numBasis,
+    "basisS"        -> N[basisS],
+    "centers"       -> N[centers],
+    "a"             -> N[solutionA],
+    "activeIndices" -> activeIndices,
+    "constraints"   -> serializeConstraint /@ constraints[[activeIndices]]
+  |>;
+  Export[vertexJson, vertexData, "JSON"];
+  Print["Certified vertex exported to vertex.json"],
+  Print["vertex.json already exists — skipping overwrite."]
+  Print["  (Set AQEI_FORCE_OVERWRITE=1 to regenerate the certified artifact.)"]
+];

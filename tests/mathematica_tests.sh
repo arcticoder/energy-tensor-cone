@@ -29,19 +29,20 @@ else
   exit 1
 fi
 
-python - "$MATH_TMP/vertex.json" <<'PY'
+python - "$MATH_TMP/search_candidate.json" <<'PY'
 import json, sys
 from pathlib import Path
 
-vertex_path = Path(sys.argv[1])
-assert vertex_path.exists(), f"vertex.json missing at {vertex_path}"
+candidate_path = Path(sys.argv[1])
+assert candidate_path.exists(), f"search_candidate.json missing at {candidate_path}"
 
-data = json.loads(vertex_path.read_text())
-assert "numBasis" in data, "vertex.json missing numBasis"
-assert "a" in data, "vertex.json missing a"
+data = json.loads(candidate_path.read_text())
+assert "numBasis" in data, "search_candidate.json missing numBasis"
+assert "a" in data, "search_candidate.json missing a"
 assert len(data["a"]) == data["numBasis"]
 assert "activeIndices" in data
-assert "constraints" in data
+assert "allConstraints" in data, "search_candidate.json missing allConstraints"
+assert len(data["allConstraints"]) > 0, "allConstraints must be non-empty"
 
-print(f"Mathematica tests: OK  (numBasis={data['numBasis']}, active={len(data['activeIndices'])})")
+print(f"Mathematica tests: OK  (numBasis={data['numBasis']}, active={len(data['activeIndices'])}, allConstraints={len(data['allConstraints'])})")
 PY

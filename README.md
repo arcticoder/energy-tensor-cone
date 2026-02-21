@@ -139,7 +139,7 @@ To reproduce the full computational + formal verification pipeline:
 # 0. Verify environment
 bash tests/check_deps.sh
 
-# 1. Install Python package (enables module imports)
+# 1. Install Python dependencies (numpy, scipy, matplotlib, sympy)
 cd python && python -m pip install -e . && cd ..
 
 # 2. Run Mathematica search (produces mathematica/results/vertex.json)
@@ -150,7 +150,8 @@ cd mathematica && wolframscript -file search.m && cd ..
 cd python && python orchestrator.py && cd ..
 
 # 4. Build Lean proofs (certifies vertex in Lean)
-cd lean && lake build && cd ..
+#    Filtered output written to lean/build.log for manual review.
+bash tests/build_lean.sh
 
 # 5. Run full verification suite
 ./run_tests.sh

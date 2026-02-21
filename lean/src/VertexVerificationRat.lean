@@ -154,3 +154,23 @@ theorem rows_match_active_L :
 #print axioms rows_match_active_L
 #print axioms Phase2Rat.verification_matrix
 #print axioms Phase2Rat.det_val
+
+/-- Explicit binding check: for each of the three active AQEI constraints,
+    the dot product active_L[i] · coefficients + active_B_tight[i] = 0
+    in exact rational arithmetic.
+
+    This is the non-tautological verification that the data fields
+    `active_L`, `coefficients`, and `active_B_tight` in
+    AQEI_Generated_Data_Rat.lean are mutually consistent:
+    the stored vertex *exactly* satisfies each active constraint at equality.
+    Proved by native_decide (finitely many exact rational operations). -/
+theorem active_constraints_saturated :
+    ∀ i : Fin 3,
+      let row  := AQEIGeneratedRat.active_L.getD i.val []
+      let b    := AQEIGeneratedRat.active_B_tight.getD i.val 0
+      let a    := AQEIGeneratedRat.coefficients
+      (List.zipWith (· * ·) row a |>.sum) + b = 0 := by
+  intro i
+  fin_cases i <;> native_decide
+
+#print axioms active_constraints_saturated

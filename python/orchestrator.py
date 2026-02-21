@@ -1,8 +1,12 @@
 import subprocess
+import sys
 import json
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+# Ensure the project root is on sys.path so `from python.X import` works
+# regardless of the working directory from which this script is invoked.
+sys.path.insert(0, str(ROOT))
 MATH_FILE = ROOT / "mathematica" / "search.m"
 RESULT_DIR = ROOT / "mathematica" / "results"
 LEAN_DIR = ROOT / "lean"

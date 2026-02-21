@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "aqei-cone-pipeline"
+version = "0.1.0"
+description = "Analysis and pipeline utilities for the AQEI cone project"
+requires-python = ">=3.11"
+dependencies = [
+    "numpy",
+    "scipy",
+    "matplotlib",
+    "sympy",
+]
+
+[tool.setuptools]
+py-modules = []

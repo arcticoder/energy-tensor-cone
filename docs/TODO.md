@@ -1,16 +1,14 @@
 # TODO.md – energy-tensor-cone (DawsonInstitute org)
 
 **Project Goal**: Submit a high-quality paper on the convex cone of stress-energy tensors satisfying AQEI, combining Lean formalization, computational searches, and verification against known bounds.
-
-**Current Status (February 20, 2026)**: All D-batch tasks complete. Pipeline and paper are fully consistent.
-
+**Current Status (February 21, 2026)**: All E-batch tasks complete. Pipeline, paper, and Lean proofs are fully consistent.
 See `TODO-completed.md` for the full history of completed tasks.
 
 ---
 
 ## Active Tasks
 
-No active tasks. Tasks D1–D11 were completed on February 20, 2026.
+No active tasks. Tasks E1–E19 were completed on February 21, 2026.
 See `TODO-completed.md`.
 
 ---
@@ -21,7 +19,8 @@ See `TODO-completed.md`.
 - Documentation/tooling polish A1–A19 — commits `b08286f`, `db9b16f`
 - Build/code/paper polish B1–B6 — commit `f3658d8`
 - Compilation/verification C1–C20 — commit `9028216`
-- Pipeline/paper/test polish D1–D11 — see `TODO-completed.md`
+- Pipeline/paper/test polish D1–D11 — commit `563c6d8`
+- Build/import/filter/verification polish E1–E19 — see `TODO-completed.md`
 
 See `TODO-completed.md` for full details.
 

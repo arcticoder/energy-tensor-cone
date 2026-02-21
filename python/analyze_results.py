@@ -114,11 +114,19 @@ def generate_lean_candidates(results_dir: Path, out_file: Path, top_k: int = 5) 
 def export_pipeline_validation(results_dir: Path) -> None:
     """Validate the LP vertex and export an audit artifact (pipeline_validation.json).
 
-    Reads vertex.json, checks that every active AQEI constraint is saturated
-    (L·a + B ≈ 0), and writes a summary to pipeline_validation.json.  This
-    creates a machine-readable record of the pipeline's integrity for downstream
-    independent re-checking as described in the paper's Computational Methodology
-    section.
+    Reads vertex.json and (if present) search_candidate.json, then performs
+    three checks described in the paper's Computational Methodology section:
+
+      1. Active-constraint saturation: every active AQEI constraint satisfies
+         L·a + B ≈ 0 (tight binding).
+      2. Inactive-constraint feasibility: every constraint not in the active
+         set satisfies L·a + B ≥ 0 (feasibility for the full LP).
+      3. LP optimality: re-solve the LP with SciPy using the stored objective
+         and constraint data; confirm the re-solved objective value matches the
+         certified vertex to within numerical tolerance.
+
+    Results are written to pipeline_validation.json for independent
+    re-checking by reviewers, as described in the paper.
     """
     results_dir = Path(results_dir)
     vertex_path = results_dir / "vertex.json"
@@ -129,11 +137,12 @@ def export_pipeline_validation(results_dir: Path) -> None:
     data = json.loads(vertex_path.read_text())
     a = data.get("a", [])
     active_indices = data.get("activeIndices", [])
-    constraints = data.get("constraints", [])
+    active_constraints = data.get("constraints", [])
 
+    # ── Check 1: active-constraint saturation ────────────────────────────────
     saturation_records = []
     all_tight = True
-    for idx, c in zip(active_indices, constraints):
+    for idx, c in zip(active_indices, active_constraints):
         L = c.get("L", [])
         B = float(c.get("B", 0.0))
         La = sum(float(li) * float(ai) for li, ai in zip(L, a))
@@ -148,21 +157,106 @@ def export_pipeline_validation(results_dir: Path) -> None:
             "tight": tight,
         })
 
+    # ── Check 2: inactive-constraint feasibility (needs search_candidate.json) ─
+    feasibility_records = []
+    feasibility_status = "skipped"
+    candidate_path = results_dir / "search_candidate.json"
+    if candidate_path.exists():
+        cdata = json.loads(candidate_path.read_text())
+        all_constraints = cdata.get("allConstraints", [])
+        active_set = set(active_indices)
+        all_feasible = True
+        for j, c in enumerate(all_constraints):
+            if (j + 1) in active_set:  # Mathematica uses 1-based indices
+                continue
+            L = c.get("L", [])
+            B = float(c.get("B", 0.0))
+            La = sum(float(li) * float(ai) for li, ai in zip(L, a))
+            slack = La + B
+            feasible = slack >= -1e-6
+            if not feasible:
+                all_feasible = False
+            feasibility_records.append({
+                "constraint_index": j + 1,
+                "La_plus_B": slack,
+                "feasible": feasible,
+            })
+        feasibility_status = "PASS" if all_feasible else "FAIL"
+        if feasibility_records:
+            min_slack = min(r["La_plus_B"] for r in feasibility_records)
+            print(f"  Inactive constraint feasibility [{feasibility_status}]: "
+                  f"{len(feasibility_records)} inactive constraints, "
+                  f"min slack = {min_slack:.3e}")
+    else:
+        print("  Inactive constraint check skipped (search_candidate.json not found)")
+        print("    Run step 2 (Mathematica search) to enable this check.")
+
+    # ── Check 3: LP optimality via SciPy re-solve ────────────────────────────
+    optimality_status = "skipped"
+    optimality_obj_diff = None
+    if candidate_path.exists():
+        try:
+            import numpy as np
+            from scipy.optimize import linprog
+
+            cdata = json.loads(candidate_path.read_text())
+            all_constraints = cdata.get("allConstraints", [])
+            obj_c = cdata.get("objectiveC", [])
+            n = int(cdata.get("numBasis", len(a)))
+
+            if obj_c and all_constraints:
+                c_vec = np.array([float(x) for x in obj_c])
+                A_ub = np.array([[float(L) for L in c.get("L", [])] for c in all_constraints])
+                b_ub = np.array([-float(c.get("B", 0.0)) for c in all_constraints])
+                bounds = [(-100.0, 100.0)] * n
+
+                # linprog: min c·x s.t. A_ub·x <= b_ub
+                # Our constraint is L·a >= -B → -L·a <= B
+                result = linprog(c_vec, A_ub=-A_ub, b_ub=b_ub, bounds=bounds, method="highs")
+                if result.success:
+                    certified_obj = float(np.dot(c_vec, [float(x) for x in a]))
+                    scipy_obj = float(result.fun)
+                    optimality_obj_diff = abs(certified_obj - scipy_obj)
+                    # Allow up to 1% relative difference (numerical noise)
+                    tol = max(1e-4, 0.01 * abs(scipy_obj))
+                    optimality_status = "PASS" if optimality_obj_diff <= tol else "FAIL"
+                    print(f"  LP optimality [{optimality_status}]: "
+                          f"certified obj = {certified_obj:.6f}, "
+                          f"scipy obj = {scipy_obj:.6f}, "
+                          f"diff = {optimality_obj_diff:.3e}")
+                else:
+                    optimality_status = f"solver_failed: {result.message}"
+                    print(f"  LP optimality [WARN]: SciPy LP did not converge: {result.message}")
+        except ImportError:
+            optimality_status = "skipped_no_scipy"
+            print("  LP optimality check skipped (scipy not installed)")
+
     validation = {
         "timestamp": datetime.datetime.utcnow().isoformat() + "Z",
         "vertex_source": str(vertex_path),
         "num_basis": data.get("numBasis", len(a)),
-        "num_active_aqei_constraints": len(constraints),
-        "all_constraints_tight": all_tight,
-        "tolerance_threshold": 1e-6,
-        "saturation_residuals": saturation_records,
+        "num_active_aqei_constraints": len(active_constraints),
+        "check_1_active_saturation": {
+            "all_constraints_tight": all_tight,
+            "tolerance_threshold": 1e-6,
+            "saturation_residuals": saturation_records,
+        },
+        "check_2_inactive_feasibility": {
+            "status": feasibility_status,
+            "num_inactive_checked": len(feasibility_records),
+            "records": feasibility_records,
+        },
+        "check_3_lp_optimality": {
+            "status": optimality_status,
+            "objective_diff": optimality_obj_diff,
+        },
     }
 
     out_path = results_dir / "pipeline_validation.json"
     out_path.write_text(json.dumps(validation, indent=2))
 
     status = "PASS" if all_tight else "FAIL"
-    print(f"Pipeline validation [{status}]: {len(constraints)} active constraints, "
+    print(f"Pipeline validation [{status}]: {len(active_constraints)} active constraints, "
           f"max residual = {max(r['abs_residual'] for r in saturation_records):.3e}")
     print(f"  Exported audit record to {out_path}")
 

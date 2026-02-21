@@ -1590,3 +1590,27 @@ Build completed successfully.
 - **D9**: Reconcile README and paper reproducibility steps (both now identical 5-step format: check_deps → pip install → Mathematica → orchestrator → lake build + run_tests.sh)
 - **D10**: Paper line ~274 (rigour claim): add specific Lean file references — `Candidate_Is_Extreme_Point` in `FinalTheorems.lean` and `full_rank_kernel_trivial` in `VertexVerificationRat.lean`
 - **D11**: Regenerate `mathematica/results/vertex.json` from `AQEI_Generated_Data.lean` — was a different LP vertex (`activeIndices: [3,7,8,13]`); now `activeIndices: [23,27,50]` consistent with Lean formal certification; saturation residuals ≤ 6.7e-15
+
+---
+
+## E-Batch: Build / Import / Filter / Verification Polish (February 21, 2026)
+
+- **E1**: Create `python/pyproject.toml` (name: `aqei-cone-pipeline`, deps: numpy/scipy/matplotlib/sympy) — fixes `pip install -e .` crashing with "neither setup.py nor pyproject.toml found"
+- **E2**: Confirmed `pip install -e .` succeeds
+- **E3**: Update README + tex step 1 comment from "enables module imports" → "Install Python dependencies"
+- **E4**: Fix `ModuleNotFoundError: No module named 'python'` in orchestrator.py by adding `sys.path.insert(0, str(ROOT))` at module level, before any `from python.X import` statements
+- **E5**: Confirmed orchestrator.py module import works when run from inside `python/` directory
+- **E6**: README + tex step 1 description updated (same as E3)
+- **E7**: Remove `lean/build.log` from git tracking (`git rm --cached`); add `lean/build.log` to `.gitignore`
+- **E8**: README + tex step 4: change `cd lean && lake build && cd ..` → `bash tests/build_lean.sh` (which writes filtered lean/build.log and prints its path)
+- **E9–E15**: Rewrite `tests/build_lean.sh` filtering section — replaced blanket `grep -v` chain with a Python script that is context-aware:
+  - Rules: (1) suppress `⚠ [N/M] Replayed Mathlib.*` progress headers; (2) suppress `warning: .lake/packages/...` lines; (3) suppress continuation lines (docPrime "Declarations whose name…" and "linter can be disabled" notes) only when following a Mathlib-path diagnostic; (4) suppress `info: ... depends on axioms: [...]` lines (core-axiom `#print axioms` output — benign; does NOT suppress all info lines). Errors/warnings/info from `src/` files are always preserved.
+  - After filtering, write to `lean/build.log` and print `"Lean build log written to: ..."` for the user
+- **E11**: `build_lean.sh` was already integrated into `run_tests.sh` (line 7) — confirmed, no change required
+- **E16**: Fix `vertex.json` oscillating between two values (the certified Lean-matching vertex vs the seed-42 search output). Root cause: `search.m` was writing to `vertex.json` on every run. Fix: `search.m` now always writes `search_candidate.json` (gitignored); it only writes `vertex.json` if the file does not already exist OR `AQEI_FORCE_OVERWRITE=1` is set. Also added `allConstraints` and `objectiveC_base` to the export for downstream inactive-constraint and optimality checks. Updated `mathematica_tests.sh` to validate `search_candidate.json` instead of `vertex.json` in the temp dir.
+- **E17**: Fix paper docstring / tex claim about `pipeline_validation.json` — updated `export_pipeline_validation` docstring to accurately describe the three checks; updated tex workflow item 3 to explicitly state: active saturation check, inactive feasibility check, LP optimality re-solve, and that the JSON is "for independent verification by reviewers"
+- **E18**: Implement inactive-constraint feasibility and LP optimality checks in `analyze_results.py::export_pipeline_validation()`:
+  - Check 2: reads `search_candidate.json::allConstraints`; for each non-active constraint, verifies `L·a + B ≥ 0`; reports min slack and PASS/FAIL
+  - Check 3: reads `search_candidate.json::objectiveC`; re-solves LP with SciPy HiGHS; compares certified objective to re-solved objective (tolerance: max(1e-4, 1% of |obj|))
+  - Both checks gracefully skip (with explanatory message) when `search_candidate.json` is absent
+- **E19**: Add `active_constraints_saturated` theorem to `lean/src/VertexVerificationRat.lean` — explicitly proves that `active_L[i] · coefficients + active_B_tight[i] = 0` for i = 0, 1, 2 using `native_decide` on exact rational arithmetic. This is the non-tautological check that `coefficients`, `active_L`, and `active_B_tight` in AQEI_Generated_Data_Rat.lean are mutually consistent. Added `#print axioms active_constraints_saturated`.

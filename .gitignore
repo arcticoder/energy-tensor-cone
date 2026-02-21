@@ -8,6 +8,13 @@ __pycache__/
 
 # Lean/Lake build artifacts
 lean/.lake/
+lean/build.log
+
+# Mathematica search output (raw, not the certified vertex.json artifact)
+mathematica/results/search_candidate.json
+
+# Mathematica search output (raw, not the certified vertex.json artifact)
+mathematica/results/search_candidate.json
 *.olean
 *.ilean
 *.c

@@ -1,0 +1,9 @@
+Metadata-Version: 2.4
+Name: aqei-cone-pipeline
+Version: 0.1.0
+Summary: Analysis and pipeline utilities for the AQEI cone project
+Requires-Python: >=3.11
+Requires-Dist: numpy
+Requires-Dist: scipy
+Requires-Dist: matplotlib
+Requires-Dist: sympy
