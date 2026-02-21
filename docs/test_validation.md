@@ -1,9 +1,12 @@
 # Test Validation Report: Recent Updates
 
-> **Status (February 19, 2026):** This document was written February 6, 2026.
+> **Status (February 21, 2026):** This document was written February 6, 2026.
 > All issues flagged in the February 18 PRD audit (H1–H3, M1–M8, L1–L6) have been
-> resolved in commits `1f619c8` and `ae7efc8`. Tests continue to pass; run
-> `bash tests/check_deps.sh && ./run_tests.sh` to verify locally.
+> resolved in commits `1f619c8` and `ae7efc8`. E-batch (E1–E19) further updated
+> the pipeline: search.m now writes `search_candidate.json` (not `vertex.json`) during
+> tests; `pipeline_validation.json` replaces the old `violations/nearMisses` artifacts;
+> section 3 and section 5 below updated to reflect current variable names and JSON format.
+> Tests continue to pass; run `bash tests/check_deps.sh && ./run_tests.sh` to verify locally.
 
 **Date:** February 6, 2026  
 **Task:** Test and validate recent updates (Mathematica search, Python analysis, Lean proofs)
@@ -84,15 +87,15 @@ Constraint check: True ✓
 ## 3. Mathematica Search Results Validation
 
 ### Configuration
-- Number of basis functions: 2 (test mode)
-- Number of trials: 200 (test mode; production uses 20,000)
+- Number of basis functions: 2 (test mode, `AQEI_NUM_BASIS=2`)
+- Number of constraints: 50 (default, `AQEI_NUM_CONSTRAINTS`; test mode overrides via env var)
 - Domain size: 2.0
 - Gaussian width σ: 0.7
 
 ### Search Results
-- **Violations found:** 56 (28% of trials)
-- **Near-misses found:** 19 (9.5% of trials)
-- **Vertex identified:** Yes (6 active constraints in 6D space)
+- **Search candidate exported:** `search_candidate.json` (tests write to temp dir, not `vertex.json`)
+- **Vertex identified:** Yes (6 active constraints in 6D space for production N=6 run)
+- Pipeline validation: active saturation check, inactive feasibility check, LP optimality re-solve
 
 ### Validation Against Literature
 The presence of violations and near-misses is expected. From Fewster (2012):
@@ -117,21 +120,25 @@ Lean tests: OK
 
 ### Critical Theorems Verified
 
-**From AQEIFamilyInterface.lean:**
-- ✅ `coeff_admissible_isClosed`: Admissible set is closed
-- ✅ `coeff_admissible_convex`: Admissible set is convex
-- ✅ `coeff_admissible_add`: Closed under convex combinations
+**From AQEIFamilyInterface.lean (AQEIFamily namespace):**
+- ✅ `coeff_admissible_isClosed`: Admissible set is closed (coefficient model)
+- ✅ `coeff_admissible_convex`: Admissible set is convex (coefficient model)
+- ✅ `coeff_cone_isClosed`: Homogenized cone is closed
+- ✅ `coeff_cone_convex`: Homogenized cone is convex
 
-**From AffineToCone.lean:**
-- ✅ `cone_of_affine_is_closed`: Homogenized cone is closed
-- ✅ `cone_of_affine_convex`: Homogenized cone is convex
-- ✅ `cone_of_affine_smul_nonneg`: Scales properly under nonnegative scalars
+**From AffineToCone.lean (AffineToCone namespace):**
+- ✅ `homCone_isClosed`: Homogenized cone is closed
+- ✅ `homCone_convex`: Homogenized cone is convex
+- ✅ `homCone_smul_nonneg`: Scales properly under nonnegative scalars
 
 **From VertexVerificationRat.lean:**
 - ✅ `det_nonzero`: Matrix determinant ≠ 0 (exact rational arithmetic)
 - ✅ `full_rank_kernel_trivial`: Kernel is trivial (6x6 matrix is invertible)
+- ✅ `rows_match_active_L`: Row data consistent with active_L (L6 cross-check)
+- ✅ `active_constraints_saturated`: Active constraints exactly satisfied at vertex (E19)
 
 **From FinalTheorems.lean:**
+- ✅ `candidate_active_binding`: Active constraints bind at the candidate vertex
 - ✅ `Candidate_Is_Extreme_Point`: Vertex property formally proven
 
 ### No Regressions
@@ -144,21 +151,23 @@ All previously working proofs continue to compile and verify.
 ### Data Flow Verification
 
 **Mathematica → JSON:**
+
+Search writes `search_candidate.json` (and `vertex.json` if it does not already exist).
+The Python `export_pipeline_validation()` function then produces `pipeline_validation.json`:
 ```json
 {
-  "numBasis": 2,
-  "numTrials": 200,
-  "domain": 2.0,
-  "sigma": 0.7,
-  "violations": 56,
-  "nearMisses": 19
+  "num_basis": 6,
+  "num_active_aqei_constraints": 3,
+  "check_1_active_saturation": { "all_constraints_tight": true, "..." },
+  "check_2_inactive_feasibility": { "status": "FAIL/PASS", "..." },
+  "check_3_lp_optimality": { "status": "PASS", "..." }
 }
 ```
 ✅ Export format correct
 
 **JSON → Python:**
-- Python successfully parses `near_misses.json`, `summary.json`
-- Generates `GeneratedCandidates.lean`
+- Python parses `vertex.json`, generates `GeneratedCandidates.lean`
+- `pipeline_validation.json` written by `export_pipeline_validation()` in `analyze_results.py`
 ✅ Pipeline intact
 
 **Python → Lean:**

@@ -23,6 +23,7 @@ energy-tensor-cone/
 ├── README.md                          # Overview, replication
 ├── LICENSE                            # MIT
 ├── run_tests.sh                       # Full pipeline (Lean + Python + Mathematica)
+├── supplements-README.md              # External supplements overview (human-readable)
 ├── supplements/                       # Journal archive
 │   ├── energy-tensor-cone-supplements.tar.gz  # Source archive for journal submission
 │   └── README-supplements.md          # What is/isn't included in the archive
@@ -30,6 +31,7 @@ energy-tensor-cone/
 │   ├── TODO.md                        # Active tasks
 │   ├── TODO-completed.md              # Completed task log
 │   ├── TODO-BLOCKED.md                # Blocked items awaiting external input
+│   ├── TERMINAL_FIX.md                # Development environment notes (VSCode Lean extension)
 │   ├── history/
 │   │   └── history.md                 # Session-by-session change log
 │   ├── verification.md                # Mathematical definition cross-checks vs. literature
@@ -67,7 +69,10 @@ energy-tensor-cone/
 │   ├── orchestrator.py                # Orchestrate Mathematica search → Python analysis → Lean gen
 │   ├── analyze_results.py             # Parse vertex.json, compute bounds, call plotting
 │   ├── plot_vertex_coefficients.py    # Generate figures/vertex_coefficients.png
-│   └── plot_bound_comparison.py       # Generate figures/bound_comparison.png
+│   ├── plot_bound_comparison.py       # Generate figures/bound_comparison.png
+│   ├── pyproject.toml                 # Package config (pip install -e . installs dependencies)
+│   ├── sanity_checks.py               # File-existence and import smoke tests
+│   └── check_rational_values.py       # SymPy verification of rational vertex coordinates
 ├── tools/                             # Data translation and independent verification
 │   ├── generate_lean_data.py          # Convert vertex.json floats → GeneratedCandidates.lean
 │   ├── generate_lean_data_rat.py      # Convert to rational literals → AQEI_Generated_Data_Rat.lean
