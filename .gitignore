@@ -33,7 +33,7 @@ papers/**/*.blg
 papers/**/*Notes.bib
 papers/**/*.png
 papers/**/*Zone.Identifier
-papers/Cover letter CQG.*
+papers/*.docx
 supplements/supplements-anon/**/*
 !papers/aqei-cone-formalization-prd.pdf
 
